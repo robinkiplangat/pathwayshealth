@@ -159,16 +159,25 @@ export default function AssessmentPage() {
                         })}
                     </div>
 
-                    <div className="flex justify-center">
-                        <Button
-                            size="lg"
-                            onClick={startAssessment}
-                            disabled={selectedHazards.length === 0 || loading}
-                            className="px-12 text-lg h-14"
-                        >
-                            {loading ? "Loading..." : "Continue to Assessment"} <ArrowRight className="ml-2" />
-                        </Button>
+                    {/* Sticky Footer for Action */}
+                    <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50">
+                        <div className="max-w-4xl mx-auto flex items-center justify-between">
+                            <div className="text-sm font-medium text-storm-gray hidden sm:block">
+                                {selectedHazards.length} hazard{selectedHazards.length !== 1 ? 's' : ''} selected
+                            </div>
+                            <Button
+                                size="lg"
+                                onClick={startAssessment}
+                                disabled={selectedHazards.length === 0 || loading}
+                                className="w-full sm:w-auto px-8 text-lg h-12 shadow-lg shadow-resilience-green/20"
+                            >
+                                {loading ? "Loading..." : "Continue to Assessment"} <ArrowRight className="ml-2" />
+                            </Button>
+                        </div>
                     </div>
+
+                    {/* Spacer for sticky footer */}
+                    <div className="h-24"></div>
                 </div>
             </div>
         );
