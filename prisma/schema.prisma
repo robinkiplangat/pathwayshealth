@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model VulnerabilityQuestion {
+  id        String   @id @default(cuid())
+  text      String
+  hazard    String   // Hazard enum
+  pillar    String   // Pillar enum
+  responses AssessmentResponse[]
+}
+
+model ImpactStatement {
+  id        String   @id @default(cuid())
+  text      String
+  hazard    String   // Hazard enum
+  pillar    String   // Pillar enum
+  responses ImpactResponse[]
+}
+
+model Assessment {
+  id                     String               @id @default(cuid())
+  facilityId             String
+  date                   DateTime             @default(now())
+  vulnerabilityResponses AssessmentResponse[]
+  impactResponses        ImpactResponse[]
+}
+
+model AssessmentResponse {
+  id           String                @id @default(cuid())
+  assessment   Assessment            @relation(fields: [assessmentId], references: [id])
+  assessmentId String
+  question     VulnerabilityQuestion @relation(fields: [questionId], references: [id])
+  questionId   String
+  answer       String // "High", "Medium", "Low"
+}
+
+model ImpactResponse {
+  id           String          @id @default(cuid())
+  assessment   Assessment      @relation(fields: [assessmentId], references: [id])
+  assessmentId String
+  statement    ImpactStatement @relation(fields: [statementId], references: [id])
+  statementId  String
+  severity     String // "MAJOR", "MODERATE", "MINOR"
+}

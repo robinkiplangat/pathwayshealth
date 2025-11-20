@@ -1,26 +1,50 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+:root {
+  /* Primary Colors */
+  --resilience-green: #2D7A4A;
+  --earth-brown: #8B6F47;
+  --sky-blue: #4A90A4;
+
+  /* Accent Colors */
+  --sunrise-orange: #E67E50;
+  --seed-yellow: #F4C430;
+  --storm-gray: #6B7280;
+
+  /* Semantic Colors */
+  --risk-low: #A7C957;
+  --risk-medium: #F4A261;
+  --risk-high: #E76F51;
+  --success: #52B788;
+  --info: #457B9D;
+
+  /* Backgrounds */
+  --bg-primary: #FEFEFE;
+  --bg-secondary: #F7F9F7;
+  --bg-panel: #FFFFFF;
+
+  --foreground: #171717;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    /* Dark mode not required for MVP but good to have basics */
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #171717;
+    --bg-panel: #262626;
     --foreground: #ededed;
   }
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.6;
+  /* Readability for low literacy */
 }
