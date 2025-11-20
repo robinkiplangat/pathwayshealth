@@ -5,9 +5,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import Image from "next/image";
 
-export default function Home() {
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+
+export default async function Home() {
+  const { userId } = await auth();
+  if (userId) {
+    redirect("/dashboard");
+  }
+
   return (
-    <div className="flex flex-col min-h-screen bg-bg-primary font-sans">
+    <div className="min-h-screen flex flex-col font-[family-name:var(--font-geist-sans)] relative overflow-hidden">
       {/* Hero Section with Parallax and Glassmorphism */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         {/* Parallax Background */}
@@ -27,7 +35,7 @@ export default function Home() {
           {/* Glassmorphism Card */}
           <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl animate-in fade-in zoom-in duration-1000">
             <div className="flex justify-center mb-8">
-              <Image src="/logo.png" alt="Pathways Health Logo" width={140} height={140} className="h-auto w-auto max-h-36 drop-shadow-lg" />
+              <Image src="/PH_logo.png" alt="Pathways Health Logo" width={180} height={180} className="h-auto w-auto max-h-40 drop-shadow-lg" />
             </div>
 
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-resilience-green/20 text-white text-sm font-semibold mb-8 border border-white/10">
@@ -40,7 +48,7 @@ export default function Home() {
 
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight tracking-tight drop-shadow-md">
               Assess Your Facility's <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-resilience-green to-seed-yellow">Climate Resilience</span>
+              <span className="text-resilience-green drop-shadow-sm">Climate Resilience</span>
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-100 mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow-sm">
