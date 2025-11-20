@@ -27,7 +27,9 @@ model ImpactStatement {
 
 model Assessment {
   id                     String               @id @default(cuid())
-  facilityId             String
+  facilityId             String?
+  facilityName           String               @default("Unknown Facility")
+  location               String               @default("Unknown Location")
   date                   DateTime             @default(now())
   vulnerabilityResponses AssessmentResponse[]
   impactResponses        ImpactResponse[]

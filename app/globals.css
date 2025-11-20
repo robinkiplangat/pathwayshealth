@@ -31,15 +31,15 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Dark mode disabled for MVP to ensure consistent brand theme */
+/* @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark mode not required for MVP but good to have basics */
     --bg-primary: #0a0a0a;
     --bg-secondary: #171717;
     --bg-panel: #262626;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
