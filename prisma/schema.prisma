@@ -12,6 +12,8 @@ model VulnerabilityQuestion {
   text      String
   hazard    String   // Hazard enum
   pillar    String   // Pillar enum
+  isCritical Boolean @default(false)
+  weight    Int      @default(1)
   responses AssessmentResponse[]
 }
 

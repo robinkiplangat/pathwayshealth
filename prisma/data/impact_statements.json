@@ -1,7 +1,1657 @@
 [
-    {
-        "text": "Facility becomes inaccessible due to flooding.",
-        "hazard": "FLOOD",
-        "pillar": "INFRASTRUCTURE"
-    }
+  {
+    "text": "Deaths or life-threatening injuries or illness (e.g. drowning, hypothermia and infectious diseases, such as diarrhoeal diseases, leptospirosis, cholera, vectorborne diseases)",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Health professionals are not able to arrive at or depart from the health care facility",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Large loss of work capacity",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased health workforce overload and stress",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Serious harm, injury or illness requiring hospitalization or medical treatment",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Health professionals have difficulty in arriving at or departing from the health care facility",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Reduction in health workforce functions",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Restrictions to provide services and programmes",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Unable to provide adequate care to patients",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased work overload along with stress",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Facility overcrowding",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased infectious disease cases among health workers from water and health care waste contamination",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Minor injuries to health workers, not requiring immediate medical treatment",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Difficulty in providing usual treatment and medication",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Reduced primary services at home for communities",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Service delivery and programme delays",
+    "hazard": "FLOOD",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Damage to water supply and storage infrastructure",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Disruption of wastewater and sewage systems",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Water contamination",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Shortage of safe water",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Unable to provide hygiene services",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Damage to waste storage causing environmental contamination by biological and chemical hazards",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Lost sharps containers and hazardous waste bins",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Damage to emergency water sources",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Toilets unavailable",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Temporary water supply interruption",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Reduced capacity to provide safe water for drinking or cooking",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Reduced capacity to provide cleaning services (floor, toilets, patient rooms, emergency rooms)",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Heavy sediment and pollution loads make treatment ineffective",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Possible rodent infestation around rubbish bins",
+    "hazard": "FLOOD",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Power failure",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Shutdown of cold storage systems",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Interruption in providing health care services that require electricity such as dialysis, oxygen therapy, diagnosis equipment",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Loss of vaccines, laboratorial supplies, drugs, parenteral nutrition and blood supplies, pharmaceuticals, food supply, and other essential refrigeration-dependent medical supplies",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Damage to emergency generator or other sources of energy",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Disruption of the fuel supply chain",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Disruption of energy-dependent water pumping and treatment systems",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Temporary power supply interruption",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Difficulty in providing critical health care service deliveries (dialysis, oxygen therapy, diagnosis equipment), causing patients to be evacuated to other health facilities",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Reduced capacity to provide services that need electricity (laundry, dishwashing machines, etc.)",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Reduced capacity to provide disinfection services that need electricity (autoclave, microwave, water boiler)",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "No ambient cooling",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Loss of food or difficulty in refrigerating food",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Reduced capacity to follow boil water advisories",
+    "hazard": "FLOOD",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Flood damage or destruction of structural components (full or parts of the facility)",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Partial destruction by floods causing land erosion",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Blocked transport systems and flooded ambulance stations",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to building access",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to machine room",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to critical equipment",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage of internal and external communication and information systems",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Loss or damage of health care facility essential supplies (medications, medical devices, drugs, laboratorial supplies, blood, pharmaceuticals, vaccines)",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Interruption of complex and emergency health care services (surgery, complex treatments, urgent care)",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Disruption of health care services delivery and operation",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Cessation of services or prolonged disruption of services due to loss or damage",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Breakdown of routine health care services (such as ambulatory, immunization, maternity room, pharmacy, medication for chronic diseases, dental, and other primary services)",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Interruption of diagnosis due to equipment damage",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Contamination of medical devices, instruments and equipment",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Interruption of supply chains",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Long-term effect on the environment needing external assistance/interventions",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to internal transportation systems (elevators, ramps, corridors)",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased immediate and long-term costs to recover from damage",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Disruption to communication and information systems and assets",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to road, disrupting access to health care facility",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Difficulty in transporting patients due to damaged or disabled transportation systems",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Reduced capacity to deliver health care services due to damage and reduced supplies",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Temporary suspension of service deliveries",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to paper medical record storage",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Reduced capacity to access clinical and laboratorial supplies",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased hospitalization rates requiring extra medical supplies and health workforce",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "High demand for cleaning services in all facility buildings after flood event requiring extra personal protective equipment",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Minimal impact on the supply chain, which can continue to support health care facility needs",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Possible mold, indoor and outdoor, requiring special cleaning-up or essential personal protective equipment for cleaners",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased demand for providing cleaning and disinfection supplies",
+    "hazard": "FLOOD",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Deaths, life-threatening injuries or illness among health workers",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Loss of work capacity",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Cessation of critical programmes or service availability with possible overflow to other locations",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Significantly reduced performance capacity of health workforce; needing additional support (local, regional or national)",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased risks of occupational hazards, including water-, food- and vector-borne diseases, animal bites, electrical shocks and hazardous chemicals exposure",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased health care demand for infectious diseases (water-, food- and vector-borne diseases), animal bites (including poisonous animals), noncommunicable diseases, and toxic chemicals exposure, increasing health workforce overload and availability",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased work overload with stress",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Serious harm, injury or illness causing hospitalization and medical treatment",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Health professionals not able to arrive at or depart from the health care facility",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Reduction of health workforce functions",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Restrictions to the provision of some health care services and programmes",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Effects on mental health due to disaster trauma resulting in diminishing ability to provide adequate care to patients",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased respiratory diseases from dust storms",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Minor injuries to health workers requiring minimal or short-term medical treatment",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Difficulty in providing medications and home primary services to the communities",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Reduced functioning of health workers if the facility lacks a plan to respond to overcrowding of patients and visitors",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Service delivery and programme delays",
+    "hazard": "STORM",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Overflow of storm water and wastewater containment systems leading to surpassing the chemical hazards",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Sharps containers and specific biological and medical bins damaged, potentially releasing hazardous materials",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Increased risk of contamination of medical devices, instruments and equipment, and other medical supplies",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Increased health workforce infections from water and health care waste contamination",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Reduced capacity to provide efficient clean services (floor, toilets, patient rooms, emergency room and other rooms in the facility)",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Reduced capacity to provide water for drinking and cooking",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Reduced functioning of sanitation systems and hygiene practices (flush toilets, showers, sewerage, treatment, hand washing, medical procedures, etc.)",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Damaged sewage systems causing cross-contamination",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Possible damage to emergency water sources",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Increased nutrient loads",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Possible overflow of effluents into streams and rivers if surface water enters septic tanks",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Increased possibility of contamination of groundwater due to infiltration of pollutants (including during dust or sand storms)",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Reduced access to water for health care practices",
+    "hazard": "STORM",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Power failure",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Shutdown of cold storage systems",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Interruption in providing health care services that require electricity such as dialysis, oxygen therapy, diagnosis equipment",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Loss of vaccines, laboratorial supplies, drugs, parenteral nutrition and blood supplies, pharmaceuticals, food supply, and other essential refrigeration-dependent medical supplies",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Damage to emergency generator or other sources of energy",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Disruption of the fuel supply chain",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Disruption of energy-dependent water pumping and treatment systems",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Temporary power supply interruption",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Difficulty in providing critical health care service deliveries (dialysis, oxygen therapy, diagnosis equipment), causing patients to be evacuated to other health facilities",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Reduced capacity to provide services that need electricity (laundry, dishwashing machines, etc.)",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Reduced capacity to provide disinfection services that need electricity (autoclave, microwave, water boiler)",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "No ambient cooling",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Loss of food or difficulty in refrigerating food",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Reduced capacity to follow boil water advisories",
+    "hazard": "STORM",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Storm damage or destruction of structural components (full or parts of the facility)",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Partial destruction by storm and strong winds causing structural damage",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Blocked transport systems and damaged ambulance stations",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to building access",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to machine room",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to critical equipment",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage of internal and external communication and information systems",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Loss or damage of health care facility essential supplies (medications, medical devices, drugs, laboratorial supplies, blood, pharmaceuticals, vaccines)",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Interruption of complex and emergency health care services (surgery, complex treatments, urgent care)",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Disruption of health care services delivery and operation",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Cessation of services or prolonged disruption of services due to loss or damage",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Breakdown of routine health care services (such as ambulatory, immunization, maternity room, pharmacy, medication for chronic diseases, dental, and other primary services)",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Interruption of diagnosis due to equipment damage",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Contamination of medical devices, instruments and equipment",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Interruption of supply chains",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Long-term effect on the environment needing external assistance/interventions",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to internal transportation systems (elevators, ramps, corridors)",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased immediate and long-term costs to recover from damage",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Disruption to communication and information systems and assets",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to road, disrupting access to health care facility",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Difficulty in transporting patients due to damaged or disabled transportation systems",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Reduced capacity to deliver health care services due to damage and reduced supplies",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Temporary suspension of service deliveries",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to paper medical record storage",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Reduced capacity to access clinical and laboratorial supplies",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased hospitalization rates requiring extra medical supplies and health workforce",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "High demand for cleaning services in all facility buildings after storm event requiring extra personal protective equipment",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Minimal impact on the supply chain, which can continue to support health care facility needs",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Possible mold, indoor and outdoor, requiring special cleaning-up or essential personal protective equipment for cleaners",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased demand for providing cleaning and disinfection supplies",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to roofs and roofing systems from high winds",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Broken windows and glass from wind or flying debris",
+    "hazard": "STORM",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Deaths or life-threatening injuries from storm surge or flooding",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Health workers unable to access facility due to flooding or erosion",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Large loss of work capacity from repeated flooding events",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Mental health impacts from chronic threat of sea-level rise and displacement",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased health workforce overload from climate-displaced populations",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Injuries from storm surge debris and contaminated flood waters",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Vector-borne disease exposure from increased standing water",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Complete loss of freshwater sources due to saline intrusion",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Water supply contaminated by saltwater",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Groundwater sources permanently degraded by saline intrusion",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Damage to water supply infrastructure from storm surge",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Sanitation systems flooded and inoperable",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Sewage system backup from high tides or storm surge",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Hazardous waste release from flooding",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Increased vector breeding sites from standing saltwater",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Chronic water quality issues from periodic saltwater intrusion",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Power failure from storm surge damage to electrical systems",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Backup generator destroyed or damaged by flooding",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Fuel supplies contaminated or lost to flooding",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Loss of vaccines and temperature-sensitive medicines",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Corrosion of electrical systems from saltwater exposure",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Repeated power interruptions from regular high tide flooding",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Facility location becomes permanently uninhabitable",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Need to permanently relocate facility",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Complete destruction of facility from storm surge",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Erosion undermining facility foundation",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Repeated flooding making facility operationally unsustainable",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Access roads permanently flooded or eroded",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Isolation of facility during high tides preventing patient access",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Loss of medical records and critical data from flooding",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Medical equipment damaged beyond repair by saltwater",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Saltwater corrosion requiring extensive facility repairs",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Loss of all medical supplies and pharmaceuticals",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Interruption of complex and emergency services",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Communication systems destroyed by storm surge",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Ambulance station and vehicles flooded",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Supply chain disruptions from regional coastal flooding",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased maintenance costs from chronic saltwater exposure",
+    "hazard": "SEA_LEVEL_RISE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Heat stress and exhaustion among health workers",
+    "hazard": "DROUGHT",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased respiratory and cardiovascular problems among staff",
+    "hazard": "DROUGHT",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Dehydration of health workers affecting performance",
+    "hazard": "DROUGHT",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Reduced work capacity due to heat exposure",
+    "hazard": "DROUGHT",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased demand for treating drought-sensitive diseases (diarrheal diseases, malnutrition, respiratory illnesses)",
+    "hazard": "DROUGHT",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Health workforce overload due to increased patient admissions",
+    "hazard": "DROUGHT",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Difficulty accessing facility due to water shortages affecting transportation",
+    "hazard": "DROUGHT",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Reduced capacity to work outdoors during peak heat hours",
+    "hazard": "DROUGHT",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Critical water shortage affecting facility operations",
+    "hazard": "DROUGHT",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Complete loss of primary water supply",
+    "hazard": "DROUGHT",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Contamination of reduced water supplies",
+    "hazard": "DROUGHT",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Inability to maintain hygiene standards",
+    "hazard": "DROUGHT",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Inadequate water for drinking, cooking, and medical procedures",
+    "hazard": "DROUGHT",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Failure of sanitation systems due to water scarcity",
+    "hazard": "DROUGHT",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Increased vector breeding sites from stagnant water sources",
+    "hazard": "DROUGHT",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Inability to clean and sterilize equipment properly",
+    "hazard": "DROUGHT",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Reduced capacity to manage healthcare waste requiring water",
+    "hazard": "DROUGHT",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Damage to water infrastructure from overuse or neglect",
+    "hazard": "DROUGHT",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Reduced access to alternative water sources",
+    "hazard": "DROUGHT",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Power failures due to hydroelectric shortages or cooling system demands",
+    "hazard": "DROUGHT",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Inability to maintain cooling systems for temperature control",
+    "hazard": "DROUGHT",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Loss of vaccines and temperature-sensitive medicines",
+    "hazard": "DROUGHT",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Overloading of cooling systems leading to failure",
+    "hazard": "DROUGHT",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Increased energy costs due to cooling demands",
+    "hazard": "DROUGHT",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Reduced capacity to refrigerate medicines and blood supplies",
+    "hazard": "DROUGHT",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Backup generator failures in extreme heat",
+    "hazard": "DROUGHT",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Structural damage from extreme heat (cracking, warping)",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Failure of water-dependent medical equipment",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Overheating of facility buildings affecting patient care",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Interruption of diagnostic services requiring water",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Supply chain disruptions for water-intensive medical supplies",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Reduced capacity to perform surgeries requiring sterile water",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased risk of fire due to dry conditions",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Deterioration of outdoor infrastructure (pavement, landscaping)",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased air pollution affecting indoor air quality",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Food storage challenges due to heat",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased demand for cooling areas overwhelming capacity",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Chemical storage issues due to excessive heat",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Inability to maintain landscaping increasing dust and allergens",
+    "hazard": "DROUGHT",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Heat stroke or severe heat exhaustion among health workers",
+    "hazard": "HEATWAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Deaths or life-threatening conditions from heat exposure",
+    "hazard": "HEATWAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Severe dehydration affecting staff performance",
+    "hazard": "HEATWAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Cardiovascular and respiratory emergencies among staff",
+    "hazard": "HEATWAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased work overload due to surge in heat-related patient admissions",
+    "hazard": "HEATWAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Inability of health workers to perform outdoor duties",
+    "hazard": "HEATWAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Reduced mental performance and decision-making from heat exposure",
+    "hazard": "HEATWAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased absenteeism due to heat-related illness",
+    "hazard": "HEATWAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Water contamination from extreme heat affecting water quality",
+    "hazard": "HEATWAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Increased water demand overwhelming supply capacity",
+    "hazard": "HEATWAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Failure of water storage systems exposed to excessive heat",
+    "hazard": "HEATWAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Reduced water pressure affecting hygiene practices",
+    "hazard": "HEATWAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Chemical hazards from waste exposed to excessive heat",
+    "hazard": "HEATWAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Difficulty maintaining proper water temperature for medical procedures",
+    "hazard": "HEATWAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Complete power failure due to cooling system overload",
+    "hazard": "HEATWAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Grid collapse from regional cooling demand",
+    "hazard": "HEATWAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Failure of air conditioning systems",
+    "hazard": "HEATWAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Loss of vaccines, blood, and temperature-sensitive medicines",
+    "hazard": "HEATWAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Backup generator overheating and failure",
+    "hazard": "HEATWAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Critical medical equipment failure due to overheating",
+    "hazard": "HEATWAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Inability to maintain safe temperatures in operating rooms",
+    "hazard": "HEATWAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Disruption of ventilation systems",
+    "hazard": "HEATWAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Facility becomes uninhabitable due to extreme temperatures",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Need to evacuate patients to cooler facilities",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Structural damage from thermal expansion",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Complete breakdown of cooling infrastructure",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Heat-related damage to medical equipment",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Computer and information systems overheating and crashing",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Medication degradation from heat exposure",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Food spoilage due to refrigeration failures",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Indoor air quality deterioration",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased surge in heat-related patient admissions overwhelming capacity",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Pavement and infrastructure buckling from extreme heat",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Chemical storage failures creating hazards",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Supply chain disruptions for temperature-sensitive supplies",
+    "hazard": "HEATWAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Deaths or life-threatening injuries from fire or smoke exposure",
+    "hazard": "WILDFIRE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Severe respiratory distress among health workers",
+    "hazard": "WILDFIRE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Evacuation of facility preventing staff from providing care",
+    "hazard": "WILDFIRE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Inability of health workers to reach facility due to fire or road closures",
+    "hazard": "WILDFIRE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Eye and skin irritation from ash and smoke affecting work capacity",
+    "hazard": "WILDFIRE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Chronic respiratory conditions worsened by prolonged smoke exposure",
+    "hazard": "WILDFIRE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Cardiovascular events among staff from smoke inhalation",
+    "hazard": "WILDFIRE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Mental health crisis and trauma from fire threat",
+    "hazard": "WILDFIRE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased workload from surge in respiratory and burn patients",
+    "hazard": "WILDFIRE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Water contamination from ash and fire-related pollutants",
+    "hazard": "WILDFIRE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Complete loss of water supply due to infrastructure damage",
+    "hazard": "WILDFIRE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Water treatment systems overwhelmed by contamination",
+    "hazard": "WILDFIRE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Ash contamination of water storage tanks",
+    "hazard": "WILDFIRE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Inability to maintain hygiene due to water quality issues",
+    "hazard": "WILDFIRE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Hazardous waste exposure from fire damage",
+    "hazard": "WILDFIRE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Complete power failure from fire damage to electrical systems",
+    "hazard": "WILDFIRE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Destruction of backup generators by fire",
+    "hazard": "WILDFIRE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Loss of fuel supplies for backup power",
+    "hazard": "WILDFIRE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Smoke damage to electrical equipment and systems",
+    "hazard": "WILDFIRE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "HVAC system failure from smoke and ash infiltration",
+    "hazard": "WILDFIRE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Solar panel damage from ash accumulation or heat",
+    "hazard": "WILDFIRE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Complete destruction of facility by fire",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Partial destruction requiring facility closure",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Structural damage from fire requiring immediate evacuation",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Smoke damage to medical equipment making it inoperable",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Loss of all medical supplies and pharmaceuticals",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to communication systems preventing emergency coordination",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Indoor air quality dangerous for patients and staff",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Inability to evacuate patients safely due to fire proximity",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Access roads blocked by fire preventing emergency services",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Surge in burn victims and respiratory cases overwhelming capacity",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Loss of medical records and critical data",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Ash and soot infiltration requiring extensive cleanup",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Damage to HVAC filters and ventilation systems",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Outdoor equipment and infrastructure damaged by heat and smoke",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Supply chain disruptions preventing delivery of essentials",
+    "hazard": "WILDFIRE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Deaths or life-threatening hypothermia among health workers",
+    "hazard": "COLD_WAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Frostbite or severe cold injuries to staff",
+    "hazard": "COLD_WAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Inability of health workers to reach facility due to ice/snow",
+    "hazard": "COLD_WAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Cardiovascular events triggered by extreme cold exposure",
+    "hazard": "COLD_WAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Respiratory illnesses among staff from cold exposure",
+    "hazard": "COLD_WAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Increased workload from surge in cold-related patient admissions",
+    "hazard": "COLD_WAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Staff stranded at facility unable to leave safely",
+    "hazard": "COLD_WAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Reduced work capacity from cold exposure and inadequate heating",
+    "hazard": "COLD_WAVE",
+    "pillar": "WORKFORCE"
+  },
+  {
+    "text": "Frozen water pipes causing complete loss of water supply",
+    "hazard": "COLD_WAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Burst pipes from freezing causing flooding and water damage",
+    "hazard": "COLD_WAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Inability to provide hygiene services due to frozen systems",
+    "hazard": "COLD_WAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Toilets and sanitation systems inoperable from freezing",
+    "hazard": "COLD_WAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Water contamination from pipe damage",
+    "hazard": "COLD_WAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Ice accumulation preventing waste disposal",
+    "hazard": "COLD_WAVE",
+    "pillar": "WASH"
+  },
+  {
+    "text": "Complete heating system failure",
+    "hazard": "COLD_WAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Power grid failure from extreme cold or ice damage",
+    "hazard": "COLD_WAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Backup generator failure in freezing conditions",
+    "hazard": "COLD_WAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Fuel supply disruptions for heating and generators",
+    "hazard": "COLD_WAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Increased energy demand overwhelming supply",
+    "hazard": "COLD_WAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Carbon monoxide poisoning from emergency heating devices",
+    "hazard": "COLD_WAVE",
+    "pillar": "ENERGY"
+  },
+  {
+    "text": "Facility becomes uninhabitable due to extreme cold",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Need to evacuate patients to warmer facilities",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Structural damage from ice, snow load, or freezing",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Medical equipment failure from cold exposure",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Medication freezing and becoming unusable",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Computer and diagnostic equipment failure from cold",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Access roads impassable due to ice and snow",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Ambulance services unable to reach facility",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Roof collapse from snow and ice accumulation",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Ice dams causing water damage",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Increased surge in cold-related admissions (hypothermia, frostbite, heart attacks)",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Supply chain disruptions preventing delivery of heating fuel and supplies",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  },
+  {
+    "text": "Pavement and parking lot damage from freeze-thaw cycles",
+    "hazard": "COLD_WAVE",
+    "pillar": "INFRASTRUCTURE"
+  }
 ]

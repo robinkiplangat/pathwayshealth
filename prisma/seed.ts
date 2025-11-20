@@ -12,7 +12,13 @@ async function main() {
         const questions = JSON.parse(fs.readFileSync(vulnerabilityQuestionsPath, 'utf-8'))
         for (const q of questions) {
             await prisma.vulnerabilityQuestion.create({
-                data: q,
+                data: {
+                    text: q.text,
+                    hazard: q.hazard,
+                    pillar: q.pillar,
+                    isCritical: q.isCritical,
+                    weight: q.weight
+                },
             })
         }
         console.log('Seeded vulnerability questions')
