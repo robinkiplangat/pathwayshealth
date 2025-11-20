@@ -3,12 +3,14 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const hazard = searchParams.get('hazard');
 
     try {
-        const where = hazard ? { hazard: hazard as string } : {};
+        const where = hazard ? { hazard: hazard as any } : {};
         const questions = await prisma.vulnerabilityQuestion.findMany({
             where,
             orderBy: {

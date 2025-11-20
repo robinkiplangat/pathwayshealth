@@ -3,6 +3,8 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: Request) {
     try {
         const body = await request.json();
@@ -20,7 +22,7 @@ export async function POST(request: Request) {
                         answer: r.score.toString(), // Schema expects String for answer, but frontend sends number. Need to map or change schema.
                     })),
                 },
-            },
+            } as any,
         });
 
         return NextResponse.json(assessment);

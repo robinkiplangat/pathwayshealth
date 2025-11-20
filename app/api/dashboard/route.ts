@@ -4,6 +4,8 @@ import { auth } from '@clerk/nextjs/server';
 
 const prisma = new PrismaClient();
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     const { userId } = await auth();
 
