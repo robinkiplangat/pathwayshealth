@@ -60,6 +60,13 @@ export default function AssessmentPage() {
             // Let's fetch all for simplicity
             const res = await fetch('/api/questions');
             const allQuestions = await res.json();
+
+            if (!Array.isArray(allQuestions)) {
+                console.error("API returned non-array:", allQuestions);
+                setQuestions([]);
+                return;
+            }
+
             // Filter by selected hazards
             const filtered = allQuestions.filter((q: any) => selectedHazards.includes(q.hazard));
             setQuestions(filtered);
