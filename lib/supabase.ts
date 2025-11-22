@@ -1,9 +1,14 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Server-side Supabase client (uses anon key for public operations)
+// Server-side Supabase client (uses anon key for public operations)
+const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+
+// Prevent build-time crash if env vars are missing
 export const supabase = createClient(
-    process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    supabaseUrl || "https://placeholder.supabase.co",
+    supabaseKey || "placeholder-key"
 );
 
 // Database types
