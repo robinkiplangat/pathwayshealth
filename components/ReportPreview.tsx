@@ -5,6 +5,7 @@ import { Download, Save, Share2, X } from 'lucide-react';
 import AuthGate from './AuthGate';
 import { saveAssessmentSession } from '@/lib/assessment-session';
 import { useAuth } from '@clerk/nextjs';
+import { trackEvent } from '@/lib/analytics';
 
 interface ReportPreviewProps {
     assessmentId: string;
@@ -63,6 +64,7 @@ export default function ReportPreview({
                 if (response.ok) {
                     setSaved(true);
                     setShowSaveModal(false);
+                    trackEvent('save_assessment', { facility_name: nameToSave });
                 } else {
                     console.error('Failed to save assessment');
                 }
