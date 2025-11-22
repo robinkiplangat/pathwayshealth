@@ -1,9 +1,14 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Server-side Supabase client (uses anon key for public operations)
+// Server-side Supabase client (uses anon key for public operations)
+const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+
+// Prevent build-time crash if env vars are missing
 export const supabase = createClient(
-    process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    supabaseUrl || "https://placeholder.supabase.co",
+    supabaseKey || "placeholder-key"
 );
 
 // Database types
@@ -25,11 +30,13 @@ export interface ImpactStatement {
 
 export interface Assessment {
     id: string;
-    userId: string;
-    hazards: string[];
-    responses: Record<string, any>;
-    score: number;
-    createdAt: string;
+    userId?: string | null;
+    facilityId?: string | null;
+    facilityName: string;
+    location: string;
+    date: string;
+    isAnonymous: boolean;
+    claimedAt?: string | null;
     reportUrl?: string;
 }
 
@@ -88,6 +95,26 @@ export async function createAssessment(assessment: Omit<Assessment, 'id' | 'crea
 
     return data as Assessment;
 }
+
+export async function createAssessmentWithResponses(
+    facilityName: string,
+    location: string,
+    responses: Array<{ questionId: string; answer: string }>
+) {
+    const { data, error } = await supabase.rpc('create_assessment_with_responses', {
+        p_facility_name: facilityName || 'Unknown Facility',
+        p_location: location || 'Unknown Location',
+        p_responses: responses
+    });
+
+    if (error) {
+        console.error('Error creating assessment via RPC:', error);
+        throw error;
+    }
+
+    return data as { id: string };
+}
+
 
 export async function getAssessment(id: string) {
     const { data, error } = await supabase

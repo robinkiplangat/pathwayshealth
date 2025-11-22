@@ -27,12 +27,17 @@ model ImpactStatement {
 
 model Assessment {
   id                     String               @id @default(cuid())
+  userId                 String?              // Null for anonymous assessments
   facilityId             String?
   facilityName           String               @default("Unknown Facility")
   location               String               @default("Unknown Location")
   date                   DateTime             @default(now())
+  isAnonymous            Boolean              @default(true)
+  claimedAt              DateTime?            // When anonymous assessment was claimed
   vulnerabilityResponses AssessmentResponse[]
   impactResponses        ImpactResponse[]
+
+  @@index([userId])
 }
 
 model AssessmentResponse {
