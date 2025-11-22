@@ -78,6 +78,13 @@ interface AssessmentReportProps {
         date?: string;
         overallScore?: number;
         pillarScores?: Record<string, number>;
+        actionPlan?: Array<{
+            id: string;
+            statement: string;
+            pillar: string;
+            hazard: string;
+            priority: string;
+        }>;
     };
 }
 
@@ -116,12 +123,23 @@ export const AssessmentReport = ({ data }: AssessmentReportProps) => (
                 ))}
             </View>
 
-            {/* Priority Actions (Placeholder) */}
+            {/* Priority Actions */}
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Priority Actions</Text>
-                <Text style={styles.text}>1. Conduct a detailed flood risk assessment.</Text>
-                <Text style={styles.text}>2. Install backup power generators for critical areas.</Text>
-                <Text style={styles.text}>3. Develop a water conservation plan.</Text>
+                {data.actionPlan && data.actionPlan.length > 0 ? (
+                    data.actionPlan.map((action, index) => (
+                        <View key={action.id} style={{ marginBottom: 10 }}>
+                            <Text style={{ ...styles.text, fontWeight: 'bold' }}>
+                                {index + 1}. {action.statement}
+                            </Text>
+                            <Text style={{ ...styles.text, fontSize: 10, color: '#6B7280', marginLeft: 15 }}>
+                                Priority: {action.priority} | Pillar: {action.pillar}
+                            </Text>
+                        </View>
+                    ))
+                ) : (
+                    <Text style={styles.text}>No critical actions identified at this time.</Text>
+                )}
             </View>
 
             {/* Footer */}

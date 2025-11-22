@@ -73,13 +73,23 @@ export async function GET() {
 
             const overallScore = Math.round(totalScore / pillars.length);
 
+            // Generate Action Plan based on Impact Responses
+            const actionPlan = assessment.ImpactResponse?.map((ir: any) => ({
+                id: ir.id,
+                statement: ir.ImpactStatement?.text || "Unknown Impact",
+                pillar: ir.ImpactStatement?.pillar || "GENERAL",
+                hazard: ir.ImpactStatement?.hazard || "GENERAL",
+                priority: ir.severity || "MEDIUM"
+            })) || [];
+
             return {
                 id: assessment.id,
                 date: assessment.date,
                 facilityName: assessment.facilityName,
                 location: assessment.location,
                 overallScore,
-                pillarScores: scores
+                pillarScores: scores,
+                actionPlan
             };
         });
 

@@ -29,6 +29,13 @@ interface AssessmentSummary {
     location: string;
     overallScore: number;
     pillarScores: Record<string, number>;
+    actionPlan: Array<{
+        id: string;
+        statement: string;
+        pillar: string;
+        hazard: string;
+        priority: string;
+    }>;
 }
 
 interface DashboardData {
@@ -169,10 +176,18 @@ export default function DashboardPage() {
                             </div>
                         </div>
                         <div className="flex gap-3">
-                            {/* Placeholder for PDF Download - would need real data structure */}
-                            <Button variant="outline" className="gap-2">
-                                <Download size={16} /> Export PDF
-                            </Button>
+                            {/* PDF Download */}
+                            <PDFDownloadLink
+                                document={<AssessmentReport data={selectedAssessment} />}
+                                fileName={`pathways-report-${selectedAssessment.facilityName.replace(/\s+/g, '-').toLowerCase()}.pdf`}
+                            >
+                                {({ blob, url, loading, error }) => (
+                                    <Button variant="outline" className="gap-2" disabled={loading}>
+                                        <Download size={16} />
+                                        {loading ? 'Generating...' : 'Export PDF'}
+                                    </Button>
+                                )}
+                            </PDFDownloadLink>
                         </div>
                     </div>
 
@@ -233,6 +248,77 @@ export default function DashboardPage() {
                                 </Card>
                             );
                         })}
+                    </div>
+
+                    {/* Action Plan Section */}
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+                        <div className="flex items-center justify-between mb-6">
+                            <div>
+                                <h2 className="text-2xl font-bold text-gray-900">Comprehensive Action Plan</h2>
+                                <p className="text-gray-500 mt-1">Recommended steps to improve facility resilience based on your assessment.</p>
+                            </div>
+                            <Badge variant="outline" className="px-3 py-1">
+                                {selectedAssessment.actionPlan?.length || 0} Actions Identified
+                            </Badge>
+                        </div>
+
+                        {(!selectedAssessment.actionPlan || selectedAssessment.actionPlan.length === 0) ? (
+                            <div className="text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200">
+                                <CheckCircle2 className="mx-auto h-12 w-12 text-green-500 mb-4" />
+                                <h3 className="text-lg font-medium text-gray-900">No Critical Actions Needed</h3>
+                                <p className="text-gray-500 max-w-md mx-auto mt-2">
+                                    Your facility appears to be in good standing based on the current assessment criteria. Continue monitoring and maintaining your resilience measures.
+                                </p>
+                            </div>
+                        ) : (
+                            <div className="space-y-6">
+                                {["WORKFORCE", "WASH", "ENERGY", "INFRASTRUCTURE"].map(pillar => {
+                                    const pillarActions = selectedAssessment.actionPlan.filter(a => a.pillar === pillar);
+                                    if (pillarActions.length === 0) return null;
+
+                                    const config = PILLAR_CONFIG[pillar as keyof typeof PILLAR_CONFIG];
+                                    const Icon = config.icon;
+
+                                    return (
+                                        <div key={pillar} className="border rounded-xl overflow-hidden">
+                                            <div className={`px-6 py-4 flex items-center gap-3 border-b ${config.bg}`}>
+                                                <Icon className={`h-5 w-5 ${config.color}`} />
+                                                <h3 className={`font-semibold ${config.color}`}>{config.label}</h3>
+                                            </div>
+                                            <div className="divide-y divide-gray-100">
+                                                {pillarActions.map(action => (
+                                                    <div key={action.id} className="p-4 md:p-6 flex gap-4 hover:bg-gray-50 transition-colors">
+                                                        <div className="mt-1">
+                                                            {action.priority === 'MAJOR' || action.priority === 'HIGH' ? (
+                                                                <div className="h-2 w-2 rounded-full bg-red-500 mt-2" title="High Priority" />
+                                                            ) : (
+                                                                <div className="h-2 w-2 rounded-full bg-yellow-500 mt-2" title="Medium Priority" />
+                                                            )}
+                                                        </div>
+                                                        <div className="flex-1">
+                                                            <div className="flex items-center gap-2 mb-1">
+                                                                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">{action.hazard}</span>
+                                                                <Badge variant={action.priority === 'MAJOR' ? 'destructive' : 'secondary'} className="text-[10px] h-5">
+                                                                    {action.priority} PRIORITY
+                                                                </Badge>
+                                                            </div>
+                                                            <p className="text-gray-900 font-medium">{action.statement}</p>
+                                                            <p className="text-sm text-gray-500 mt-2">
+                                                                <strong>Recommendation:</strong> Implement mitigation strategies for {action.hazard.toLowerCase()} risks affecting {config.label.toLowerCase()}.
+                                                                {/* Placeholder for more specific recommendation logic */}
+                                                            </p>
+                                                        </div>
+                                                        <Button variant="ghost" size="sm" className="self-center">
+                                                            Details
+                                                        </Button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
