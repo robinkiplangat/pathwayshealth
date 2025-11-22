@@ -54,7 +54,6 @@ export default function DashboardPage() {
                 // Check for pending session to link
                 const session = getAssessmentSession();
                 if (session && session.assessmentId) {
-                    console.log('Found pending session, linking...', session.assessmentId);
                     await fetch('/api/assessment/save', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -289,7 +288,7 @@ export default function DashboardPage() {
                                                 {pillarActions.map(action => (
                                                     <div key={action.id} className="p-4 md:p-6 flex gap-4 hover:bg-gray-50 transition-colors">
                                                         <div className="mt-1">
-                                                            {action.priority === 'MAJOR' || action.priority === 'HIGH' ? (
+                                                            {action.priority === 'MAJOR' ? (
                                                                 <div className="h-2 w-2 rounded-full bg-red-500 mt-2" title="High Priority" />
                                                             ) : (
                                                                 <div className="h-2 w-2 rounded-full bg-yellow-500 mt-2" title="Medium Priority" />

@@ -110,6 +110,12 @@ export default function AssessmentPage() {
         }
     };
 
+    interface AssessmentResponseInput {
+        questionId: string;
+        score?: number;
+        answer?: string | number;
+    }
+
     const submitAssessment = async () => {
         setLoading(true);
         try {
@@ -163,7 +169,6 @@ export default function AssessmentPage() {
     // Sound Effect Logic
     useEffect(() => {
         if (step === "questions" && currentHazard) {
-            console.log(`Playing sound for hazard: ${currentHazard}`);
             // Placeholder for actual audio playback
             // const audio = new Audio(`/sounds/${currentHazard.toLowerCase()}.mp3`);
             // audio.play().catch(e => console.log("Audio play failed", e));
