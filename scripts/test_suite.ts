@@ -16,7 +16,7 @@ async function main() {
         // Try a simple query
         const count = await prisma.vulnerabilityQuestion.count();
         console.log(`✅ Database Query Successful (Found ${count} questions)`);
-    } catch (error) {
+    } catch (error: any) {
         console.error('❌ Database Connection Failed:', error.message);
         hasErrors = true;
     } finally {

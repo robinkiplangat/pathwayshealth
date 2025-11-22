@@ -25,11 +25,13 @@ export interface ImpactStatement {
 
 export interface Assessment {
     id: string;
-    userId: string;
-    hazards: string[];
-    responses: Record<string, any>;
-    score: number;
-    createdAt: string;
+    userId?: string | null;
+    facilityId?: string | null;
+    facilityName: string;
+    location: string;
+    date: string;
+    isAnonymous: boolean;
+    claimedAt?: string | null;
     reportUrl?: string;
 }
 
@@ -105,6 +107,8 @@ export async function createAssessmentWithResponses(
             facilityName: facilityName || 'Unknown Facility',
             location: location || 'Unknown Location',
             date: new Date().toISOString(),
+            isAnonymous: true, // Mark as anonymous by default
+            userId: null, // No user initially
         }])
         .select()
         .single();

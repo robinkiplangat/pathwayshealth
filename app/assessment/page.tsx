@@ -21,6 +21,8 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { AssessmentBackground } from "@/components/AssessmentBackground";
+import ReportPreview from "@/components/ReportPreview";
+import { saveAssessmentSession } from "@/lib/assessment-session";
 
 const HAZARDS = [
     { id: "FLOOD", label: "Floods", icon: Waves, color: "text-blue-500", bg: "bg-blue-50" },
@@ -43,11 +45,23 @@ export default function AssessmentPage() {
     const [currentPillarIndex, setCurrentPillarIndex] = useState(0);
     const [responses, setResponses] = useState<Record<string, number>>({});
     const [loading, setLoading] = useState(false);
+    const [assessmentId, setAssessmentId] = useState<string | null>(null);
 
     const toggleHazard = (id: string) => {
         setSelectedHazards(prev =>
             prev.includes(id) ? prev.filter(h => h !== id) : [...prev, id]
         );
+    };
+
+    const previousSection = () => {
+        if (currentPillarIndex > 0) {
+            setCurrentPillarIndex(prev => prev - 1);
+            window.scrollTo(0, 0);
+        } else if (currentHazardIndex > 0) {
+            setCurrentHazardIndex(prev => prev - 1);
+            setCurrentPillarIndex(PILLARS.length - 1);
+            window.scrollTo(0, 0);
+        }
     };
 
     const startAssessment = async () => {
@@ -104,7 +118,7 @@ export default function AssessmentPage() {
                 score
             }));
 
-            await fetch('/api/assessment/submit', {
+            const res = await fetch('/api/assessment/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -113,6 +127,19 @@ export default function AssessmentPage() {
                     location: "Unknown" // Placeholder
                 })
             });
+
+            const data = await res.json();
+            if (data.id) {
+                setAssessmentId(data.id);
+                // Save session for potential linking later
+                saveAssessmentSession({
+                    assessmentId: data.id,
+                    facilityName: "My Facility", // Default, can be updated later
+                    location: "Unknown",
+                    responses: formattedResponses.map(r => ({ ...r, answer: r.score.toString() }))
+                });
+            }
+
             setStep("complete");
         } catch (e) {
             console.error("Failed to submit", e);
@@ -280,7 +307,16 @@ export default function AssessmentPage() {
                         ))}
                     </div>
 
-                    <div className="mt-16 flex justify-end">
+                    <div className="mt-16 flex justify-between">
+                        <Button
+                            size="lg"
+                            variant="outline"
+                            onClick={previousSection}
+                            disabled={currentHazardIndex === 0 && currentPillarIndex === 0}
+                            className="px-8 h-14 text-lg border-white/20 text-white hover:bg-white/10 bg-transparent backdrop-blur-sm"
+                        >
+                            <ChevronLeft className="mr-2" /> Previous
+                        </Button>
                         <Button
                             size="lg"
                             onClick={nextSection}
@@ -294,21 +330,44 @@ export default function AssessmentPage() {
         );
     }
 
-    return (
-        <div className="min-h-screen relative flex items-center justify-center px-4 overflow-hidden">
-            <AssessmentBackground hazardId="DEFAULT" />
-            <Card className="max-w-lg w-full text-center p-10 shadow-2xl border-white/10 bg-white/10 backdrop-blur-xl relative z-10 animate-in zoom-in duration-500">
-                <div className="w-24 h-24 bg-resilience-green/20 rounded-full flex items-center justify-center mx-auto mb-8 text-resilience-green shadow-[0_0_30px_rgba(74,222,128,0.3)]">
-                    <CheckCircle2 size={56} />
+
+
+    // ... (keep existing code)
+
+    if (step === "complete") {
+        // Calculate score (placeholder logic)
+        const totalQuestions = Object.keys(responses).length;
+        const totalScore = Object.values(responses).reduce((a, b) => a + b, 0);
+        const maxScore = totalQuestions * 3;
+        const percentageScore = totalQuestions > 0 ? Math.round((totalScore / maxScore) * 100) : 0;
+
+        const formattedResponses = Object.entries(responses).map(([questionId, score]) => ({
+            questionId,
+            answer: score.toString(),
+            score
+        }));
+
+        return (
+            <div className="min-h-screen bg-gray-50">
+                <ReportPreview
+                    assessmentId={assessmentId || ""} // You need to store assessmentId from submit response
+                    facilityName="My Facility"
+                    location="Unknown"
+                    score={percentageScore}
+                    responses={formattedResponses}
+                />
+                <div className="max-w-4xl mx-auto px-6 pb-12 flex justify-center">
+                    <Button
+                        size="lg"
+                        variant="outline"
+                        className="gap-2"
+                        onClick={() => router.push('/dashboard')}
+                    >
+                        Go to Dashboard <ArrowRight size={16} />
+                    </Button>
                 </div>
-                <h1 className="text-4xl font-bold mb-4 text-white">Assessment Complete!</h1>
-                <p className="text-gray-300 mb-10 text-lg">
-                    Your responses have been recorded. View your dashboard to see your resilience score and action plan.
-                </p>
-                <Button size="lg" className="w-full h-14 text-lg bg-resilience-green hover:bg-resilience-green/90 text-white rounded-xl shadow-lg shadow-resilience-green/20" onClick={() => router.push('/dashboard')}>
-                    Go to Dashboard
-                </Button>
-            </Card>
-        </div>
-    );
+            </div>
+        );
+    }
+    return null;
 }
