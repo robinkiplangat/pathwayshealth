@@ -41,10 +41,17 @@ export async function POST(request: Request) {
             .from('Assessment')
             .update(updateData)
             .eq('id', assessmentId)
+            .is('userId', null) // Only allow claiming if currently anonymous
             .select()
             .single();
 
         if (error) {
+            if (error.code === 'PGRST116') {
+                return NextResponse.json(
+                    { error: 'Assessment not found or already claimed' },
+                    { status: 404 }
+                );
+            }
             console.error('Error saving assessment:', error);
             return NextResponse.json(
                 { error: 'Failed to save assessment' },
