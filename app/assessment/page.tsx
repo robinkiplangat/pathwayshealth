@@ -336,10 +336,18 @@ export default function AssessmentPage() {
 
     if (step === "complete") {
         // Calculate score (placeholder logic)
-        const totalQuestions = Object.keys(responses).length;
-        const totalScore = Object.values(responses).reduce((a, b) => a + b, 0);
-        const maxScore = totalQuestions * 3;
-        const percentageScore = totalQuestions > 0 ? Math.round((totalScore / maxScore) * 100) : 0;
+        // Calculate weighted score
+        let totalWeightedScore = 0;
+        let maxWeightedScore = 0;
+
+        Object.entries(responses).forEach(([qId, score]) => {
+            const question = questions.find(q => q.id === qId);
+            const weight = question?.weight || 1;
+            totalWeightedScore += score * weight;
+            maxWeightedScore += 3 * weight; // Max score per question is 3
+        });
+
+        const percentageScore = maxWeightedScore > 0 ? Math.round((totalWeightedScore / maxWeightedScore) * 100) : 0;
 
         const formattedResponses = Object.entries(responses).map(([questionId, score]) => ({
             questionId,

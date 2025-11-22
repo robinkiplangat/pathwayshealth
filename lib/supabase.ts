@@ -96,50 +96,18 @@ export async function createAssessmentWithResponses(
     location: string,
     responses: Array<{ questionId: string; answer: string }>
 ) {
-    // Generate ID manually (Supabase doesn't auto-generate like Prisma)
-    const assessmentId = crypto.randomUUID();
+    const { data, error } = await supabase.rpc('create_assessment_with_responses', {
+        p_facility_name: facilityName || 'Unknown Facility',
+        p_location: location || 'Unknown Location',
+        p_responses: responses
+    });
 
-    // First, create the assessment
-    const { data: assessment, error: assessmentError } = await supabase
-        .from('Assessment')
-        .insert([{
-            id: assessmentId,
-            facilityName: facilityName || 'Unknown Facility',
-            location: location || 'Unknown Location',
-            date: new Date().toISOString(),
-            isAnonymous: true, // Mark as anonymous by default
-            userId: null, // No user initially
-        }])
-        .select()
-        .single();
-
-    if (assessmentError || !assessment) {
-        console.error('Error creating assessment:', assessmentError);
-        throw assessmentError || new Error('Failed to create assessment');
+    if (error) {
+        console.error('Error creating assessment via RPC:', error);
+        throw error;
     }
 
-    // Then, create all the responses
-    if (responses && responses.length > 0) {
-        const responsesData = responses.map(r => ({
-            id: crypto.randomUUID(), // Generate ID for each response
-            assessmentId: assessment.id,
-            questionId: r.questionId,
-            answer: r.answer,
-        }));
-
-        const { error: responsesError } = await supabase
-            .from('AssessmentResponse')
-            .insert(responsesData);
-
-        if (responsesError) {
-            console.error('Error creating responses:', responsesError);
-            // Assessment was created but responses failed
-            // You might want to delete the assessment or handle this differently
-            throw responsesError;
-        }
-    }
-
-    return assessment;
+    return data as { id: string };
 }
 
 
