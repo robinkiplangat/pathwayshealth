@@ -44,9 +44,9 @@ export function Header() {
                         <Image
                             src="/PH_logo.png"
                             alt="Pathways Health"
-                            width={64}
-                            height={64}
-                            className="h-16 w-auto"
+                            width={120}
+                            height={120}
+                            className="h-24 w-auto"
                         />
                         <span className={cn("font-bold text-xl hidden sm:block", !isHomePage || scrolled ? "text-foreground" : "text-white")}>
                             {/* Pathways Health */}

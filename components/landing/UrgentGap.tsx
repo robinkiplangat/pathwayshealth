@@ -23,23 +23,27 @@ const UrgentGap = () => {
                                 Climate impacts—from extreme heat and flooding to shifting disease patterns—are rising faster than health systems can adapt. Frontline facilities are the first to be hit, yet they lack the basic tools to understand their own vulnerabilities.
                             </p>
 
-                            <div className="bg-white p-8 rounded-2xl shadow-lg border-l-8 border-resilience-green">
-                                <p className="text-lg text-storm-gray mb-2 font-medium">The Reality:</p>
-                                <div className="text-5xl md:text-6xl font-bold text-resilience-green mb-2">
-                                    95%
-                                </div>
-                                <p className="text-xl font-bold text-foreground">
-                                    of healthcare facilities in high-risk regions have no established baseline of their climate resilience.
-                                </p>
-                                <p className="text-storm-gray mt-2 italic">
-                                    They cannot manage risks they cannot measure.
+                            {/* Removed Statistic Box from here to move it to the map side */}
+                            <div className="p-6 rounded-2xl bg-white/50 border border-border/50 backdrop-blur-sm">
+                                <p className="text-lg text-storm-gray font-medium italic">
+                                    "They cannot manage risks they cannot measure."
                                 </p>
                             </div>
                         </div>
 
                         {/* Visual Content */}
                         <div className="lg:w-1/2 relative">
-                            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                            {/* Statistic Overlay/Connection */}
+                            <div className="absolute -top-12 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-10 z-20 bg-white p-6 rounded-2xl shadow-xl border-l-8 border-resilience-green max-w-xs text-center md:text-left">
+                                <div className="text-5xl md:text-6xl font-bold text-resilience-green mb-1">
+                                    95%
+                                </div>
+                                <p className="text-sm font-bold text-foreground leading-tight">
+                                    of facilities in high-risk regions have no baseline of their climate resilience.
+                                </p>
+                            </div>
+
+                            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white mt-8 md:mt-0">
                                 <Image
                                     src="/urgent-gap-map.png"
                                     alt="Map showing climate risks and data gaps"
@@ -59,8 +63,8 @@ const UrgentGap = () => {
             <div className="bg-white py-20 md:py-28">
                 <div className="container mx-auto px-4">
                     <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                            When Resilience Fails, <span className="text-risk-high">Essential Care Stops.</span>
+                        <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+                            When Resilience Fails, <br /><span className="text-risk-high">Essential Care Stops.</span>
                         </h3>
                         <p className="text-xl text-storm-gray">
                             Without proactive adaptation, climate shocks directly undermine service delivery and health outcomes.
@@ -123,7 +127,11 @@ const UrgentGap = () => {
             </div>
 
             {/* 3. The "Why" (Systemic Failure) */}
-            <div className="bg-bg-secondary py-20 md:py-28 border-t border-border/50">
+            <div className="bg-bg-secondary py-20 md:py-28 border-t border-border/50 relative overflow-hidden">
+                {/* Subtle Texture Background */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                    style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}>
+                </div>
                 <div className="container mx-auto px-4">
                     <div className="text-center max-w-3xl mx-auto mb-16">
                         <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Why the Gap Persists</h3>
@@ -197,9 +205,9 @@ const UrgentGap = () => {
             <div className="bg-white py-16 text-center border-b border-border/50">
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto">
-                        <p className="text-2xl md:text-3xl font-medium text-foreground leading-relaxed mb-8">
+                        <p className="text-2xl md:text-4xl font-medium text-foreground leading-relaxed mb-8">
                             To close this gap, we don't need more complex frameworks. <br />
-                            We need <span className="text-resilience-green font-bold">practical, scalable tools</span> that empower facilities to generate their own data and take immediate action.
+                            We need <span className="text-resilience-green font-bold bg-resilience-green/10 px-2 rounded-md">practical, scalable tools</span> that empower facilities to generate their own data and take immediate action.
                         </p>
                         <div className="flex justify-center animate-bounce">
                             <ArrowDown size={32} className="text-resilience-green" />
