@@ -8,6 +8,7 @@ import Image from "next/image";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
+import UrgentGap from "@/components/landing/UrgentGap";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -65,6 +66,10 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Urgent Gap Section */}
+      <UrgentGap />
+
 
       {/* Feature Overview */}
       <section id="features" className="py-24 bg-bg-primary">
