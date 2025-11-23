@@ -15,7 +15,7 @@ import {
 
 interface AssessmentSummaryEmailProps {
     facilityName: string;
-    score: number;
+    score?: number;
     reportUrl: string;
 }
 
@@ -40,10 +40,12 @@ export const AssessmentSummaryEmail = ({
                         Your climate resilience assessment for <strong>{facilityName}</strong> has been successfully saved.
                     </Text>
 
-                    <Section style={scoreSection}>
-                        <Text style={scoreLabel}>Overall Resilience Score</Text>
-                        <Heading style={scoreValue}>{score}/100</Heading>
-                    </Section>
+                    {score !== undefined && score > 0 && (
+                        <Section style={scoreSection}>
+                            <Text style={scoreLabel}>Overall Resilience Score</Text>
+                            <Heading style={scoreValue}>{score}/100</Heading>
+                        </Section>
+                    )}
 
                     <Text style={text}>
                         You can view your full report, including detailed action plans and recommendations, by clicking the button below.
