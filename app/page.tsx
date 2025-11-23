@@ -36,8 +36,8 @@ export default async function Home() {
         <div className="container mx-auto px-4 text-center relative z-10 pt-20">
           {/* Content directly on background */}
           <div className="max-w-5xl mx-auto animate-in fade-in zoom-in duration-1000">
-            <div className="flex justify-center mb-8">
-              <Image src="/PH_logo.png" alt="Pathways Health Logo" width={180} height={180} className="h-auto w-auto max-h-40 drop-shadow-2xl" />
+            <div className="flex justify-center mb-10">
+              <Image src="/PH_logo.png" alt="Pathways Health Logo" width={240} height={240} className="h-auto w-auto max-h-56 drop-shadow-2xl" />
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight tracking-tight drop-shadow-lg">

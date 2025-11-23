@@ -40,15 +40,15 @@ export function Header() {
             <div className="max-w-7xl mx-auto flex items-center justify-between">
                 {/* Logo Section */}
                 <div className={cn("transition-opacity duration-300", showLogo ? "opacity-100" : "opacity-0 pointer-events-none")}>
-                    <Link href="/" className="flex items-center gap-2">
+                    <Link href="/" className="flex items-center gap-3">
                         <Image
                             src="/PH_logo.png"
                             alt="Pathways Health"
-                            width={50}
-                            height={50}
-                            className="h-12 w-auto"
+                            width={64}
+                            height={64}
+                            className="h-16 w-auto"
                         />
-                        <span className={cn("font-bold text-lg hidden sm:block", !isHomePage || scrolled ? "text-foreground" : "text-white")}>
+                        <span className={cn("font-bold text-xl hidden sm:block", !isHomePage || scrolled ? "text-foreground" : "text-white")}>
                             {/* Pathways Health */}
                         </span>
                     </Link>
@@ -59,10 +59,10 @@ export function Header() {
                     <SignedOut>
                         <SignInButton mode="modal">
                             <button className={cn(
-                                "px-4 py-2 rounded-md backdrop-blur-sm transition-colors text-sm font-medium",
+                                "px-6 py-2.5 rounded-full shadow-md transition-all duration-300 text-sm font-semibold hover:-translate-y-0.5",
                                 scrolled || !isHomePage
-                                    ? "bg-resilience-green hover:bg-resilience-green/90 text-white"
-                                    : "bg-white/10 hover:bg-white/20 text-white"
+                                    ? "bg-resilience-green hover:bg-resilience-green/90 text-white shadow-resilience-green/20"
+                                    : "bg-resilience-green hover:bg-resilience-green/90 text-white shadow-black/20 border border-white/10"
                             )}>
                                 Sign In
                             </button>
