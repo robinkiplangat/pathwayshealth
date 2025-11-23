@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { auth, currentUser } from '@clerk/nextjs/server';
-import { supabase } from '@/lib/supabase';
+import { createClerkSupabaseClient, supabase as adminSupabase } from '@/lib/supabase'; // Use admin/anon for initial fetch if needed, but here we update
 import { sendAssessmentSummaryEmail } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: Request) {
     try {
         // Require authentication
-        const { userId } = await auth();
+        const { userId, getToken } = await auth();
         const user = await currentUser();
 
         if (!userId || !user) {
@@ -17,6 +17,9 @@ export async function POST(request: Request) {
                 { status: 401 }
             );
         }
+
+        const token = await getToken({ template: 'supabase' });
+        const supabase = token ? createClerkSupabaseClient(token) : adminSupabase;
 
         const body = await request.json();
         const { assessmentId, facilityName } = body;

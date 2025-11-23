@@ -1,17 +1,21 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { supabase } from '@/lib/supabase';
+import { createClerkSupabaseClient } from '@/lib/supabase';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-    const { userId } = await auth();
+    const { userId, getToken } = await auth();
 
     if (!userId) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     try {
+        const token = await getToken({ template: 'supabase' });
+        const supabase = token ? createClerkSupabaseClient(token) : createClerkSupabaseClient(""); // Fallback or handle error? 
+        // If token is missing, RLS will fail if strict. But usually getToken returns null if not configured.
+
         // Fetch all assessments for the user
         const { data: assessments, error } = await supabase
             .from('Assessment')

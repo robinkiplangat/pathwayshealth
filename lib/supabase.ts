@@ -5,11 +5,29 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
+if (!supabaseUrl || !supabaseKey) {
+    console.warn("⚠️ Supabase environment variables are missing! Using placeholders. API calls will fail.");
+}
+
 // Prevent build-time crash if env vars are missing
 export const supabase = createClient(
     supabaseUrl || "https://placeholder.supabase.co",
     supabaseKey || "placeholder-key"
 );
+
+export const createClerkSupabaseClient = (clerkToken: string) => {
+    return createClient(
+        supabaseUrl || "https://placeholder.supabase.co",
+        supabaseKey || "placeholder-key",
+        {
+            global: {
+                headers: {
+                    Authorization: `Bearer ${clerkToken}`,
+                },
+            },
+        }
+    );
+};
 
 // Database types
 export interface VulnerabilityQuestion {
