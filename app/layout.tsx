@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   description: "Assess and strengthen your healthcare facility's climate resilience with Pathways Health.",
 };
 
+import { Analytics } from "@vercel/analytics/next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Header } from "@/components/Header";
 
@@ -33,6 +34,7 @@ export default function RootLayout({
         >
           <Header />
           {children}
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>

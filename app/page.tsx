@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -16,6 +17,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen flex flex-col font-[family-name:var(--font-geist-sans)] relative overflow-hidden">
+      <AnalyticsTracker eventName="view_landing" />
       {/* Hero Section with Parallax and Glassmorphism */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         {/* Parallax Background */}

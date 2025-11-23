@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
+import { auth, currentUser } from '@clerk/nextjs/server';
 import { supabase } from '@/lib/supabase';
+import { sendAssessmentSummaryEmail } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
 
@@ -8,8 +9,9 @@ export async function POST(request: Request) {
     try {
         // Require authentication
         const { userId } = await auth();
+        const user = await currentUser();
 
-        if (!userId) {
+        if (!userId || !user) {
             return NextResponse.json(
                 { error: 'Authentication required' },
                 { status: 401 }
@@ -57,6 +59,21 @@ export async function POST(request: Request) {
                 { error: 'Failed to save assessment' },
                 { status: 500 }
             );
+        }
+
+        // Send email notification
+        const userEmail = user.emailAddresses[0]?.emailAddress;
+        if (userEmail) {
+            const reportUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/dashboard`;
+
+            // Fire and forget email sending to avoid blocking response
+            // We pass undefined for score as we don't want to fetch it here for performance
+            sendAssessmentSummaryEmail(
+                userEmail,
+                data.facilityName,
+                undefined as any, // Cast to any if strict types complain, or update type in lib
+                reportUrl
+            ).catch(err => console.error('Failed to send email:', err));
         }
 
         return NextResponse.json({

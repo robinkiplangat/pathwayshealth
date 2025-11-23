@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { AssessmentBackground } from "@/components/AssessmentBackground";
 import ReportPreview from "@/components/ReportPreview";
 import { saveAssessmentSession } from "@/lib/assessment-session";
+import { trackEvent } from "@/lib/analytics";
 
 const HAZARDS = [
     { id: "FLOOD", label: "Floods", icon: Waves, color: "text-blue-500", bg: "bg-blue-50" },
@@ -67,6 +68,7 @@ export default function AssessmentPage() {
     const startAssessment = async () => {
         if (selectedHazards.length === 0) return;
         setLoading(true);
+        trackEvent('start_assessment', { hazards: selectedHazards });
         try {
             // Fetch questions for all selected hazards
             // In a real app, we might fetch per hazard or batch
@@ -118,6 +120,10 @@ export default function AssessmentPage() {
 
     const submitAssessment = async () => {
         setLoading(true);
+        trackEvent('complete_assessment', {
+            score: 0, // Placeholder, score is calculated in render currently
+            hazard_count: selectedHazards.length
+        });
         try {
             const formattedResponses = Object.entries(responses).map(([questionId, score]) => ({
                 questionId,
