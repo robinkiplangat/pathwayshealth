@@ -30,42 +30,35 @@ export default async function Home() {
             backgroundAttachment: "fixed", // Simple CSS parallax
           }}
         >
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"></div>
         </div>
 
         <div className="container mx-auto px-4 text-center relative z-10 pt-20">
-          {/* Glassmorphism Card */}
-          <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl animate-in fade-in zoom-in duration-1000">
+          {/* Content directly on background */}
+          <div className="max-w-5xl mx-auto animate-in fade-in zoom-in duration-1000">
             <div className="flex justify-center mb-8">
-              <Image src="/PH_logo.png" alt="Pathways Health Logo" width={180} height={180} className="h-auto w-auto max-h-40 drop-shadow-lg" />
+              <Image src="/PH_logo.png" alt="Pathways Health Logo" width={180} height={180} className="h-auto w-auto max-h-40 drop-shadow-2xl" />
             </div>
 
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-resilience-green/20 text-white text-sm font-semibold mb-8 border border-white/10">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-resilience-green opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-resilience-green"></span>
-              </span>
-              Empowering Healthcare Resilience
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight tracking-tight drop-shadow-md">
-              Assess Your Facility's <br />
-              <span className="text-resilience-green drop-shadow-sm">Climate Resilience</span>
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight tracking-tight drop-shadow-lg">
+              Strengthen Your <br />
+              Healthcare Facility against <br />
+              <span className="text-resilience-green drop-shadow-md">Climate Shocks</span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-100 mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow-sm">
-              Simple, actionable checklists to identify risks and strengthen your healthcare facility against climate change.
+            <p className="text-xl md:text-2xl text-gray-100 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-md font-medium">
+              A free, rapid assessment tool based on WHO CRESHCF guidance—helping facilities identify climate risks and take action in under 2 hours.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg h-14 px-8 bg-resilience-green hover:bg-resilience-green/90 text-white border-0 shadow-lg shadow-resilience-green/20 transition-all hover:-translate-y-1 hover:shadow-xl">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Button asChild size="lg" className="text-lg h-16 px-10 bg-resilience-green hover:bg-resilience-green/90 text-white border-0 shadow-xl shadow-resilience-green/20 transition-all hover:-translate-y-1 hover:shadow-2xl rounded-xl">
                 <Link href="/assessment">
-                  Start Assessment <ArrowRight className="ml-2 h-5 w-5" />
+                  Start Assessment
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg h-14 px-8 border-2 border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white hover:border-white/50 backdrop-blur-sm transition-all hover:-translate-y-1">
-                <Link href="#features">
-                  Learn More
+              <Button asChild variant="outline" size="lg" className="text-lg h-16 px-10 border-2 border-white/50 bg-transparent text-white hover:bg-white hover:text-black hover:border-white backdrop-blur-sm transition-all hover:-translate-y-1 rounded-xl">
+                <Link href="#partners">
+                  For Donors & Partners
                 </Link>
               </Button>
             </div>
