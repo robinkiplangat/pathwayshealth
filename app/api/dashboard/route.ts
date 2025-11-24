@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import { auth } from '@clerk/nextjs/server';
-
-const prisma = new PrismaClient();
+import { supabase } from '@/lib/supabase';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,64 +12,93 @@ export async function GET() {
     }
 
     try {
-        // Fetch recent assessment for the user (mocking user association for now as schema doesn't have userId yet)
-        // In a real app, we'd filter by userId. For now, we'll fetch the latest assessment.
-        const assessment = await prisma.assessment.findFirst({
-            orderBy: { date: 'desc' },
-            include: {
-                vulnerabilityResponses: {
-                    include: { question: true }
-                },
-                impactResponses: {
-                    include: { statement: true }
+        // Use admin Supabase client since auth is already handled by Clerk middleware
+        // We explicitly filter by userId so RLS is not needed here
+
+        // Fetch all assessments for the user
+        const { data: assessments, error } = await supabase
+            .from('Assessment')
+            .select(`
+                *,
+                AssessmentResponse (
+                    *,
+                    VulnerabilityQuestion (*)
+                ),
+                ImpactResponse (
+                    *,
+                    ImpactStatement (*)
+                )
+            `)
+            .eq('userId', userId)
+            .order('date', { ascending: false });
+
+        if (error) {
+            console.error('Error fetching assessments:', error);
+            throw error;
+        }
+
+        if (!assessments || assessments.length === 0) {
+            return NextResponse.json({ hasData: false, assessments: [] });
+        }
+
+        // Process each assessment to calculate scores
+        const processedAssessments = assessments.map(assessment => {
+            const pillars = ["WORKFORCE", "WASH", "ENERGY", "INFRASTRUCTURE"];
+            const scores: Record<string, number> = {};
+            let totalScore = 0;
+
+            for (const pillar of pillars) {
+                const pillarResponses = assessment.AssessmentResponse?.filter(
+                    (r: any) => r.VulnerabilityQuestion?.pillar === pillar
+                ) || [];
+
+                if (pillarResponses.length === 0) {
+                    scores[pillar] = 0;
+                    continue;
                 }
+
+                let earned = 0;
+                let max = 0;
+
+                for (const r of pillarResponses) {
+                    const weight = r.VulnerabilityQuestion?.weight || 1;
+                    const answer = parseInt(r.answer) || 0; // 1, 2, 3
+                    const maxAnswer = 3;
+
+                    earned += answer * weight;
+                    max += maxAnswer * weight;
+                }
+
+                const percentage = max > 0 ? Math.round((earned / max) * 100) : 0;
+                scores[pillar] = percentage;
+                totalScore += percentage;
             }
+
+            const overallScore = Math.round(totalScore / pillars.length);
+
+            // Generate Action Plan based on Impact Responses
+            const actionPlan = assessment.ImpactResponse?.map((ir: any) => ({
+                id: ir.id,
+                statement: ir.ImpactStatement?.text || "Unknown Impact",
+                pillar: ir.ImpactStatement?.pillar || "GENERAL",
+                hazard: ir.ImpactStatement?.hazard || "GENERAL",
+                priority: ir.severity || "MEDIUM"
+            })) || [];
+
+            return {
+                id: assessment.id,
+                date: assessment.date,
+                facilityName: assessment.facilityName,
+                location: assessment.location,
+                overallScore,
+                pillarScores: scores,
+                actionPlan
+            };
         });
-
-        if (!assessment) {
-            return NextResponse.json({ hasData: false });
-        }
-
-        // Calculate Scores
-        const pillars = ["WORKFORCE", "WASH", "ENERGY", "INFRASTRUCTURE"];
-        const scores: Record<string, number> = {};
-        let totalScore = 0;
-
-        for (const pillar of pillars) {
-            const pillarResponses = assessment.vulnerabilityResponses.filter(
-                (r: any) => r.question.pillar === pillar
-            );
-
-            if (pillarResponses.length === 0) {
-                scores[pillar] = 0;
-                continue;
-            }
-
-            let earned = 0;
-            let max = 0;
-
-            for (const r of pillarResponses) {
-                const weight = r.question.weight;
-                const answer = parseInt(r.answer); // 1, 2, 3
-                const maxAnswer = 3;
-
-                earned += answer * weight;
-                max += maxAnswer * weight;
-            }
-
-            const percentage = max > 0 ? Math.round((earned / max) * 100) : 0;
-            scores[pillar] = percentage;
-            totalScore += percentage;
-        }
-
-        const overallScore = Math.round(totalScore / pillars.length);
 
         return NextResponse.json({
             hasData: true,
-            date: assessment.date,
-            facilityName: assessment.facilityName,
-            overallScore,
-            pillarScores: scores
+            assessments: processedAssessments
         });
 
     } catch (error) {

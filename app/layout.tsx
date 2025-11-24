@@ -15,8 +15,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Pathways Health | Climate Resilience for Healthcare",
   description: "Assess and strengthen your healthcare facility's climate resilience with Pathways Health.",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
+import { Analytics } from "@vercel/analytics/next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Header } from "@/components/Header";
 
@@ -33,6 +37,7 @@ export default function RootLayout({
         >
           <Header />
           {children}
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>

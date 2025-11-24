@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { getVulnerabilityQuestions } from '@/lib/supabase';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,15 +8,11 @@ export async function GET(request: Request) {
     const hazard = searchParams.get('hazard');
 
     try {
-        const where = hazard ? { hazard: hazard as any } : {};
-        const questions = await prisma.vulnerabilityQuestion.findMany({
-            where,
-            orderBy: {
-                pillar: 'asc',
-            },
-        });
+        const questions = await getVulnerabilityQuestions(hazard || undefined);
         return NextResponse.json(questions);
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to fetch questions' }, { status: 500 });
+        console.error("Failed to fetch questions:", error);
+        // Return empty array to prevent frontend crash
+        return NextResponse.json([]);
     }
 }

@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { createAssessmentWithResponses } from '@/lib/supabase';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,24 +8,25 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { responses, facilityName, location } = body;
 
-        // Create Assessment
-        const assessment = await prisma.assessment.create({
-            data: {
-                date: new Date(),
-                facilityName: facilityName || 'Unknown Facility',
-                location: location || 'Unknown Location',
-                vulnerabilityResponses: {
-                    create: responses.map((r: any) => ({
-                        questionId: r.questionId,
-                        answer: r.score.toString(), // Schema expects String for answer, but frontend sends number. Need to map or change schema.
-                    })),
-                },
-            } as any,
-        });
+        // Convert responses to the format expected by Supabase
+        const formattedResponses = responses.map((r: any) => ({
+            questionId: r.questionId,
+            answer: r.score?.toString() || r.answer?.toString() || 'Unknown',
+        }));
+
+        // Create Assessment with responses using Supabase REST API
+        const assessment = await createAssessmentWithResponses(
+            facilityName,
+            location,
+            formattedResponses
+        );
 
         return NextResponse.json(assessment);
     } catch (error) {
-        console.error(error);
-        return NextResponse.json({ error: 'Failed to submit assessment' }, { status: 500 });
+        console.error('Error submitting assessment:', error);
+        return NextResponse.json(
+            { error: 'Failed to submit assessment' },
+            { status: 500 }
+        );
     }
 }
