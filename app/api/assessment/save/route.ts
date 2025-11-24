@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
 import { auth, currentUser } from '@clerk/nextjs/server';
-import { supabase as adminSupabase } from '@/lib/supabase'; // Use admin/anon for initial fetch if needed, but here we update
+import { supabase as adminSupabase } from '@/lib/supabase';
 import { sendAssessmentSummaryEmail } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
     try {
-        const { userId, getToken } = await auth();
+        // Require authentication
+        const { userId } = await auth();
         const user = await currentUser();
 
         if (!userId || !user) {
