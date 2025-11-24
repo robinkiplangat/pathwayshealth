@@ -12,6 +12,7 @@
   "dependencies": {
     "@clerk/nextjs": "^6.35.2",
     "@google-cloud/storage": "^7.17.3",
+    "@notionhq/client": "^5.4.0",
     "@prisma/client": "5.22.0",
     "@radix-ui/react-progress": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",

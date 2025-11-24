@@ -20,32 +20,47 @@ export function PartnerForm({ className, children }: PartnerFormProps) {
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Here you would typically send the data to your backend
-        console.log('Form submitted:', { ...formData, contactMethod });
 
-        // Simulate submission
-        setIsSubmitted(true);
+        try {
+            const response = await fetch('/api/partner', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...formData, contactMethod }),
+            });
 
-        // If pitch deck was requested, trigger download
-        if (formData.downloadPitch) {
-            const link = document.createElement('a');
-            link.href = '/PathwaysHealth_Resilience.pdf';
-            link.download = 'PathwaysHealth_Resilience.pdf';
-            link.target = '_blank';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            if (!response.ok) {
+                throw new Error('Failed to submit');
+            }
+
+            setIsSubmitted(true);
+
+            // If pitch deck was requested, trigger download
+            if (formData.downloadPitch) {
+                const link = document.createElement('a');
+                link.href = '/PathwaysHealth_Resilience.pdf';
+                link.download = 'PathwaysHealth_Resilience.pdf';
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+            // Close modal after delay
+            setTimeout(() => {
+                setIsOpen(false);
+                setIsSubmitted(false);
+                setFormData({ name: '', contact: '', downloadPitch: false });
+                setContactMethod(null);
+            }, 3000);
+        } catch (error) {
+            console.error('Submission error:', error);
+            // Optionally handle error state here
+            alert('Something went wrong. Please try again.');
         }
-
-        // Close modal after delay
-        setTimeout(() => {
-            setIsOpen(false);
-            setIsSubmitted(false);
-            setFormData({ name: '', contact: '', downloadPitch: false });
-            setContactMethod(null);
-        }, 3000);
     };
 
     return (
