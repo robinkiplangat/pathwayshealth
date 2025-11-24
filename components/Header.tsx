@@ -61,8 +61,8 @@ export function Header() {
                             <button className={cn(
                                 "px-6 py-2.5 rounded-full shadow-md transition-all duration-300 text-sm font-semibold hover:-translate-y-0.5",
                                 scrolled || !isHomePage
-                                    ? "bg-resilience-green hover:bg-resilience-green/90 text-white shadow-resilience-green/20"
-                                    : "bg-resilience-green hover:bg-resilience-green/90 text-white shadow-black/20 border border-white/10"
+                                    ? "bg-resilience-green hover:bg-resilience-green/90 text-white shadow-md"
+                                    : "bg-resilience-green hover:bg-resilience-green/90 text-white shadow-md border border-white/10"
                             )}>
                                 Sign In
                             </button>

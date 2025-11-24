@@ -35,13 +35,16 @@ export default async function Home() {
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"></div>
         </div>
 
+        {/* Logo - Positioned to match Navbar */}
+        <div className="absolute top-0 left-0 right-0 z-20 p-4 pointer-events-none">
+          <div className="max-w-7xl mx-auto">
+            <Image src="/Pathways_clear_Logo.png" alt="Pathways Health Logo" width={280} height={280} className="h-auto w-auto max-h-32 drop-shadow-2xl" />
+          </div>
+        </div>
+
         <div className="container mx-auto px-4 text-center relative z-10 pt-20">
           {/* Content directly on background */}
           <div className="max-w-5xl mx-auto animate-in fade-in zoom-in duration-1000 relative">
-            {/* Logo - Top Left - Aligned with container */}
-            <div className="absolute top-0 left-0 -translate-y-12 md:-translate-x-12 md:-translate-y-16">
-              <Image src="/Pathways_clear_Logo.png" alt="Pathways Health Logo" width={280} height={280} className="h-auto w-auto max-h-40 drop-shadow-2xl" />
-            </div>
 
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight tracking-tight drop-shadow-2xl">
               Strengthen Your <br />
@@ -52,14 +55,14 @@ export default async function Home() {
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-black/40 blur-xl rounded-full"></div>
               <p className="text-xl md:text-2xl text-gray-100 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-xl font-medium relative z-10">
-                A free, rapid assessment tool based on WHO CRESHCF guidance—helping facilities identify climate risks and take action in under 2 hours.
+                Build your climate resilience baseline in under 2 hours — A practical WHO-guided Action Plan that transforms climate risks into actionable priorities for your facility.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Button asChild size="lg" className="text-xl h-16 px-12 bg-resilience-green hover:bg-resilience-green/90 text-white border-0 shadow-[0_0_20px_rgba(45,122,74,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(45,122,74,0.7)] rounded-xl font-bold">
+              <Button asChild size="lg" className="text-xl h-16 px-12 bg-resilience-green hover:bg-resilience-green/90 text-white border-2 border-white shadow-[0_0_20px_rgba(45,122,74,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(45,122,74,0.7)] rounded-xl font-bold">
                 <Link href="/assessment">
-                  Start Assessment
+                  Get Started
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="text-lg h-16 px-10 border-2 border-white/80 bg-black/20 text-white hover:bg-white hover:text-black hover:border-white backdrop-blur-md transition-all hover:-translate-y-1 rounded-xl font-semibold">
