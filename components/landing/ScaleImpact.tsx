@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Globe2, Handshake, LineChart } from 'lucide-react';
+import { PartnerForm } from '@/components/PartnerForm';
 
 const ScaleImpact = () => {
     return (
@@ -32,11 +33,9 @@ const ScaleImpact = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                            <Button asChild size="lg" className="text-lg h-14 px-8 bg-transparent border-2 border-foreground text-foreground hover:bg-foreground hover:text-white shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 font-bold">
-                                <Link href="mailto:partners@pathways.health">
-                                    Partner With Us <ArrowRight className="ml-2 w-5 h-5" />
-                                </Link>
-                            </Button>
+                            <PartnerForm className="text-lg h-14 px-8 bg-transparent border-2 border-foreground text-foreground hover:bg-foreground hover:text-white shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 font-bold">
+                                Partner With Us <ArrowRight className="ml-2 w-5 h-5" />
+                            </PartnerForm>
                             <Button asChild variant="outline" size="lg" className="text-lg h-14 px-8 border-2 border-resilience-green text-resilience-green hover:bg-resilience-green hover:text-white transition-all">
                                 <Link href="/methodology">
                                     View Methodology
