@@ -1,42 +1,69 @@
 import { Client } from '@notionhq/client';
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
+
+const partnerSchema = z.object({
+    organisationName: z.string().min(1, "Organisation name is required"),
+    partnerType: z.string().min(1, "Partner type is required"),
+    geographicFocus: z.array(z.string()).min(1, "At least one geographic focus is required"),
+    countryRegion: z.string().optional(),
+    interestAreas: z.array(z.string()).min(1, "At least one interest area is required"),
+    contactPerson: z.string().min(1, "Contact person is required"),
+    workEmail: z.string().email("Invalid email address"),
+    phone: z.string().optional(),
+    website: z.string().url("Invalid website URL").optional().or(z.literal('')),
+    referralSource: z.string().optional(),
+    explorationGoal: z.string().optional(),
+    downloadPitch: z.boolean().optional(),
+});
 
 export async function POST(request: Request) {
-    const body = await request.json();
-    const {
-        organisationName,
-        partnerType,
-        geographicFocus,
-        countryRegion,
-        interestAreas,
-        contactPerson,
-        workEmail,
-        phone,
-        website,
-        referralSource,
-        explorationGoal,
-        downloadPitch
-    } = body;
-
-    // Initialize Notion client
-    const notion = new Client({
-        auth: process.env.NOTION_API_KEY,
-    });
-
-    // Extract Database ID (handle both raw ID and full URL)
-    // Matches a 32-character hex string (Notion UUID format)
-    const databaseIdMatch = process.env.NOTION_DATABASE_ID?.match(/([a-f0-9]{32})/i);
-    const databaseId = databaseIdMatch ? databaseIdMatch[1] : undefined;
-
-    if (!process.env.NOTION_API_KEY || !databaseId) {
-        console.error('Notion Config Error: Missing Key or Invalid Database ID');
-        return NextResponse.json(
-            { error: 'Notion configuration missing or invalid' },
-            { status: 500 }
-        );
-    }
-
     try {
+        const body = await request.json();
+
+        // Validate request body
+        const validationResult = partnerSchema.safeParse(body);
+
+        if (!validationResult.success) {
+            return NextResponse.json(
+                { error: 'Validation failed', details: validationResult.error.format() },
+                { status: 400 }
+            );
+        }
+
+        const {
+            organisationName,
+            partnerType,
+            geographicFocus,
+            countryRegion,
+            interestAreas,
+            contactPerson,
+            workEmail,
+            phone,
+            website,
+            referralSource,
+            explorationGoal,
+            downloadPitch
+        } = validationResult.data;
+
+        // Initialize Notion client
+        const notion = new Client({
+            auth: process.env.NOTION_API_KEY,
+        });
+
+        // Extract Database ID (handle both raw ID and full URL)
+        // Matches a 32-character hex string (Notion UUID format)
+        const databaseIdMatch = process.env.NOTION_DATABASE_ID?.match(/([a-f0-9]{32})/i);
+        const databaseId = databaseIdMatch ? databaseIdMatch[1] : undefined;
+
+        if (!process.env.NOTION_API_KEY || !databaseId) {
+            console.error('Notion Config Error: Missing Key or Invalid Database ID');
+            return NextResponse.json(
+                { error: 'Notion configuration missing or invalid' },
+                { status: 500 }
+            );
+        }
+
         await notion.pages.create({
             parent: {
                 database_id: databaseId,
@@ -57,7 +84,7 @@ export async function POST(request: Request) {
                     },
                 },
                 "Geographic Focus": {
-                    multi_select: geographicFocus.map((geo: string) => ({ name: geo })),
+                    multi_select: geographicFocus.map((geo) => ({ name: geo })),
                 },
                 "Country / Region Details": {
                     rich_text: [
@@ -69,7 +96,7 @@ export async function POST(request: Request) {
                     ],
                 },
                 "Interest Areas": {
-                    multi_select: interestAreas.map((area: string) => ({ name: area })),
+                    multi_select: interestAreas.map((area) => ({ name: area })),
                 },
                 "Contact Person": {
                     rich_text: [
@@ -112,7 +139,6 @@ export async function POST(request: Request) {
                         name: "New inbound",
                     },
                 },
-                // "Pitch Deck Requested" removed as it doesn't exist in Notion schema
             },
         });
 
