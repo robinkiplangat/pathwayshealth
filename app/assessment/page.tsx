@@ -274,6 +274,9 @@ export default function AssessmentPage() {
     }
 
     if (step === "questions") {
+        // Optimize: Find current hazard details once instead of repeatedly searching
+        const currentHazardDetails = HAZARDS.find(h => h.id === currentHazard);
+
         return (
             <div className="min-h-screen relative pb-20">
                 <AssessmentBackground hazardId={currentHazard} />
@@ -284,7 +287,7 @@ export default function AssessmentPage() {
                         <div className="flex justify-between items-center mb-3 text-white">
                             <div className="flex items-center gap-3">
                                 <Badge variant="outline" className="text-sm font-medium px-3 py-1 border-white/30 text-white bg-white/10 backdrop-blur-sm">
-                                    {HAZARDS.find(h => h.id === currentHazard)?.label}
+                                    {currentHazardDetails?.label}
                                 </Badge>
                                 <ChevronRight size={16} className="text-white/50" />
                                 <span className="font-semibold text-lg tracking-wide">{currentPillar}</span>
@@ -301,7 +304,7 @@ export default function AssessmentPage() {
                     {/* Contextual Header */}
                     <div className="mb-8 text-center animate-in fade-in slide-in-from-top-4 duration-700">
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-lg">
-                            Assessing {HAZARDS.find(h => h.id === currentHazard)?.label} Impact
+                            Assessing {currentHazardDetails?.label} Impact
                         </h2>
                         <p className="text-gray-200 text-lg max-w-2xl mx-auto">
                             on <span className="text-resilience-green font-semibold">{currentPillar}</span> systems

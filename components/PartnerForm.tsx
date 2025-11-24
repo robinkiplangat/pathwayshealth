@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Check, Download, ChevronRight, ChevronLeft } from 'lucide-react';
+import { X, Check, Download, ChevronRight, ChevronLeft, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -36,6 +36,7 @@ export function PartnerForm({ className, children }: PartnerFormProps) {
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showExitConfirm, setShowExitConfirm] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -105,6 +106,21 @@ export function PartnerForm({ className, children }: PartnerFormProps) {
         });
     };
 
+    const hasData = () => {
+        return formData.organisationName ||
+            formData.partnerType ||
+            formData.contactPerson ||
+            formData.workEmail ||
+            formData.geographicFocus.length > 0 ||
+            formData.interestAreas.length > 0 ||
+            formData.countryRegion ||
+            formData.phone ||
+            formData.website ||
+            formData.referralSource ||
+            formData.explorationGoal ||
+            formData.downloadPitch;
+    };
+
     const canProceed = () => {
         if (currentStep === 1) {
             return formData.organisationName && formData.partnerType;
@@ -113,7 +129,8 @@ export function PartnerForm({ className, children }: PartnerFormProps) {
             return true; // Optional fields
         }
         if (currentStep === 3) {
-            return formData.contactPerson && formData.workEmail;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return formData.contactPerson && formData.workEmail && emailRegex.test(formData.workEmail);
         }
         return false;
     };
@@ -131,22 +148,18 @@ export function PartnerForm({ className, children }: PartnerFormProps) {
     };
 
     const handleClose = () => {
-        const hasData = formData.organisationName ||
-            formData.partnerType ||
-            formData.contactPerson ||
-            formData.workEmail ||
-            formData.geographicFocus.length > 0 ||
-            formData.interestAreas.length > 0;
-
-        if (hasData && !isSubmitted) {
-            if (confirm('Are you sure you want to exit? Your progress will be lost.')) {
-                setIsOpen(false);
-                setCurrentStep(1);
-            }
+        if (hasData() && !isSubmitted) {
+            setShowExitConfirm(true);
         } else {
             setIsOpen(false);
             setCurrentStep(1);
         }
+    };
+
+    const confirmExit = () => {
+        setShowExitConfirm(false);
+        setIsOpen(false);
+        setCurrentStep(1);
     };
 
     const [mounted, setMounted] = React.useState(false);
@@ -158,6 +171,7 @@ export function PartnerForm({ className, children }: PartnerFormProps) {
         <div
             className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 overflow-y-auto"
             onClick={(e) => {
+                // Only trigger if clicking the backdrop directly
                 if (e.target === e.currentTarget && !isSubmitted) {
                     handleClose();
                 }
@@ -469,6 +483,38 @@ export function PartnerForm({ className, children }: PartnerFormProps) {
                     )}
                 </div>
             </div>
+
+            {/* Custom Exit Confirmation Modal */}
+            {showExitConfirm && (
+                <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 animate-in zoom-in-95 duration-200">
+                        <div className="text-center">
+                            <div className="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <AlertTriangle size={32} />
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-2">Exit Form?</h3>
+                            <p className="text-gray-600 mb-6">
+                                You have unsaved changes. Are you sure you want to exit? Your progress will be lost.
+                            </p>
+                            <div className="flex gap-3">
+                                <Button
+                                    onClick={() => setShowExitConfirm(false)}
+                                    variant="outline"
+                                    className="flex-1"
+                                >
+                                    Continue Editing
+                                </Button>
+                                <Button
+                                    onClick={confirmExit}
+                                    className="flex-1 bg-red-600 hover:bg-red-700 text-white"
+                                >
+                                    Exit Anyway
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 

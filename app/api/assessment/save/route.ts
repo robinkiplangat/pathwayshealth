@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { auth, currentUser } from '@clerk/nextjs/server';
-import { createClerkSupabaseClient, supabase as adminSupabase } from '@/lib/supabase'; // Use admin/anon for initial fetch if needed, but here we update
+import { supabase as adminSupabase } from '@/lib/supabase';
 import { sendAssessmentSummaryEmail } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: Request) {
     try {
         // Require authentication
-        const { userId, getToken } = await auth();
+        const { userId } = await auth();
         const user = await currentUser();
 
         if (!userId || !user) {
@@ -18,8 +18,9 @@ export async function POST(request: Request) {
             );
         }
 
-        const token = await getToken({ template: 'supabase' });
-        const supabase = token ? createClerkSupabaseClient(token) : adminSupabase;
+        // Use admin Supabase client since auth is already handled by Clerk middleware
+        // We don't need RLS here as we're explicitly filtering by userId
+        const supabase = adminSupabase;
 
         const body = await request.json();
         const { assessmentId, facilityName } = body;
