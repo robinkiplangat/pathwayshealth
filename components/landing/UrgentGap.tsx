@@ -203,7 +203,7 @@ const UrgentGap = () => {
             </div>
 
             {/* 4. Transition to Solution */}
-            <div className="bg-white py-16 text-center border-b border-border/50">
+            <div className="bg-white py-16 text-center">
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto">
                         <p className="text-2xl md:text-4xl font-medium text-foreground leading-relaxed mb-8">
