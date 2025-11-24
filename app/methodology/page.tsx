@@ -247,7 +247,7 @@ export default function MethodologyPage() {
                             We are seeking partners to scale our deployment across three high-priority regions in Sub-Saharan Africa and Southeast Asia. We invite investors, development banks, and corporate partners to join us.
                         </p>
                         <Button asChild size="lg" className="text-xl h-16 px-12 bg-[#2D7A4A] hover:bg-[#25663e] text-white border-2 border-white shadow-[0_0_20px_rgba(45,122,74,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(45,122,74,0.7)] rounded-xl font-bold w-full sm:w-auto">
-                            <a href="/PathwaysHealth_Resilience_.pdf" download>
+                            <a href="/PathwaysHealth_Resilience.pdf" download="PathwaysHealth_Resilience.pdf" target="_blank" rel="noopener noreferrer">
                                 Get our Investment Pitch
                             </a>
                         </Button>

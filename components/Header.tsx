@@ -56,21 +56,39 @@ export function Header() {
 
                 {/* Auth Section */}
                 <div className="flex items-center gap-4">
-                    <SignedOut>
-                        <SignInButton mode="modal">
-                            <button className={cn(
+                    {pathname === '/methodology' ? (
+                        <Link
+                            href="https://fourbic.notion.site/White-Paper-Guiding-Climate-Resilience-Investment-through-the-Pathways-Health-Assessment-Framework-29c2f4154da780a1a23bfdedd249bac2"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={cn(
                                 "px-6 py-2.5 rounded-full shadow-md transition-all duration-300 text-sm font-semibold hover:-translate-y-0.5",
                                 scrolled || !isHomePage
-                                    ? "bg-resilience-green hover:bg-resilience-green/90 text-white shadow-md"
-                                    : "bg-resilience-green hover:bg-resilience-green/90 text-white shadow-md border border-white/10"
-                            )}>
-                                Sign In
-                            </button>
-                        </SignInButton>
-                    </SignedOut>
-                    <SignedIn>
-                        <UserButton afterSignOutUrl="/" />
-                    </SignedIn>
+                                    ? "bg-[#2D7A4A] hover:bg-[#25663e] text-white shadow-md"
+                                    : "bg-[#2D7A4A] hover:bg-[#25663e] text-white shadow-md border border-white/10"
+                            )}
+                        >
+                            Read in Full Here
+                        </Link>
+                    ) : (
+                        <>
+                            <SignedOut>
+                                <SignInButton mode="modal">
+                                    <button className={cn(
+                                        "px-6 py-2.5 rounded-full shadow-md transition-all duration-300 text-sm font-semibold hover:-translate-y-0.5",
+                                        scrolled || !isHomePage
+                                            ? "bg-[#2D7A4A] hover:bg-[#25663e] text-white shadow-md"
+                                            : "bg-[#2D7A4A] hover:bg-[#25663e] text-white shadow-md border border-white/10"
+                                    )}>
+                                        Sign In
+                                    </button>
+                                </SignInButton>
+                            </SignedOut>
+                            <SignedIn>
+                                <UserButton afterSignOutUrl="/" />
+                            </SignedIn>
+                        </>
+                    )}
                 </div>
             </div>
         </header>
