@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Download, Save, Share2, X } from 'lucide-react';
+import { Download, Save, Share2, X, Check, Copy, Link as LinkIcon } from 'lucide-react';
 import AuthGate from './AuthGate';
 import { saveAssessmentSession } from '@/lib/assessment-session';
 import { useAuth } from '@clerk/nextjs';
 import { trackEvent } from '@/lib/analytics';
+import { pdf } from '@react-pdf/renderer';
+import { AssessmentReport } from '@/components/AssessmentReport';
 
 interface ReportPreviewProps {
     assessmentId: string;
@@ -32,6 +34,12 @@ export default function ReportPreview({
     const [showSaveModal, setShowSaveModal] = useState(false);
     const [facilityName, setFacilityName] = useState(initialFacilityName === 'My Facility' ? '' : initialFacilityName);
 
+    // Share state
+    const [isSharing, setIsSharing] = useState(false);
+    const [shareUrl, setShareUrl] = useState<string | null>(null);
+    const [showShareModal, setShowShareModal] = useState(false);
+    const [copied, setCopied] = useState(false);
+
     const handleSaveClick = () => {
         if (saved) return;
         setShowSaveModal(true);
@@ -40,6 +48,8 @@ export default function ReportPreview({
     const handleConfirmSave = async () => {
         setIsSaving(true);
         const nameToSave = facilityName || "My Facility";
+
+        console.log('Saving assessment session:', { assessmentId, facilityName: nameToSave });
 
         // Update session storage first (persists across auth redirects)
         saveAssessmentSession({
@@ -81,9 +91,82 @@ export default function ReportPreview({
         }
     };
 
+    const getReportData = () => {
+        // Construct data object for AssessmentReport
+        // We need to reconstruct the structure expected by AssessmentReport
+        // For MVP, we'll do a best-effort mapping or fetch full data if needed.
+        // However, AssessmentReport expects a specific structure. 
+        // Let's assume we can pass the props we have + some defaults.
+
+        // We need to calculate pillar scores if not provided. 
+        // Since we only have raw responses here, we might need to rely on the server or do a quick calc.
+        // For now, let's use the overall score and placeholder pillar scores if not available.
+
+        return {
+            id: assessmentId,
+            date: new Date().toISOString(),
+            facilityName: facilityName || initialFacilityName,
+            location: location,
+            overallScore: score,
+            pillarScores: {}, // TODO: Calculate or pass these in
+            actionPlan: [] // TODO: Calculate or pass these in
+        };
+    };
+
     const handleDownload = async () => {
-        // TODO: Implement PDF download
-        console.log('Download PDF for assessment:', assessmentId);
+        try {
+            const data = getReportData();
+            const blob = await pdf(<AssessmentReport data={data as any} />).toBlob();
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `pathways-report-${(facilityName || initialFacilityName).replace(/\s+/g, '-').toLowerCase()}.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            trackEvent('download_report_pdf', { assessment_id: assessmentId });
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+        }
+    };
+
+    const handleShare = async () => {
+        setIsSharing(true);
+        try {
+            const data = getReportData();
+            const blob = await pdf(<AssessmentReport data={data as any} />).toBlob();
+            const file = new File([blob], 'report.pdf', { type: 'application/pdf' });
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch('/api/reports/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                const { url } = await response.json();
+                setShareUrl(url);
+                setShowShareModal(true);
+                trackEvent('share_report', { assessment_id: assessmentId });
+            } else {
+                console.error('Failed to upload report');
+            }
+        } catch (error) {
+            console.error('Error sharing report:', error);
+        } finally {
+            setIsSharing(false);
+        }
+    };
+
+    const copyToClipboard = () => {
+        if (shareUrl) {
+            navigator.clipboard.writeText(shareUrl);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }
     };
 
     return (
@@ -138,9 +221,13 @@ export default function ReportPreview({
                     </button>
                 </AuthGate>
 
-                <button className="flex items-center gap-2 rounded-lg border-2 border-gray-300 bg-white px-6 py-3 font-semibold text-gray-700 shadow-lg transition-all hover:bg-gray-50">
+                <button
+                    onClick={handleShare}
+                    disabled={isSharing}
+                    className="flex items-center gap-2 rounded-lg border-2 border-gray-300 bg-white px-6 py-3 font-semibold text-gray-700 shadow-lg transition-all hover:bg-gray-50 disabled:opacity-50"
+                >
                     <Share2 className="h-5 w-5" />
-                    Share
+                    {isSharing ? 'Generating Link...' : 'Share'}
                 </button>
             </div>
 
@@ -192,6 +279,50 @@ export default function ReportPreview({
                                 </AuthGate>
                             )}
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Share Modal */}
+            {showShareModal && shareUrl && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className="relative w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl">
+                        <button
+                            onClick={() => setShowShareModal(false)}
+                            className="absolute right-4 top-4 rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+                        >
+                            <X className="h-5 w-5" />
+                        </button>
+
+                        <div className="flex flex-col items-center text-center mb-6">
+                            <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mb-4 text-green-600">
+                                <LinkIcon className="h-6 w-6" />
+                            </div>
+                            <h2 className="text-2xl font-bold text-gray-900">Share Report</h2>
+                            <p className="mt-2 text-gray-600">Anyone with this link can view your assessment report.</p>
+                        </div>
+
+                        <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 p-3 mb-6">
+                            <input
+                                type="text"
+                                readOnly
+                                value={shareUrl}
+                                className="flex-1 bg-transparent text-sm text-gray-600 outline-none"
+                            />
+                            <button
+                                onClick={copyToClipboard}
+                                className="p-2 hover:bg-white rounded-md transition-colors text-gray-500 hover:text-blue-600"
+                            >
+                                {copied ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
+                            </button>
+                        </div>
+
+                        <button
+                            onClick={() => setShowShareModal(false)}
+                            className="w-full rounded-lg bg-gray-900 px-6 py-3 font-semibold text-white shadow-lg transition-all hover:bg-gray-800"
+                        >
+                            Done
+                        </button>
                     </div>
                 </div>
             )}

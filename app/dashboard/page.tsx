@@ -53,8 +53,11 @@ export default function DashboardPage() {
             try {
                 // Check for pending session to link
                 const session = getAssessmentSession();
+                console.log('Dashboard: Checking for session:', session);
+
                 if (session && session.assessmentId) {
-                    await fetch('/api/assessment/save', {
+                    console.log('Dashboard: Attempting to save session:', session.assessmentId);
+                    const saveRes = await fetch('/api/assessment/save', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -62,6 +65,13 @@ export default function DashboardPage() {
                             facilityName: session.facilityName
                         }),
                     });
+
+                    if (!saveRes.ok) {
+                        console.error('Dashboard: Failed to save session:', await saveRes.text());
+                    } else {
+                        console.log('Dashboard: Session saved successfully');
+                    }
+
                     // Clear session after linking
                     clearAssessmentSession();
                 }

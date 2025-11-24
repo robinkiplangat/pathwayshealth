@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server';
 import { auth, currentUser } from '@clerk/nextjs/server';
-import { createClerkSupabaseClient, supabase as adminSupabase } from '@/lib/supabase'; // Use admin/anon for initial fetch if needed, but here we update
+import { supabase as adminSupabase } from '@/lib/supabase'; // Use admin/anon for initial fetch if needed, but here we update
 import { sendAssessmentSummaryEmail } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
     try {
-        // Require authentication
         const { userId, getToken } = await auth();
         const user = await currentUser();
 
@@ -18,13 +17,16 @@ export async function POST(request: Request) {
             );
         }
 
-        const token = await getToken({ template: 'supabase' });
-        const supabase = token ? createClerkSupabaseClient(token) : adminSupabase;
+        // Use admin Supabase client since auth is already handled by Clerk middleware
+        // We don't need RLS here as we're explicitly filtering by userId
+        const supabase = adminSupabase;
 
         const body = await request.json();
+        console.log('API /assessment/save received:', body);
         const { assessmentId, facilityName } = body;
 
         if (!assessmentId) {
+            console.error('API /assessment/save: Missing assessmentId');
             return NextResponse.json(
                 { error: 'Assessment ID is required' },
                 { status: 400 }
@@ -42,6 +44,9 @@ export async function POST(request: Request) {
             updateData.facilityName = facilityName;
         }
 
+        console.log('API /assessment/save: Attempting update with data:', updateData);
+        console.log('API /assessment/save: Looking for assessment:', assessmentId);
+
         const { data, error } = await supabase
             .from('Assessment')
             .update(updateData)
@@ -51,6 +56,7 @@ export async function POST(request: Request) {
             .single();
 
         if (error) {
+            console.error('API /assessment/save: Supabase error:', error);
             if (error.code === 'PGRST116') {
                 return NextResponse.json(
                     { error: 'Assessment not found or already claimed' },
@@ -59,10 +65,12 @@ export async function POST(request: Request) {
             }
             console.error('Error saving assessment:', error);
             return NextResponse.json(
-                { error: 'Failed to save assessment' },
+                { error: 'Failed to save assessment', details: error.message },
                 { status: 500 }
             );
         }
+
+        console.log('API /assessment/save: Update successful:', data);
 
         // Send email notification
         const userEmail = user.emailAddresses[0]?.emailAddress;
