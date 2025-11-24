@@ -187,9 +187,20 @@ export default function AssessmentPage() {
                 <AssessmentBackground hazardId="DEFAULT" />
 
                 <div className="max-w-5xl mx-auto relative z-10">
-                    <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">Select Your Hazards</h1>
-                        <p className="text-gray-200 text-xl max-w-2xl mx-auto leading-relaxed">Which climate risks are most relevant to your facility?</p>
+                    <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white/80 text-sm font-medium mb-6 backdrop-blur-sm">
+                            <CheckCircle2 size={16} className="text-resilience-green" />
+                            Join 500+ facilities building climate resilience
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+                            Identify Your Climate Risks
+                        </h1>
+                        <p className="text-gray-200 text-xl max-w-3xl mx-auto leading-relaxed mb-4">
+                            Select the climate threats your facility faces. We'll create a customized resilience plan based on your specific risks.
+                        </p>
+                        <p className="text-gray-300 text-sm max-w-2xl mx-auto">
+                            <span className="text-resilience-green font-semibold">💡 Tip:</span> Choose all that apply - most facilities select 2-4 hazards
+                        </p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-24">
@@ -238,9 +249,14 @@ export default function AssessmentPage() {
                         "fixed bottom-0 left-0 right-0 p-6 backdrop-blur-xl border-t border-white/10 z-50 transition-transform duration-500",
                         selectedHazards.length > 0 ? "translate-y-0" : "translate-y-full"
                     )}>
-                        <div className="max-w-4xl mx-auto flex items-center justify-between">
-                            <div className="text-lg font-medium text-white hidden sm:block">
-                                <span className="text-resilience-green font-bold">{selectedHazards.length}</span> hazard{selectedHazards.length !== 1 ? 's' : ''} selected
+                        <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+                            <div className="flex-1">
+                                <div className="text-lg font-medium text-white mb-1">
+                                    <span className="text-resilience-green font-bold">{selectedHazards.length}</span> hazard{selectedHazards.length !== 1 ? 's' : ''} selected
+                                </div>
+                                <div className="text-sm text-gray-300 hidden sm:block">
+                                    Next: Answer questions for each hazard (~15-20 min)
+                                </div>
                             </div>
                             <Button
                                 size="lg"
@@ -282,6 +298,29 @@ export default function AssessmentPage() {
                 </div>
 
                 <div className="container mx-auto px-4 py-12 max-w-3xl relative z-10">
+                    {/* Contextual Header */}
+                    <div className="mb-8 text-center animate-in fade-in slide-in-from-top-4 duration-700">
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-lg">
+                            Assessing {HAZARDS.find(h => h.id === currentHazard)?.label} Impact
+                        </h2>
+                        <p className="text-gray-200 text-lg max-w-2xl mx-auto">
+                            on <span className="text-resilience-green font-semibold">{currentPillar}</span> systems
+                        </p>
+                        <p className="text-gray-300 text-sm mt-2 max-w-xl mx-auto">
+                            Understanding these vulnerabilities helps prioritize critical upgrades and resilience investments.
+                        </p>
+                    </div>
+
+                    {/* Milestone Celebration */}
+                    {progress >= 50 && progress < 55 && (
+                        <div className="mb-8 p-6 rounded-2xl bg-resilience-green/20 border border-resilience-green/30 backdrop-blur-md animate-in zoom-in duration-500">
+                            <div className="text-center">
+                                <div className="text-4xl mb-2">🎉</div>
+                                <h3 className="text-xl font-bold text-white mb-1">Halfway There!</h3>
+                                <p className="text-gray-200 text-sm">You're making great progress. Keep going!</p>
+                            </div>
+                        </div>
+                    )}
                     <div className="space-y-8">
                         {currentQuestions.map((q, idx) => (
                             <Card key={q.id} className="border-white/10 bg-white/10 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-backwards" style={{ animationDelay: `${idx * 100}ms` }}>
