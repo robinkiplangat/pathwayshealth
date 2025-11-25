@@ -60,9 +60,9 @@ export function PartnerForm({ className, children }: PartnerFormProps) {
             // If pitch deck was requested, trigger download
             if (formData.downloadPitch) {
                 const link = document.createElement('a');
-                link.href = '/PathwaysHealth_Resilience.pdf';
-                link.download = 'PathwaysHealth_Resilience.pdf';
+                link.href = '/api/download-pitch';
                 link.target = '_blank';
+                link.rel = 'noopener noreferrer';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
