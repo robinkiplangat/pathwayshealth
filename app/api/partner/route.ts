@@ -1,13 +1,14 @@
 import { Client } from '@notionhq/client';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import { sendPitchDeckEmail } from '@/lib/email';
 
 const partnerSchema = z.object({
     organisationName: z.string().min(1, "Organisation name is required"),
     partnerType: z.string().min(1, "Partner type is required"),
-    geographicFocus: z.array(z.string()).min(1, "At least one geographic focus is required"),
+    geographicFocus: z.array(z.string()).optional().default([]),
     countryRegion: z.string().optional(),
-    interestAreas: z.array(z.string()).min(1, "At least one interest area is required"),
+    interestAreas: z.array(z.string()).optional().default([]),
     contactPerson: z.string().min(1, "Contact person is required"),
     workEmail: z.string().email("Invalid email address"),
     phone: z.string().optional(),
@@ -25,6 +26,7 @@ export async function POST(request: Request) {
         const validationResult = partnerSchema.safeParse(body);
 
         if (!validationResult.success) {
+            console.error('Validation failed:', validationResult.error.format());
             return NextResponse.json(
                 { error: 'Validation failed', details: validationResult.error.format() },
                 { status: 400 }
@@ -141,6 +143,18 @@ export async function POST(request: Request) {
                 },
             },
         });
+
+        // Send Pitch Deck Email if requested
+        if (downloadPitch) {
+            // We don't await this to avoid blocking the response, or we can await it if we want to ensure it sends.
+            // Given it's a serverless function, we SHOULD await it or use `waitUntil` if available, 
+            // but Next.js App Router handlers should generally await side effects.
+            const emailResult = await sendPitchDeckEmail(workEmail, contactPerson);
+            if (!emailResult.success) {
+                console.error('Failed to send pitch deck email:', emailResult.error);
+                // We don't fail the request, just log it.
+            }
+        }
 
         return NextResponse.json({ success: true });
     } catch (error) {
