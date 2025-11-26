@@ -36,10 +36,13 @@ export default function TermsOfService() {
                     <section>
                         <h2 className="text-xl font-semibold text-gray-900 mb-3">3. Disclaimer</h2>
                         <p>
-                            The materials on Pathways' website are provided on an 'as is' basis. Fourbic makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+                            The materials on Pathways' website, including the climate resilience assessment and generated action plans, are provided on an 'as is' basis for informational purposes only. They do not constitute professional engineering, medical, legal, or climate adaptation advice.
                         </p>
                         <p className="mt-2">
-                            Further, Fourbic does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its website or otherwise relating to such materials or on any sites linked to this site.
+                            Fourbic makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+                        </p>
+                        <p className="mt-2">
+                            Further, Fourbic does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its website or otherwise relating to such materials or on any sites linked to this site. You should consult with qualified professionals before making significant infrastructure or operational changes based on the information provided.
                         </p>
                     </section>
 

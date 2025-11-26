@@ -22,7 +22,8 @@ export default function PrivacyPolicy() {
                         <h2 className="text-xl font-semibold text-gray-900 mb-3">1. Information We Collect</h2>
                         <p>We may collect information about you in a variety of ways. The information we may collect on the Site includes:</p>
                         <ul className="list-disc pl-5 mt-2 space-y-1">
-                            <li><strong>Personal Data:</strong> Personally identifiable information, such as your name, shipping address, email address, and telephone number, and demographic information, such as your age, gender, hometown, and interests, that you voluntarily give to us when you register with the Site or when you choose to participate in various activities related to the Site.</li>
+                            <li><strong>Personal Data:</strong> Personally identifiable information, such as your name, email address, and telephone number, that you voluntarily give to us when you register with the Site or when you choose to participate in various activities related to the Site.</li>
+                            <li><strong>Facility Data:</strong> Information related to your healthcare facility, including facility name, location, operational characteristics, and responses to climate resilience assessments. This data is collected to generate your resilience action plan and for aggregated analysis.</li>
                             <li><strong>Derivative Data:</strong> Information our servers automatically collect when you access the Site, such as your IP address, your browser type, your operating system, your access times, and the pages you have viewed directly before and after accessing the Site.</li>
                         </ul>
                     </section>
@@ -32,11 +33,9 @@ export default function PrivacyPolicy() {
                         <p>Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the Site to:</p>
                         <ul className="list-disc pl-5 mt-2 space-y-1">
                             <li>Create and manage your account.</li>
-                            <li>Compile anonymous statistical data and analysis for use internally or with third parties.</li>
-                            <li>Email you regarding your account or order.</li>
-                            <li>Fulfill and manage purchases, orders, payments, and other transactions related to the Site.</li>
-                            <li>Generate a personal profile about you to make future visits to the Site more personalized.</li>
-                            <li>Increase the efficiency and operation of the Site.</li>
+                            <li>Generate and deliver your Facility Resilience Action Plan.</li>
+                            <li>Compile anonymous statistical data and analysis for use internally or with third parties to improve climate resilience strategies.</li>
+                            <li>Email you regarding your account, assessment results, or updates.</li>
                             <li>Respond to product and customer service requests.</li>
                         </ul>
                     </section>
@@ -46,7 +45,14 @@ export default function PrivacyPolicy() {
                         <p>We may share information we have collected about you in certain situations. Your information may be disclosed as follows:</p>
                         <ul className="list-disc pl-5 mt-2 space-y-1">
                             <li><strong>By Law or to Protect Rights:</strong> If we believe the release of information about you is necessary to respond to legal process, to investigate or remedy potential violations of our policies, or to protect the rights, property, and safety of others, we may share your information as permitted or required by any applicable law, rule, or regulation.</li>
-                            <li><strong>Third-Party Service Providers:</strong> We may share your information with third parties that perform services for us or on our behalf, including payment processing, data analysis, email delivery, hosting services, customer service, and marketing assistance.</li>
+                            <li><strong>Third-Party Service Providers:</strong> We may share your information with third parties that perform services for us or on our behalf, including:
+                                <ul className="list-circle pl-5 mt-1 space-y-1">
+                                    <li><strong>Authentication:</strong> Clerk (Identity management)</li>
+                                    <li><strong>Email Services:</strong> Resend (Transactional emails)</li>
+                                    <li><strong>Database & CRM:</strong> Notion (Partner data management) and Supabase/Postgres (Application data)</li>
+                                    <li><strong>Hosting & Analytics:</strong> Vercel (Web hosting and usage analytics)</li>
+                                </ul>
+                            </li>
                         </ul>
                     </section>
 
@@ -91,7 +97,28 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                        <h2 className="text-xl font-semibold text-gray-900 mb-3">7. Contact Us</h2>
+                        <h2 className="text-xl font-semibold text-gray-900 mb-3">7. Kenya Data Protection Compliance (DPA 2019)</h2>
+                        <p>
+                            As a Kenyan-based entity, we are fully committed to compliance with the Data Protection Act, 2019. We process your personal data based on your consent and the necessity to provide our services.
+                        </p>
+                        <p className="mt-2">Under the Act, you have the following rights:</p>
+                        <ul className="list-disc pl-5 mt-2 space-y-1">
+                            <li><strong>Right to be informed:</strong> You have the right to be informed of the use to which your personal data is to be put.</li>
+                            <li><strong>Right of access:</strong> You have the right to access your personal data in our custody.</li>
+                            <li><strong>Right to object:</strong> You have the right to object to the processing of all or part of your personal data.</li>
+                            <li><strong>Right to correction:</strong> You have the right to correction of false or misleading data.</li>
+                            <li><strong>Right to deletion:</strong> You have the right to deletion of false or misleading data about you.</li>
+                        </ul>
+                        <p className="mt-2">
+                            <strong>Cross-Border Data Transfer:</strong> Your data is stored on secure servers hosted by Vercel and Supabase, which may be located outside Kenya. We ensure appropriate safeguards are in place to protect your data during such transfers, in accordance with the Act.
+                        </p>
+                        <p className="mt-2">
+                            You have the right to lodge a complaint with the Office of the Data Protection Commissioner (ODPC) if you believe your rights have been infringed.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 className="text-xl font-semibold text-gray-900 mb-3">8. Contact Us</h2>
                         <p>
                             If you have questions or comments about this Privacy Policy, please contact us at:
                         </p>
