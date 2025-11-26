@@ -85,7 +85,7 @@ export async function POST(request: Request) {
                 data.facilityName,
                 undefined as any, // Cast to any if strict types complain, or update type in lib
                 reportUrl
-            ).catch(err => console.error('Failed to send email:', err));
+            ).catch(err => console.error('Failed to send assessment summary email:', err));
         }
 
         return NextResponse.json({

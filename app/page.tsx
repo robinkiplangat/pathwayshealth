@@ -65,7 +65,7 @@ export default async function Home() {
                   Get Started
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg h-16 px-10 border-2 border-white/80 bg-black/20 text-white hover:bg-white hover:text-black hover:border-white backdrop-blur-md transition-all hover:-translate-y-1 rounded-xl font-semibold">
+              <Button asChild variant="outline" size="lg" className="text-lg h-16 px-10 border-2 border-white/80 bg-black/20 text-white hover:bg-white hover:text-black hover:border-white backdrop-blur-md transition-all hover:-translate-y-1 rounded-xl font-semibold focus-visible:ring-4 focus-visible:ring-white/50 focus-visible:outline-none">
                 <Link href="#partners">
                   For Donors & Partners
                 </Link>

@@ -21,7 +21,7 @@ export const PitchDeckEmail = ({
     name,
 }: PitchDeckEmailProps) => {
     const previewText = `Here is the Pathways Health investment pitch deck you requested.`;
-    const pitchDeckUrl = 'https://pathways.fourbic.com/PathwaysHealth_Resilience.pdf';
+    const pitchDeckUrl = 'https://pathways.fourbic.com/api/download-pitch';
 
     return (
         <Html>
