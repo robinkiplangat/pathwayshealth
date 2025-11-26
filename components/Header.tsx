@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useTranslations, useLocale } from 'next-intl';
 import {
     SignInButton,
     SignUpButton,
@@ -16,6 +17,8 @@ import { cn } from "@/lib/utils";
 export function Header() {
     const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
+    const t = useTranslations('header');
+    const locale = useLocale();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -26,7 +29,8 @@ export function Header() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const isHomePage = pathname === "/";
+    // Check if we're on the home page (accounting for locale prefix)
+    const isHomePage = pathname === `/${locale}` || pathname === '/';
     const showLogo = !isHomePage || scrolled;
 
     return (
@@ -40,7 +44,7 @@ export function Header() {
             <div className="max-w-7xl mx-auto flex items-center justify-between">
                 {/* Logo Section */}
                 <div className={cn("transition-opacity duration-300", showLogo ? "opacity-100" : "opacity-0 pointer-events-none")}>
-                    <Link href="/" className="flex items-center gap-3">
+                    <Link href={`/${locale}`} className="flex items-center gap-3">
                         <Image
                             src="/PH_logo.png"
                             alt="Pathways Health"
@@ -56,7 +60,7 @@ export function Header() {
 
                 {/* Auth Section */}
                 <div className="flex items-center gap-4">
-                    {pathname === '/methodology' ? (
+                    {pathname.includes('/methodology') ? (
                         <Link
                             href="https://fourbic.notion.site/White-Paper-Guiding-Climate-Resilience-Investment-through-the-Pathways-Health-Assessment-Framework-29c2f4154da780a1a23bfdedd249bac2"
                             target="_blank"
@@ -68,19 +72,19 @@ export function Header() {
                                     : "bg-[#2D7A4A] hover:bg-[#25663e] text-white shadow-md border border-white/10"
                             )}
                         >
-                            Read in Full Here
+                            {t('readInFull')}
                         </Link>
                     ) : (
                         <>
                             <SignedOut>
                                 <Link
-                                    href="/#partners"
+                                    href={`/${locale}#partners`}
                                     className={cn(
                                         "text-sm font-semibold transition-colors hover:opacity-80 mr-2 hidden sm:block",
                                         !isHomePage || scrolled ? "text-foreground hover:text-[#2D7A4A]" : "text-white hover:text-white/80"
                                     )}
                                 >
-                                    Scale our Impact
+                                    {t('scaleImpact')}
                                 </Link>
                                 <SignInButton mode="modal">
                                     <button className={cn(
@@ -89,12 +93,12 @@ export function Header() {
                                             ? "bg-[#2D7A4A] hover:bg-[#25663e] text-white shadow-md"
                                             : "bg-[#2D7A4A] hover:bg-[#25663e] text-white shadow-md border border-white/10"
                                     )}>
-                                        Sign In
+                                        {t('signIn', { defaultValue: 'Sign In' })}
                                     </button>
                                 </SignInButton>
                             </SignedOut>
                             <SignedIn>
-                                <UserButton afterSignOutUrl="/" />
+                                <UserButton afterSignOutUrl={`/${locale}`} />
                             </SignedIn>
                         </>
                     )}

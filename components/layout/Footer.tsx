@@ -1,6 +1,22 @@
+'use client';
+
 import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
+import { usePathname, useRouter } from 'next/navigation';
+import { localeNames } from '@/i18n/request';
 
 export default function Footer() {
+    const t = useTranslations('footer');
+    const locale = useLocale();
+    const pathname = usePathname();
+    const router = useRouter();
+
+    const switchLocale = (newLocale: string) => {
+        // Remove current locale from pathname and add new one
+        const pathWithoutLocale = pathname.replace(`/${locale}`, '');
+        router.push(`/${newLocale}${pathWithoutLocale}`);
+    };
+
     return (
         <footer className="relative z-10 mt-auto pb-6 px-4">
             <div className="container mx-auto max-w-5xl">
@@ -9,35 +25,42 @@ export default function Footer() {
                         <div>
                             <h3 className="text-xl font-bold text-white mb-4">Pathways Health</h3>
                             <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-                                Empowering healthcare facilities to build climate resilience through actionable assessments and planning.
+                                {t('tagline')}
                             </p>
                         </div>
 
                         <div>
-                            <h4 className="font-bold text-white mb-4">Quick Links</h4>
+                            <h4 className="font-bold text-white mb-4">{t('quickLinks')}</h4>
                             <ul className="space-y-2 text-gray-400 text-sm">
-                                <li><Link href="/assessment" className="hover:text-resilience-green transition-colors">Start Assessment</Link></li>
-                                <li><Link href="/dashboard" className="hover:text-resilience-green transition-colors">Dashboard</Link></li>
-                                <li><Link href="https://www.who.int/teams/environment-climate-change-and-health/climate-change-and-health" className="hover:text-resilience-green transition-colors">WHO Guidance</Link></li>
+                                <li><Link href={`/${locale}/assessment`} className="hover:text-resilience-green transition-colors">{t('startAssessment')}</Link></li>
+                                <li><Link href={`/${locale}/dashboard`} className="hover:text-resilience-green transition-colors">{t('dashboard')}</Link></li>
+                                <li><Link href="https://www.who.int/teams/environment-climate-change-and-health/climate-change-and-health" className="hover:text-resilience-green transition-colors">{t('whoGuidance')}</Link></li>
                             </ul>
                         </div>
 
                         <div>
-                            <h4 className="font-bold text-white mb-4">Legal & Contact</h4>
+                            <h4 className="font-bold text-white mb-4">{t('legalContact')}</h4>
                             <ul className="space-y-2 text-gray-400 text-sm">
-                                <li><Link href="/privacy-policy" className="hover:text-resilience-green transition-colors">Privacy Policy</Link></li>
-                                <li><Link href="/terms-of-service" className="hover:text-resilience-green transition-colors">Terms of Use</Link></li>
-                                <li><Link href="mailto:info@fourbic.com" className="hover:text-resilience-green transition-colors">Contact Us</Link></li>
+                                <li><Link href={`/${locale}/privacy-policy`} className="hover:text-resilience-green transition-colors">{t('privacyPolicy')}</Link></li>
+                                <li><Link href={`/${locale}/terms-of-service`} className="hover:text-resilience-green transition-colors">{t('termsOfUse')}</Link></li>
+                                <li><Link href="mailto:info@fourbic.com" className="hover:text-resilience-green transition-colors">{t('contactUs')}</Link></li>
                             </ul>
                         </div>
                     </div>
 
                     <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-                        <p>© 2025 Pathways Health. All rights reserved.</p>
+                        <p>{t('copyright', { year: 2025 })}</p>
                         <div className="flex items-center gap-4">
-                            <span className="hover:text-white cursor-pointer transition-colors">English</span>
-                            <span className="hover:text-white cursor-pointer transition-colors">Kiswahili</span>
-                            <span className="hover:text-white cursor-pointer transition-colors">Français</span>
+                            {Object.entries(localeNames).map(([code, name]) => (
+                                <button
+                                    key={code}
+                                    onClick={() => switchLocale(code)}
+                                    className={`hover:text-white cursor-pointer transition-colors ${locale === code ? 'text-white font-semibold' : ''
+                                        }`}
+                                >
+                                    {name}
+                                </button>
+                            ))}
                         </div>
                     </div>
                 </div>

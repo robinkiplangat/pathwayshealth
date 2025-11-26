@@ -1,0 +1,88 @@
+{
+    "common": {
+        "signIn": "Ingia",
+        "signOut": "Toka",
+        "getStarted": "Anza",
+        "learnMore": "Jifunze Zaidi",
+        "download": "Pakua",
+        "submit": "Wasilisha",
+        "cancel": "Ghairi",
+        "next": "Ifuatayo",
+        "previous": "Iliyotangulia",
+        "save": "Hifadhi",
+        "loading": "Inapakia..."
+    },
+    "header": {
+        "scaleImpact": "Kuza Athari Yetu",
+        "readInFull": "Soma Kamili Hapa",
+        "signIn": "Ingia"
+    },
+    "footer": {
+        "tagline": "Ustahimilivu wa Hali ya Hewa kwa Vituo vya Afya",
+        "quickLinks": "Viungo vya Haraka",
+        "legalContact": "Sheria na Mawasiliano",
+        "startAssessment": "Anza Tathmini",
+        "dashboard": "Dashibodi",
+        "whoGuidance": "Mwongozo wa WHO",
+        "privacyPolicy": "Sera ya Faragha",
+        "termsOfUse": "Masharti ya Matumizi",
+        "contactUs": "Wasiliana Nasi",
+        "copyright": "© {year} Pathways Health. Haki zote zimehifadhiwa.",
+        "languages": {
+            "en": "En",
+            "sw": "Sw",
+            "fr": "Fr"
+        }
+    },
+    "hero": {
+        "title": "Kujenga Miundombinu ya Afya Inayostahimili Hali ya Hewa",
+        "subtitle": "Kuwezesha vituo vya afya kushughulikia vitisho vya hali ya hewa kupitia tathmini zinazofaa na mipango inayotegemea ushahidi.",
+        "ctaPrimary": "Anza Tathmini Yako",
+        "ctaSecondary": "Kwa Wafadhili na Washirika"
+    },
+    "features": {
+        "title": "Kwa Nini Pathways?",
+        "subtitle": "Zana zinazotegemea ushahidi kwa marekebisho ya hali ya hewa",
+        "assessment": {
+            "title": "Tathmini Kamili",
+            "description": "Uchambuzi wa udhaifu unaofanana na WHO kwa hatari zote za hali ya hewa"
+        },
+        "actionPlan": {
+            "title": "Ramani ya Vitendo",
+            "description": "Hatua zilizopangwa kwa kipaumbele na hatua wazi za utekelezaji"
+        },
+        "monitoring": {
+            "title": "Ufuatiliaji wa Maendeleo",
+            "description": "Fuatilia maboresho ya ustahimilivu kwa wakati"
+        }
+    },
+    "urgentGap": {
+        "title": "Pengo la Dharura",
+        "subtitle": "Vitisho vya hali ya hewa vinaongezeka. Maandalizi ya afya hayafuati.",
+        "stats": {
+            "facilities": "vituo vya afya viko hatarini ulimwenguni",
+            "unprepared": "havina mipango ya msingi ya ustahimilivu wa hali ya hewa",
+            "investment": "inahitajika kila mwaka kwa marekebisho"
+        }
+    },
+    "scaleImpact": {
+        "title": "Kwa Wafadhili na Washirika",
+        "subtitle": "Kuza Ustahimilivu wa Hali ya Hewa Katika Mifumo ya Afya",
+        "description": "Shirikiana nasi kusambaza tathmini za ustahimilivu zinazotegemea ushahidi ulimwenguni kote.",
+        "cta": "Pata Azimio Letu la Uwekezaji",
+        "features": {
+            "proven": {
+                "title": "Muundo Ulioidhinishwa",
+                "description": "Mbinu inayofanana na WHO imejaribiwa katika mazingira mbalimbali"
+            },
+            "scalable": {
+                "title": "Suluhisho Linaloweza Kupanuka",
+                "description": "Jukwaa la kidijitali tayari kwa mifumo ya afya ya kitaifa"
+            },
+            "impactful": {
+                "title": "Athari Inayoweza Kupimwa",
+                "description": "Fuatilia maboresho ya ustahimilivu na faida ya uwekezaji"
+            }
+        }
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "common": {
+        "signIn": "Se connecter",
+        "signOut": "Se déconnecter",
+        "getStarted": "Commencer",
+        "learnMore": "En savoir plus",
+        "download": "Télécharger",
+        "submit": "Soumettre",
+        "cancel": "Annuler",
+        "next": "Suivant",
+        "previous": "Précédent",
+        "save": "Enregistrer",
+        "loading": "Chargement..."
+    },
+    "header": {
+        "scaleImpact": "Amplifier Notre Impact",
+        "readInFull": "Lire en entier ici",
+        "signIn": "Se connecter"
+    },
+    "footer": {
+        "tagline": "Résilience climatique pour les établissements de santé",
+        "quickLinks": "Liens rapides",
+        "legalContact": "Mentions légales et contact",
+        "startAssessment": "Démarrer l'évaluation",
+        "dashboard": "Tableau de bord",
+        "whoGuidance": "Orientations de l'OMS",
+        "privacyPolicy": "Politique de confidentialité",
+        "termsOfUse": "Conditions d'utilisation",
+        "contactUs": "Nous contacter",
+        "copyright": "© {year} Pathways Health. Tous droits réservés.",
+        "languages": {
+            "en": "En",
+            "sw": "Sw",
+            "fr": "Fr"
+        }
+    },
+    "hero": {
+        "title": "Construire des infrastructures de santé résilientes au climat",
+        "subtitle": "Permettre aux établissements de santé de résister aux menaces climatiques grâce à des évaluations concrètes et une planification fondée sur des preuves.",
+        "ctaPrimary": "Commencer votre évaluation",
+        "ctaSecondary": "Pour les donateurs et partenaires"
+    },
+    "features": {
+        "title": "Pourquoi Pathways ?",
+        "subtitle": "Des outils fondés sur des données probantes pour l'adaptation climatique",
+        "assessment": {
+            "title": "Évaluation complète",
+            "description": "Analyse de vulnérabilité alignée sur l'OMS pour tous les risques climatiques"
+        },
+        "actionPlan": {
+            "title": "Feuille de route actionnable",
+            "description": "Interventions priorisées avec des étapes de mise en œuvre claires"
+        },
+        "monitoring": {
+            "title": "Suivi des progrès",
+            "description": "Suivre les améliorations de résilience au fil du temps"
+        }
+    },
+    "urgentGap": {
+        "title": "Le déficit urgent",
+        "subtitle": "Les menaces climatiques s'accélèrent. La préparation des soins de santé ne suit pas.",
+        "stats": {
+            "facilities": "établissements de santé à risque dans le monde",
+            "unprepared": "manquent de plans de résilience climatique de base",
+            "investment": "nécessaires annuellement pour l'adaptation"
+        }
+    },
+    "scaleImpact": {
+        "title": "Pour les donateurs et partenaires",
+        "subtitle": "Renforcer la résilience climatique dans les systèmes de santé",
+        "description": "Associez-vous à nous pour déployer des évaluations de résilience fondées sur des preuves à l'échelle mondiale.",
+        "cta": "Obtenez notre présentation d'investissement",
+        "features": {
+            "proven": {
+                "title": "Cadre éprouvé",
+                "description": "Méthodologie alignée sur l'OMS testée dans divers contextes"
+            },
+            "scalable": {
+                "title": "Solution évolutive",
+                "description": "Plateforme numérique prête pour les systèmes de santé nationaux"
+            },
+            "impactful": {
+                "title": "Impact mesurable",
+                "description": "Suivre les améliorations de résilience et le retour sur investissement"
+            }
+        }
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "common": {
+        "signIn": "Sign In",
+        "signOut": "Sign Out",
+        "getStarted": "Get Started",
+        "learnMore": "Learn More",
+        "download": "Download",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "next": "Next",
+        "previous": "Previous",
+        "save": "Save",
+        "loading": "Loading..."
+    },
+    "header": {
+        "scaleImpact": "Scale our Impact",
+        "readInFull": "Read in Full Here",
+        "signIn": "Sign In"
+    },
+    "footer": {
+        "tagline": "Climate Resilience for Healthcare Facilities",
+        "quickLinks": "Quick Links",
+        "legalContact": "Legal & Contact",
+        "startAssessment": "Start Assessment",
+        "dashboard": "Dashboard",
+        "whoGuidance": "WHO Guidance",
+        "privacyPolicy": "Privacy Policy",
+        "termsOfUse": "Terms of Use",
+        "contactUs": "Contact Us",
+        "copyright": "© {year} Pathways Health. All rights reserved.",
+        "languages": {
+            "en": "English",
+            "sw": "Kiswahili",
+            "fr": "Français"
+        }
+    },
+    "hero": {
+        "title": "Building Climate-Resilient Healthcare Infrastructure",
+        "subtitle": "Empowering healthcare facilities to withstand climate threats through actionable assessments and evidence-based planning.",
+        "ctaPrimary": "Start Your Assessment",
+        "ctaSecondary": "For Donors & Partners"
+    },
+    "features": {
+        "title": "Why Pathways?",
+        "subtitle": "Evidence-based tools for climate adaptation",
+        "assessment": {
+            "title": "Comprehensive Assessment",
+            "description": "WHO-aligned vulnerability analysis across all climate hazards"
+        },
+        "actionPlan": {
+            "title": "Actionable Roadmap",
+            "description": "Prioritized interventions with clear implementation steps"
+        },
+        "monitoring": {
+            "title": "Progress Tracking",
+            "description": "Monitor resilience improvements over time"
+        }
+    },
+    "urgentGap": {
+        "title": "The Urgent Gap",
+        "subtitle": "Climate threats are accelerating. Healthcare preparedness is not.",
+        "stats": {
+            "facilities": "healthcare facilities at risk globally",
+            "unprepared": "lack basic climate resilience plans",
+            "investment": "needed annually for adaptation"
+        }
+    },
+    "scaleImpact": {
+        "title": "For Donors & Partners",
+        "subtitle": "Scale Climate Resilience Across Healthcare Systems",
+        "description": "Partner with us to deploy evidence-based resilience assessments globally.",
+        "cta": "Get Our Investment Pitch",
+        "features": {
+            "proven": {
+                "title": "Proven Framework",
+                "description": "WHO-aligned methodology tested across diverse settings"
+            },
+            "scalable": {
+                "title": "Scalable Solution",
+                "description": "Digital platform ready for national health systems"
+            },
+            "impactful": {
+                "title": "Measurable Impact",
+                "description": "Track resilience improvements and ROI"
+            }
+        }
+    }
+}
