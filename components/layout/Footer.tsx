@@ -18,7 +18,7 @@ export default function Footer() {
                             <ul className="space-y-2 text-gray-400 text-sm">
                                 <li><Link href="/assessment" className="hover:text-resilience-green transition-colors">Start Assessment</Link></li>
                                 <li><Link href="/dashboard" className="hover:text-resilience-green transition-colors">Dashboard</Link></li>
-                                <li><Link href="#" className="hover:text-resilience-green transition-colors">WHO Guidance</Link></li>
+                                <li><Link href="https://www.who.int/teams/environment-climate-change-and-health/climate-change-and-health" className="hover:text-resilience-green transition-colors">WHO Guidance</Link></li>
                             </ul>
                         </div>
 

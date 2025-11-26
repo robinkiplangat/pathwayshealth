@@ -11,6 +11,8 @@ const isPublicRoute = createRouteMatcher([
     "/api/questions",
     "/api/assessment/submit",
     "/api/download-pitch",
+    "/api/analytics/track",
+    "/api/webhooks(.*)",
     "/terms-of-service",
     "/privacy-policy",
 ]);

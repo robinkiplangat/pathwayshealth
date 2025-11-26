@@ -15,6 +15,19 @@ export const supabase = createClient(
     supabaseKey || "placeholder-key"
 );
 
+// Admin client for bypassing RLS (server-side only)
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
+export const supabaseAdmin = createClient(
+    supabaseUrl || "https://placeholder.supabase.co",
+    supabaseServiceKey || "placeholder-key",
+    {
+        auth: {
+            autoRefreshToken: false,
+            persistSession: false
+        }
+    }
+);
+
 export const createClerkSupabaseClient = (clerkToken: string) => {
     return createClient(
         supabaseUrl || "https://placeholder.supabase.co",
