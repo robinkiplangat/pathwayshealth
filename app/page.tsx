@@ -59,8 +59,8 @@ export default async function Home() {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Button asChild size="lg" className="text-xl h-16 px-12 bg-resilience-green hover:bg-resilience-green/90 text-white border-2 border-white shadow-[0_0_20px_rgba(45,122,74,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(45,122,74,0.7)] rounded-xl font-bold focus-visible:ring-4 focus-visible:ring-white/50 focus-visible:outline-none">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pb-8 sm:pb-12 md:pb-16">
+              <Button asChild size="lg" className="text-xl h-16 px-12 bg-resilience-green hover:bg-resilience-green/90 text-white border-2 border-white shadow-[0_0_20px_rgba(45,122,74,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(45,122,74,0.7)] rounded-xl font-bold">
                 <Link href="/assessment">
                   Get Started
                 </Link>
