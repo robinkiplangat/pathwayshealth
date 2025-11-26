@@ -72,6 +72,15 @@ export function Header() {
                         </Link>
                     ) : (
                         <>
+                            <Link
+                                href="/#partners"
+                                className={cn(
+                                    "text-sm font-semibold transition-colors hover:opacity-80 mr-2 hidden sm:block",
+                                    !isHomePage || scrolled ? "text-foreground hover:text-[#2D7A4A]" : "text-white hover:text-white/80"
+                                )}
+                            >
+                                Scale our Impact
+                            </Link>
                             <SignedOut>
                                 <SignInButton mode="modal">
                                     <button className={cn(
