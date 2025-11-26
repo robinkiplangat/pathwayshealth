@@ -32,7 +32,7 @@ export function Header() {
     return (
         <header
             className={cn(
-                "top-0 left-0 right-0 z-50 transition-all duration-300 p-4",
+                "top-0 left-0 right-0 z-50 transition-all duration-300 py-3 px-4",
                 isHomePage ? "fixed" : "sticky bg-white/80 backdrop-blur-md shadow-sm border-b border-white/20",
                 scrolled && isHomePage ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-white/20" : ""
             )}
@@ -44,9 +44,9 @@ export function Header() {
                         <Image
                             src="/PH_logo.png"
                             alt="Pathways Health"
-                            width={120}
-                            height={120}
-                            className="h-24 w-auto"
+                            width={60}
+                            height={60}
+                            className="h-12 w-auto"
                         />
                         <span className={cn("font-bold text-xl hidden sm:block", !isHomePage || scrolled ? "text-foreground" : "text-white")}>
                             {/* Pathways Health */}

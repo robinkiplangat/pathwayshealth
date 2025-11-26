@@ -25,6 +25,7 @@ import ReportPreview from "@/components/ReportPreview";
 import { saveAssessmentSession } from "@/lib/assessment-session";
 import { trackEvent } from "@/lib/analytics";
 
+
 const HAZARDS = [
     { id: "FLOOD", label: "Floods", icon: Waves, color: "text-blue-500", bg: "bg-blue-50" },
     { id: "STORM", label: "Storms", icon: CloudLightning, color: "text-yellow-600", bg: "bg-yellow-50" },
@@ -66,6 +67,7 @@ export default function AssessmentPage() {
     };
 
     const startAssessment = async () => {
+
         if (selectedHazards.length === 0) return;
         setLoading(true);
         trackEvent('start_assessment', { hazards: selectedHazards });
@@ -171,6 +173,13 @@ export default function AssessmentPage() {
     const totalSections = selectedHazards.length * PILLARS.length;
     const completedSections = (currentHazardIndex * PILLARS.length) + currentPillarIndex;
     const progress = (completedSections / totalSections) * 100;
+
+    // Calculate question-level progress for current section
+    const totalQuestionsInSection = currentQuestions.length;
+    const answeredQuestionsInSection = currentQuestions.filter(q => responses[q.id] !== undefined).length;
+    const questionProgress = totalQuestionsInSection > 0
+        ? (answeredQuestionsInSection / totalQuestionsInSection) * 100
+        : 0;
 
     // Sound Effect Logic
     useEffect(() => {
@@ -278,14 +287,22 @@ export default function AssessmentPage() {
         const currentHazardDetails = HAZARDS.find(h => h.id === currentHazard);
 
         return (
-            <div className="min-h-screen relative pb-20">
+            <div className="flex flex-col h-screen">
                 <AssessmentBackground hazardId={currentHazard} />
 
-                {/* Header */}
+                {/* Sticky Header */}
                 <div className="sticky top-0 z-40 backdrop-blur-xl bg-black/20 border-b border-white/10 shadow-lg">
                     <div className="container mx-auto px-4 py-4">
                         <div className="flex justify-between items-center mb-3 text-white">
                             <div className="flex items-center gap-3">
+                                <Badge
+                                    variant="outline"
+                                    className="text-sm font-medium px-3 py-1 border-white/30 text-white bg-white/10 backdrop-blur-sm cursor-pointer hover:bg-white/20 transition-colors"
+                                    onClick={() => setStep("hazards")}
+                                >
+                                    All Assessments
+                                </Badge>
+                                <ChevronRight size={16} className="text-white/50" />
                                 <Badge variant="outline" className="text-sm font-medium px-3 py-1 border-white/30 text-white bg-white/10 backdrop-blur-sm">
                                     {currentHazardDetails?.label}
                                 </Badge>
@@ -296,86 +313,96 @@ export default function AssessmentPage() {
                                 {completedSections + 1} / {totalSections}
                             </span>
                         </div>
-                        <Progress value={progress} className="h-1.5 bg-white/10" indicatorClassName="bg-resilience-green" />
+                        <Progress
+                            value={questionProgress}
+                            className="h-2 bg-white/10 border border-white/20 shadow-inner"
+                            indicatorClassName="bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"
+                        />
                     </div>
                 </div>
 
-                <div className="container mx-auto px-4 py-12 max-w-3xl relative z-10">
-                    {/* Contextual Header */}
-                    <div className="mb-8 text-center animate-in fade-in slide-in-from-top-4 duration-700">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-lg">
-                            Assessing {currentHazardDetails?.label} Impact
-                        </h2>
-                        <p className="text-gray-200 text-lg max-w-2xl mx-auto">
-                            on <span className="text-resilience-green font-semibold">{currentPillar}</span> systems
-                        </p>
-                        <p className="text-gray-300 text-sm mt-2 max-w-xl mx-auto">
-                            Understanding these vulnerabilities helps prioritize critical upgrades and resilience investments.
-                        </p>
-                    </div>
-
-                    {/* Milestone Celebration */}
-                    {progress >= 50 && progress < 55 && (
-                        <div className="mb-8 p-6 rounded-2xl bg-resilience-green/20 border border-resilience-green/30 backdrop-blur-md animate-in zoom-in duration-500">
-                            <div className="text-center">
-                                <div className="text-4xl mb-2">🎉</div>
-                                <h3 className="text-xl font-bold text-white mb-1">Halfway There!</h3>
-                                <p className="text-gray-200 text-sm">You're making great progress. Keep going!</p>
-                            </div>
+                {/* Scrollable Content Area */}
+                <div className="flex-grow overflow-y-auto">
+                    <div className="container mx-auto px-4 py-12 max-w-3xl relative z-10">
+                        {/* Contextual Header */}
+                        <div className="mb-8 text-center animate-in fade-in slide-in-from-top-4 duration-700">
+                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-lg">
+                                Assessing {currentHazardDetails?.label} Impact
+                            </h2>
+                            <p className="text-gray-200 text-lg max-w-2xl mx-auto">
+                                on <span className="text-resilience-green font-semibold">{currentPillar}</span> systems
+                            </p>
+                            <p className="text-gray-300 text-sm mt-2 max-w-xl mx-auto">
+                                Understanding these vulnerabilities helps prioritize critical upgrades and resilience investments.
+                            </p>
                         </div>
-                    )}
-                    <div className="space-y-8">
-                        {currentQuestions.map((q, idx) => (
-                            <Card key={q.id} className="border-white/10 bg-white/10 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-backwards" style={{ animationDelay: `${idx * 100}ms` }}>
-                                <CardHeader className="pb-4">
-                                    <div className="flex justify-between items-start gap-4">
-                                        <CardTitle className="text-xl font-medium leading-relaxed text-white">
-                                            {q.text} {q.isCritical && <span className="text-red-400 ml-1 drop-shadow-md" title="Critical Question">*</span>}
-                                        </CardTitle>
-                                    </div>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                        {[
-                                            { label: "Low / No", value: 1, color: "hover:bg-red-500/20 hover:border-red-500/50 text-white border-white/20" },
-                                            { label: "Medium / Partial", value: 2, color: "hover:bg-yellow-500/20 hover:border-yellow-500/50 text-white border-white/20" },
-                                            { label: "High / Yes", value: 3, color: "hover:bg-green-500/20 hover:border-green-500/50 text-white border-white/20" }
-                                        ].map((option) => (
-                                            <button
-                                                key={option.value}
-                                                onClick={() => handleResponse(q.id, option.value)}
-                                                className={cn(
-                                                    "py-4 px-4 rounded-xl border transition-all duration-200 text-sm font-semibold backdrop-blur-sm",
-                                                    responses[q.id] === option.value
-                                                        ? "ring-2 ring-offset-2 ring-offset-transparent ring-resilience-green border-transparent bg-resilience-green text-white shadow-lg scale-[1.02]"
-                                                        : `${option.color} bg-white/5`
-                                                )}
-                                            >
-                                                {option.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
 
-                    <div className="mt-16 flex justify-between">
+                        {/* Milestone Celebration */}
+                        {progress >= 50 && progress < 55 && (
+                            <div className="mb-8 p-6 rounded-2xl bg-resilience-green/20 border border-resilience-green/30 backdrop-blur-md animate-in zoom-in duration-500">
+                                <div className="text-center">
+                                    <div className="text-4xl mb-2">🎉</div>
+                                    <h3 className="text-xl font-bold text-white mb-1">Halfway There!</h3>
+                                    <p className="text-gray-200 text-sm">You're making great progress. Keep going!</p>
+                                </div>
+                            </div>
+                        )}
+                        <div className="space-y-8 pb-8">
+                            {currentQuestions.map((q, idx) => (
+                                <Card key={q.id} className="border-white/10 bg-white/10 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-backwards" style={{ animationDelay: `${idx * 100}ms` }}>
+                                    <CardHeader className="pb-4">
+                                        <div className="flex justify-between items-start gap-4">
+                                            <CardTitle className="text-xl font-medium leading-relaxed text-white">
+                                                {q.text} {q.isCritical && <span className="text-red-400 ml-1 drop-shadow-md" title="Critical Question">*</span>}
+                                            </CardTitle>
+                                        </div>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                            {[
+                                                { label: "Low / No", value: 1, color: "hover:bg-red-500/20 hover:border-red-500/50 text-white border-white/20" },
+                                                { label: "Medium / Partial", value: 2, color: "hover:bg-yellow-500/20 hover:border-yellow-500/50 text-white border-white/20" },
+                                                { label: "High / Yes", value: 3, color: "hover:bg-green-500/20 hover:border-green-500/50 text-white border-white/20" }
+                                            ].map((option) => (
+                                                <button
+                                                    key={option.value}
+                                                    onClick={() => handleResponse(q.id, option.value)}
+                                                    className={cn(
+                                                        "py-4 px-4 rounded-xl border transition-all duration-200 text-sm font-semibold backdrop-blur-sm",
+                                                        responses[q.id] === option.value
+                                                            ? "ring-2 ring-offset-2 ring-offset-transparent ring-resilience-green border-transparent bg-resilience-green text-white shadow-lg scale-[1.02]"
+                                                            : `${option.color} bg-white/5`
+                                                    )}
+                                                >
+                                                    {option.label}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Sticky Footer Navigation */}
+                <div className="sticky bottom-0 z-40 backdrop-blur-xl bg-black/20 border-t border-white/10 shadow-lg py-3 px-4">
+                    <div className="container mx-auto max-w-3xl flex justify-between">
                         <Button
-                            size="lg"
+                            size="default"
                             variant="outline"
                             onClick={previousSection}
                             disabled={currentHazardIndex === 0 && currentPillarIndex === 0}
-                            className="px-8 h-14 text-lg border-white/20 text-white hover:bg-white/10 bg-transparent backdrop-blur-sm"
+                            className="px-6 h-11 text-base border-white/20 text-white hover:bg-white/10 bg-transparent backdrop-blur-sm"
                         >
-                            <ChevronLeft className="mr-2" /> Previous
+                            <ChevronLeft className="mr-2" size={18} /> Previous
                         </Button>
                         <Button
-                            size="lg"
+                            size="default"
                             onClick={nextSection}
-                            className="px-10 h-14 text-lg bg-white text-black hover:bg-white/90 shadow-xl shadow-white/10 rounded-xl transition-transform hover:scale-105"
+                            className="px-8 h-11 text-base bg-white text-black hover:bg-white/90 shadow-xl shadow-white/10 rounded-xl transition-transform hover:scale-105"
                         >
-                            Next Section <ArrowRight className="ml-2" />
+                            Next Section <ArrowRight className="ml-2" size={18} />
                         </Button>
                     </div>
                 </div>
