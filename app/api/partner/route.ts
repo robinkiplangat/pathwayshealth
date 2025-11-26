@@ -151,7 +151,7 @@ export async function POST(request: Request) {
             // but Next.js App Router handlers should generally await side effects.
             const emailResult = await sendPitchDeckEmail(workEmail, contactPerson);
             if (!emailResult.success) {
-                console.error('Failed to send pitch deck email:', emailResult.error);
+                console.error('Failed to send pitch deck email. Error:', emailResult.error);
                 // We don't fail the request, just log it.
             }
         }

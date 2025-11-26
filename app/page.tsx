@@ -60,12 +60,12 @@ export default async function Home() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Button asChild size="lg" className="text-xl h-16 px-12 bg-resilience-green hover:bg-resilience-green/90 text-white border-2 border-white shadow-[0_0_20px_rgba(45,122,74,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(45,122,74,0.7)] rounded-xl font-bold">
+              <Button asChild size="lg" className="text-xl h-16 px-12 bg-resilience-green hover:bg-resilience-green/90 text-white border-2 border-white shadow-[0_0_20px_rgba(45,122,74,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(45,122,74,0.7)] rounded-xl font-bold focus-visible:ring-4 focus-visible:ring-white/50 focus-visible:outline-none">
                 <Link href="/assessment">
                   Get Started
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg h-16 px-10 border-2 border-white/80 bg-black/20 text-white hover:bg-white hover:text-black hover:border-white backdrop-blur-md transition-all hover:-translate-y-1 rounded-xl font-semibold">
+              <Button asChild variant="outline" size="lg" className="text-lg h-16 px-10 border-2 border-white/80 bg-black/20 text-white hover:bg-white hover:text-black hover:border-white backdrop-blur-md transition-all hover:-translate-y-1 rounded-xl font-semibold focus-visible:ring-4 focus-visible:ring-white/50 focus-visible:outline-none">
                 <Link href="#partners">
                   For Donors & Partners
                 </Link>

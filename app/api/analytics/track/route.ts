@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase';
 
 export async function POST(request: Request) {
     try {
@@ -12,7 +12,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Event name required' }, { status: 400 });
         }
 
-        const { error } = await supabase
+        const { error } = await supabaseAdmin
             .from('AnalyticsEvent')
             .insert({
                 event_name,

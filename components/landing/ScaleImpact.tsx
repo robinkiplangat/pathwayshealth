@@ -6,10 +6,10 @@ import { PartnerForm } from '@/components/PartnerForm';
 
 const ScaleImpact = () => {
     return (
-        <section id="partners" className="py-24 bg-resilience-green/5 relative overflow-hidden">
+        <section id="partners" className="min-h-screen flex items-center py-24 bg-resilience-green/10 relative overflow-hidden">
             {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-5 pointer-events-none"
-                style={{ backgroundImage: 'radial-gradient(#2D7A4A 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
+            <div className="absolute inset-0 opacity-[0.15] pointer-events-none"
+                style={{ backgroundImage: 'radial-gradient(#2D7A4A 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}>
             </div>
 
             <div className="container mx-auto px-4 relative z-10">
@@ -46,7 +46,7 @@ const ScaleImpact = () => {
 
                     {/* Visual/Cards Side */}
                     <div className="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow border border-border/50">
+                        <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-resilience-green/10 hover:border-resilience-green/30 hover:-translate-y-1">
                             <div className="w-12 h-12 bg-sky-blue/10 rounded-xl flex items-center justify-center mb-4 text-sky-blue">
                                 <Globe2 size={24} />
                             </div>
@@ -56,7 +56,7 @@ const ScaleImpact = () => {
                             </p>
                         </div>
 
-                        <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow border border-border/50 md:translate-y-8">
+                        <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-resilience-green/10 hover:border-resilience-green/30 md:translate-y-8 hover:-translate-y-1 md:hover:translate-y-7">
                             <div className="w-12 h-12 bg-earth-brown/10 rounded-xl flex items-center justify-center mb-4 text-earth-brown">
                                 <LineChart size={24} />
                             </div>

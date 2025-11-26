@@ -17,12 +17,16 @@ export const metadata: Metadata = {
   description: "Assess and strengthen your healthcare facility's climate resilience with Pathways Health.",
   icons: {
     icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
 };
 
 import { Analytics } from "@vercel/analytics/next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Header } from "@/components/Header";
+
+import Footer from "@/components/layout/Footer";
 
 export default function RootLayout({
   children,
@@ -33,11 +37,14 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
         >
           <Header />
-          {children}
+          <main className="flex-grow">
+            {children}
+          </main>
           <Analytics />
+          <Footer />
         </body>
       </html>
     </ClerkProvider>
