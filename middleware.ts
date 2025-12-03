@@ -14,6 +14,7 @@ const isPublicRoute = createRouteMatcher([
     "/api/analytics/track",
     "/api/webhooks(.*)",
     "/api/dashboards(.*)",
+    "/dashboards(.*)",
     "/terms-of-service",
     "/privacy-policy",
 ]);
