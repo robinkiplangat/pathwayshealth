@@ -13,6 +13,7 @@ const isPublicRoute = createRouteMatcher([
     "/api/download-pitch",
     "/api/analytics/track",
     "/api/webhooks(.*)",
+    "/api/dashboards(.*)",
     "/terms-of-service",
     "/privacy-policy",
 ]);
