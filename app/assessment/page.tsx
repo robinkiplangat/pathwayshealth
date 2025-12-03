@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { AssessmentBackground } from "@/components/AssessmentBackground";
 import ReportPreview from "@/components/ReportPreview";
+import { FacilitySelector } from "@/components/FacilitySelector";
 import { saveAssessmentSession } from "@/lib/assessment-session";
 import { trackEvent } from "@/lib/analytics";
 
@@ -37,9 +38,22 @@ const HAZARDS = [
 
 const PILLARS = ["WORKFORCE", "WASH", "ENERGY", "INFRASTRUCTURE"];
 
+interface Facility {
+    id: string;
+    name: string;
+    code: string;
+    facility_type: string;
+    tier_level: number;
+    ward: string;
+    sub_county: string;
+    county: string;
+    location: string;
+}
+
 export default function AssessmentPage() {
     const router = useRouter();
-    const [step, setStep] = useState<"hazards" | "questions" | "complete">("hazards");
+    const [step, setStep] = useState<"facility" | "hazards" | "questions" | "complete">("facility");
+    const [selectedFacility, setSelectedFacility] = useState<Facility | null>(null);
     const [selectedHazards, setSelectedHazards] = useState<string[]>([]);
     const [questions, setQuestions] = useState<any[]>([]);
     const [currentHazardIndex, setCurrentHazardIndex] = useState(0);
@@ -135,8 +149,9 @@ export default function AssessmentPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     responses: formattedResponses,
-                    facilityName: "My Facility", // Placeholder
-                    location: "Unknown" // Placeholder
+                    facilityId: selectedFacility?.id,
+                    facilityName: selectedFacility?.name || "Unknown Facility",
+                    location: selectedFacility?.location || "Unknown"
                 })
             });
 
@@ -146,8 +161,8 @@ export default function AssessmentPage() {
                 // Save session for potential linking later
                 saveAssessmentSession({
                     assessmentId: data.id,
-                    facilityName: "My Facility", // Default, can be updated later
-                    location: "Unknown",
+                    facilityName: selectedFacility?.name || "Unknown Facility",
+                    location: selectedFacility?.location || "Unknown",
                     responses: formattedResponses.map(r => ({ ...r, answer: r.score.toString() }))
                 });
             }

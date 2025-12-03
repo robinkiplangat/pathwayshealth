@@ -1,0 +1,6 @@
+name,code,facility_type,ownership,tier_level,ward_name,county_name,bed_capacity,staff_count,contact_phone,contact_email,address,latitude,longitude,has_emergency_services,has_maternity_services,has_surgery_capacity
+Kenyatta National Hospital,10000,hospital,public,6,Nairobi Central,Nairobi,2000,5000,+254-20-2726300,info@knh.or.ke,"Hospital Road, Nairobi",-1.3006,36.8063,true,true,true
+Mombasa Hospital,20000,hospital,public,5,Mvita,Mombasa,500,800,+254-41-2312191,info@mombasahospital.go.ke,"Mombasa Road, Mombasa",-4.0435,39.6682,true,true,true
+Kisumu County Hospital,30000,hospital,public,5,Kisumu Central,Kisumu,300,600,+254-57-2020000,info@kisumuhospital.go.ke,"Kisumu-Kakamega Road",-0.0917,34.7680,true,true,false
+Nakuru Level 5 Hospital,40000,hospital,public,5,Nakuru East,Nakuru,400,700,+254-51-2213502,info@nakuruhospital.go.ke,"Nakuru Town",0.2827,36.0800,true,true,true
+Eldoret Hospital,50000,hospital,public,5,Eldoret West,Uasin Gishu,350,650,+254-53-2063349,info@eldorethospital.go.ke,"Eldoret Town",0.5143,35.2698,true,true,false
