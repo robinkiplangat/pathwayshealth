@@ -7,6 +7,7 @@ import {
     LayoutDashboard,
     Map,
     Building2,
+    FileText,
     Settings,
     Menu,
     X
@@ -25,13 +26,18 @@ const navItems = [
     },
     {
         title: 'Regional View',
-        href: '/dashboards/regional', // This might need to be a list or search page
+        href: '/dashboards/regional',
         icon: Map,
     },
     {
         title: 'Facilities',
-        href: '/dashboards/facility', // This might need to be a list or search page
+        href: '/dashboards/facility',
         icon: Building2,
+    },
+    {
+        title: 'Your Reports',
+        href: '/reports',
+        icon: FileText,
     },
     {
         title: 'Settings',
