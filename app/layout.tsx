@@ -25,6 +25,7 @@ export const metadata: Metadata = {
 import { Analytics } from "@vercel/analytics/next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Header } from "@/components/Header";
+import { ToastProvider } from "@/components/ToastProvider";
 
 import Footer from "@/components/layout/Footer";
 
@@ -45,6 +46,7 @@ export default function RootLayout({
           </main>
           <Analytics />
           <Footer />
+          <ToastProvider />
         </body>
       </html>
     </ClerkProvider>
