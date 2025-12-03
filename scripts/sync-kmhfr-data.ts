@@ -6,6 +6,8 @@
  * Base URL: https://api.kmhfr.health.go.ke/api/
  */
 
+import 'dotenv/config';
+
 import { supabaseAdmin } from '../lib/supabase';
 
 const KMHFR_BASE_URL = 'https://api.kmhfr.health.go.ke/api';
