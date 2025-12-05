@@ -23,7 +23,20 @@ export async function GET() {
             .not('tier_level', 'is', null);
 
         // Get facilities by county
-        const { data: byCounty } = await supabaseAdmin
+        // Define types for the query result
+        interface CountyData {
+            wards: {
+                sub_counties: {
+                    counties: {
+                        id: string;
+                        name: string;
+                    };
+                };
+            };
+        }
+
+        // Get facilities by county
+        const { data: rawCountyData } = await supabaseAdmin
             .from('facilities')
             .select(`
                 wards!inner(
@@ -35,6 +48,9 @@ export async function GET() {
                     )
                 )
             `);
+
+        // Cast data
+        const byCounty = rawCountyData as unknown as CountyData[];
 
         // Get assessment coverage
         const { count: assessedFacilities } = await supabaseAdmin

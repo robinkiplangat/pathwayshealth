@@ -85,12 +85,42 @@ export async function GET(request: Request) {
         // Apply pagination
         query = query.range(offset, offset + limit - 1);
 
-        const { data, error, count } = await query;
+        const { data: rawData, error, count } = await query;
 
         if (error) {
             console.error('Error fetching facilities:', error);
             return NextResponse.json({ error: error.message }, { status: 500 });
         }
+
+        // Define types for the query result
+        interface FacilityData {
+            id: string;
+            code: string;
+            name: string;
+            facility_type: string;
+            ownership: string;
+            tier_level: number;
+            beds: number;
+            cots: number;
+            open_whole_day: boolean;
+            open_weekends: boolean;
+            open_late_night: boolean;
+            operational_status: string;
+            regulated: boolean;
+            wards: {
+                name: string;
+                sub_counties: {
+                    name: string;
+                    counties: {
+                        id: string;
+                        name: string;
+                    };
+                };
+            };
+        }
+
+        // Cast data
+        const data = rawData as unknown as FacilityData[];
 
         // Transform data for easier consumption
         const facilities = data?.map(facility => ({

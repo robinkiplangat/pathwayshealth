@@ -5,10 +5,38 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { data, error } = await supabaseAdmin
+        const { id } = await params;
+        // Define types for the query result
+        interface FacilityData {
+            id: string;
+            code: string;
+            name: string;
+            facility_type: string;
+            ownership: string;
+            tier_level: number;
+            beds: number;
+            cots: number;
+            open_whole_day: boolean;
+            open_weekends: boolean;
+            open_late_night: boolean;
+            operational_status: string;
+            regulated: boolean;
+            wards: {
+                name: string;
+                sub_counties: {
+                    name: string;
+                    counties: {
+                        id: string;
+                        name: string;
+                    };
+                };
+            };
+        }
+
+        const { data: rawData, error } = await supabaseAdmin
             .from('facilities')
             .select(`
                 id,
@@ -25,10 +53,8 @@ export async function GET(
                 operational_status,
                 regulated,
                 wards!inner(
-                    id,
                     name,
                     sub_counties!inner(
-                        id,
                         name,
                         counties!inner(
                             id,
@@ -37,7 +63,7 @@ export async function GET(
                     )
                 )
             `)
-            .eq('id', params.id)
+            .eq('id', id)
             .single();
 
         if (error) {
@@ -45,9 +71,12 @@ export async function GET(
             return NextResponse.json({ error: error.message }, { status: 500 });
         }
 
-        if (!data) {
+        if (!rawData) {
             return NextResponse.json({ error: 'Facility not found' }, { status: 404 });
         }
+
+        // Cast data to our interface
+        const data = rawData as unknown as FacilityData;
 
         // Transform data
         const facility = {
