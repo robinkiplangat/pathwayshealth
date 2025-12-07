@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+// import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -100,7 +100,7 @@ export default function FacilitiesPage() {
     };
 
     return (
-        <DashboardLayout>
+        <>
             <div className="p-4 md:p-8 max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6">
@@ -367,6 +367,6 @@ export default function FacilitiesPage() {
                     </div>
                 )}
             </div>
-        </DashboardLayout>
+        </>
     );
 }

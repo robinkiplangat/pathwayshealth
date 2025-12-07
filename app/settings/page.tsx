@@ -67,196 +67,160 @@ export default function SettingsPage() {
     return (
         <DashboardLayout>
             <div className="p-4 md:p-8 max-w-7xl mx-auto">
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
-                    <p className="text-gray-500 mt-1">Manage your account preferences and settings</p>
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <div>
+                        <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
+                        <p className="text-gray-500 mt-1">Manage your account preferences and settings</p>
+                    </div>
+                    <Button onClick={handleSave} disabled={saving} className="gap-2 shadow-sm">
+                        <Save size={16} />
+                        {saving ? 'Saving...' : 'Save Changes'}
+                    </Button>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                    {/* Sidebar Navigation */}
-                    <div className="lg:col-span-1">
-                        <nav className="space-y-1">
-                            {sections.map((section) => {
-                                const Icon = section.icon;
-                                return (
-                                    <button
-                                        key={section.id}
-                                        onClick={() => setActiveSection(section.id)}
-                                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${activeSection === section.id
-                                                ? 'bg-[var(--primary-teal)] text-white'
-                                                : 'text-gray-700 hover:bg-gray-100'
-                                            }`}
-                                    >
-                                        <Icon size={20} />
-                                        <span className="font-medium">{section.title}</span>
-                                    </button>
-                                );
-                            })}
-                        </nav>
-                    </div>
+                {/* Top Navigation Tabs */}
+                <div className="bg-gray-100/50 p-1 rounded-xl mb-8 overflow-x-auto">
+                    <nav className="flex items-center gap-1 min-w-max">
+                        {sections.map((section) => {
+                            const Icon = section.icon;
+                            const isActive = activeSection === section.id;
+                            return (
+                                <button
+                                    key={section.id}
+                                    onClick={() => setActiveSection(section.id)}
+                                    className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
+                                        ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5'
+                                        : 'text-gray-500 hover:text-gray-900 hover:bg-white/50'
+                                        }`}
+                                >
+                                    <Icon size={16} className={isActive ? "text-[var(--primary-teal)]" : ""} />
+                                    <span>{section.title}</span>
+                                </button>
+                            );
+                        })}
+                    </nav>
+                </div>
 
-                    {/* Content Area */}
-                    <div className="lg:col-span-3 space-y-6">
-                        {/* Profile Section */}
-                        {activeSection === 'profile' && (
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Profile Information</CardTitle>
-                                    <CardDescription>Update your personal information and profile details</CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-6">
-                                    <div className="flex items-center gap-6">
-                                        <div className="w-20 h-20 rounded-full bg-[var(--primary-teal)] flex items-center justify-center text-white text-2xl font-bold">
-                                            {user?.firstName?.[0]}{user?.lastName?.[0]}
-                                        </div>
-                                        <div>
-                                            <h3 className="font-semibold text-lg">{user?.fullName}</h3>
-                                            <p className="text-gray-500">{user?.primaryEmailAddress?.emailAddress}</p>
-                                        </div>
+                {/* Content Area */}
+                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    {/* Profile Section */}
+                    {activeSection === 'profile' && (
+                        <Card className="border-none shadow-sm ring-1 ring-gray-100">
+                            <CardHeader>
+                                <CardTitle>Profile Information</CardTitle>
+                                <CardDescription>Update your personal information and profile details</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-8">
+                                <div className="flex items-center gap-6">
+                                    <div className="w-24 h-24 rounded-full bg-[var(--primary-teal)]/10 flex items-center justify-center text-[var(--primary-teal)] text-3xl font-bold ring-4 ring-white shadow-sm">
+                                        {user?.firstName?.[0]}{user?.lastName?.[0]}
                                     </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <Label htmlFor="firstName">First Name</Label>
-                                            <Input id="firstName" defaultValue={user?.firstName || ''} className="mt-1" />
-                                        </div>
-                                        <div>
-                                            <Label htmlFor="lastName">Last Name</Label>
-                                            <Input id="lastName" defaultValue={user?.lastName || ''} className="mt-1" />
-                                        </div>
+                                    <div>
+                                        <h3 className="font-semibold text-xl text-gray-900">{user?.fullName}</h3>
+                                        <p className="text-gray-500">{user?.primaryEmailAddress?.emailAddress}</p>
+                                        <Button variant="link" className="px-0 text-[var(--primary-teal)] h-auto mt-1">Change Avatar</Button>
                                     </div>
+                                </div>
 
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <Label htmlFor="firstName">First Name</Label>
+                                        <Input id="firstName" defaultValue={user?.firstName || ''} className="mt-2" />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="lastName">Last Name</Label>
+                                        <Input id="lastName" defaultValue={user?.lastName || ''} className="mt-2" />
+                                    </div>
                                     <div>
                                         <Label htmlFor="organization">Organization</Label>
-                                        <Input id="organization" placeholder="Your organization" className="mt-1" />
+                                        <Input id="organization" placeholder="Your organization" className="mt-2" />
                                     </div>
-
                                     <div>
                                         <Label htmlFor="role">Role/Position</Label>
-                                        <Input id="role" placeholder="e.g., Facility Manager" className="mt-1" />
+                                        <Input id="role" placeholder="e.g., Facility Manager" className="mt-2" />
                                     </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
 
-                                    <Button onClick={handleSave} disabled={saving} className="gap-2">
-                                        <Save size={16} />
-                                        {saving ? 'Saving...' : 'Save Changes'}
+                    {/* Notifications Section */}
+                    {activeSection === 'notifications' && (
+                        <Card className="border-none shadow-sm ring-1 ring-gray-100">
+                            <CardHeader>
+                                <CardTitle>Notification Preferences</CardTitle>
+                                <CardDescription>Manage how and when you receive notifications</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-6">
+                                {[
+                                    { key: 'emailNotifications', label: 'Email Notifications', desc: 'Receive notifications via email' },
+                                    { key: 'assessmentReminders', label: 'Assessment Reminders', desc: 'Get reminded to complete assessments' },
+                                    { key: 'weeklyDigest', label: 'Weekly Digest', desc: 'Receive a weekly summary of activity' },
+                                    { key: 'reportAlerts', label: 'Report Completion Alerts', desc: 'Get notified when reports are ready' }
+                                ].map((item) => (
+                                    <div key={item.key} className="flex items-center justify-between py-2">
+                                        <div>
+                                            <p className="font-medium text-gray-900">{item.label}</p>
+                                            <p className="text-sm text-gray-500">{item.desc}</p>
+                                        </div>
+                                        <Switch
+                                            checked={(settings as any)[item.key]}
+                                            onCheckedChange={(checked) =>
+                                                setSettings({ ...settings, [item.key]: checked })
+                                            }
+                                        />
+                                    </div>
+                                ))}
+                            </CardContent>
+                        </Card>
+                    )}
+
+                    {/* Privacy & Data Section */}
+                    {activeSection === 'privacy' && (
+                        <Card className="border-none shadow-sm ring-1 ring-gray-100">
+                            <CardHeader>
+                                <CardTitle>Privacy & Data</CardTitle>
+                                <CardDescription>Manage your data and privacy settings</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-8">
+                                <div className="p-4 bg-gray-50 rounded-xl border border-gray-100">
+                                    <h3 className="font-semibold mb-2 text-gray-900">Export Your Data</h3>
+                                    <p className="text-sm text-gray-500 mb-4">
+                                        Download a copy of all your data including assessments, reports, and settings.
+                                    </p>
+                                    <Button variant="outline" onClick={handleExportData} className="gap-2 bg-white">
+                                        <Download size={16} />
+                                        Export Data
                                     </Button>
-                                </CardContent>
-                            </Card>
-                        )}
+                                </div>
 
-                        {/* Notifications Section */}
-                        {activeSection === 'notifications' && (
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Notification Preferences</CardTitle>
-                                    <CardDescription>Manage how and when you receive notifications</CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-6">
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <p className="font-medium">Email Notifications</p>
-                                            <p className="text-sm text-gray-500">Receive notifications via email</p>
-                                        </div>
-                                        <Switch
-                                            checked={settings.emailNotifications}
-                                            onCheckedChange={(checked) =>
-                                                setSettings({ ...settings, emailNotifications: checked })
-                                            }
-                                        />
-                                    </div>
+                                <div className="p-4 bg-red-50 rounded-xl border border-red-100">
+                                    <h3 className="font-semibold mb-2 text-red-700">Delete Account</h3>
+                                    <p className="text-sm text-red-600/80 mb-4">
+                                        Permanently delete your account and all associated data. This action cannot be undone.
+                                    </p>
+                                    <Button variant="destructive">Delete Account</Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
 
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <p className="font-medium">Assessment Reminders</p>
-                                            <p className="text-sm text-gray-500">Get reminded to complete assessments</p>
-                                        </div>
-                                        <Switch
-                                            checked={settings.assessmentReminders}
-                                            onCheckedChange={(checked) =>
-                                                setSettings({ ...settings, assessmentReminders: checked })
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <p className="font-medium">Weekly Digest</p>
-                                            <p className="text-sm text-gray-500">Receive a weekly summary of activity</p>
-                                        </div>
-                                        <Switch
-                                            checked={settings.weeklyDigest}
-                                            onCheckedChange={(checked) =>
-                                                setSettings({ ...settings, weeklyDigest: checked })
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <p className="font-medium">Report Completion Alerts</p>
-                                            <p className="text-sm text-gray-500">Get notified when reports are ready</p>
-                                        </div>
-                                        <Switch
-                                            checked={settings.reportAlerts}
-                                            onCheckedChange={(checked) =>
-                                                setSettings({ ...settings, reportAlerts: checked })
-                                            }
-                                        />
-                                    </div>
-
-                                    <Button onClick={handleSave} disabled={saving} className="gap-2">
-                                        <Save size={16} />
-                                        {saving ? 'Saving...' : 'Save Preferences'}
-                                    </Button>
-                                </CardContent>
-                            </Card>
-                        )}
-
-                        {/* Privacy & Data Section */}
-                        {activeSection === 'privacy' && (
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Privacy & Data</CardTitle>
-                                    <CardDescription>Manage your data and privacy settings</CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-6">
-                                    <div>
-                                        <h3 className="font-semibold mb-2">Export Your Data</h3>
-                                        <p className="text-sm text-gray-500 mb-4">
-                                            Download a copy of all your data including assessments, reports, and settings
-                                        </p>
-                                        <Button variant="outline" onClick={handleExportData} className="gap-2">
-                                            <Download size={16} />
-                                            Export Data
-                                        </Button>
-                                    </div>
-
-                                    <div className="border-t pt-6">
-                                        <h3 className="font-semibold mb-2 text-red-600">Delete Account</h3>
-                                        <p className="text-sm text-gray-500 mb-4">
-                                            Permanently delete your account and all associated data. This action cannot be undone.
-                                        </p>
-                                        <Button variant="destructive">Delete Account</Button>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        )}
-
-                        {/* Appearance Section */}
-                        {activeSection === 'appearance' && (
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Appearance</CardTitle>
-                                    <CardDescription>Customize how the application looks</CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-6">
+                    {/* Appearance Section */}
+                    {activeSection === 'appearance' && (
+                        <Card className="border-none shadow-sm ring-1 ring-gray-100">
+                            <CardHeader>
+                                <CardTitle>Appearance</CardTitle>
+                                <CardDescription>Customize how the application looks</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <Label htmlFor="theme">Theme</Label>
                                         <select
                                             id="theme"
                                             value={settings.theme}
                                             onChange={(e) => setSettings({ ...settings, theme: e.target.value })}
-                                            className="w-full mt-1 rounded-md border-gray-300 p-2 border"
+                                            className="w-full mt-2 rounded-lg border-gray-200 p-2.5 border bg-gray-50/50"
                                         >
                                             <option value="light">Light</option>
                                             <option value="dark">Dark</option>
@@ -270,49 +234,44 @@ export default function SettingsPage() {
                                             id="language"
                                             value={settings.language}
                                             onChange={(e) => setSettings({ ...settings, language: e.target.value })}
-                                            className="w-full mt-1 rounded-md border-gray-300 p-2 border"
+                                            className="w-full mt-2 rounded-lg border-gray-200 p-2.5 border bg-gray-50/50"
                                         >
                                             <option value="en">English</option>
                                             <option value="sw">Kiswahili</option>
                                             <option value="fr">Français</option>
                                         </select>
                                     </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
 
-                                    <Button onClick={handleSave} disabled={saving} className="gap-2">
-                                        <Save size={16} />
-                                        {saving ? 'Saving...' : 'Save Preferences'}
-                                    </Button>
-                                </CardContent>
-                            </Card>
-                        )}
+                    {/* API & Integrations Section */}
+                    {activeSection === 'api' && (
+                        <Card className="border-none shadow-sm ring-1 ring-gray-100">
+                            <CardHeader>
+                                <CardTitle>API & Integrations</CardTitle>
+                                <CardDescription>Manage API keys and third-party integrations</CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-8">
+                                <div>
+                                    <h3 className="font-semibold mb-2 text-gray-900">API Keys</h3>
+                                    <p className="text-sm text-gray-500 mb-4">
+                                        Generate API keys for programmatic access to your data.
+                                    </p>
+                                    <Button variant="outline">Generate New API Key</Button>
+                                </div>
 
-                        {/* API & Integrations Section */}
-                        {activeSection === 'api' && (
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>API & Integrations</CardTitle>
-                                    <CardDescription>Manage API keys and third-party integrations</CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-6">
-                                    <div>
-                                        <h3 className="font-semibold mb-2">API Keys</h3>
-                                        <p className="text-sm text-gray-500 mb-4">
-                                            Generate API keys for programmatic access to your data
-                                        </p>
-                                        <Button variant="outline">Generate New API Key</Button>
-                                    </div>
-
-                                    <div className="border-t pt-6">
-                                        <h3 className="font-semibold mb-2">Webhooks</h3>
-                                        <p className="text-sm text-gray-500 mb-4">
-                                            Configure webhooks to receive real-time updates
-                                        </p>
-                                        <Button variant="outline">Add Webhook</Button>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        )}
-                    </div>
+                                <div className="border-t pt-6">
+                                    <h3 className="font-semibold mb-2 text-gray-900">Webhooks</h3>
+                                    <p className="text-sm text-gray-500 mb-4">
+                                        Configure webhooks to receive real-time updates.
+                                    </p>
+                                    <Button variant="outline">Add Webhook</Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
                 </div>
             </div>
         </DashboardLayout>
