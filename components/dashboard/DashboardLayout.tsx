@@ -60,19 +60,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     isSidebarOpen ? "translate-x-0" : "-translate-x-full"
                 )}
             >
-                <div className="h-20 flex items-center justify-between px-6 border-b border-gray-100">
-                    <Link href="/" className="flex items-center gap-2">
-                        <Image
-                            src="/PH_logo.png"
-                            alt="Pathways Health"
-                            width={160}
-                            height={60}
-                            className="h-12 w-auto object-contain"
-                            priority
-                        />
-                    </Link>
+                <div className="h-20 flex items-center justify-end px-6 lg:hidden border-b border-gray-100">
                     <button
-                        className="ml-auto lg:hidden text-gray-500 hover:text-gray-900"
+                        className="text-gray-500 hover:text-gray-900"
                         onClick={() => setIsSidebarOpen(false)}
                     >
                         <X className="h-6 w-6" />
