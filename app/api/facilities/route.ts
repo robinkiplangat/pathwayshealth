@@ -41,13 +41,13 @@ export async function GET(request: Request) {
                 open_late_night,
                 operational_status,
                 regulated,
-                wards!inner(
+                wards(
                     id,
                     name,
-                    sub_counties!inner(
+                    sub_counties(
                         id,
                         name,
-                        counties!inner(
+                        counties(
                             id,
                             name
                         )
