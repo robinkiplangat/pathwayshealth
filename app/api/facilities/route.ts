@@ -34,13 +34,9 @@ export async function GET(request: Request) {
                 facility_type,
                 ownership,
                 tier_level,
-                beds,
-                cots,
-                open_whole_day,
-                open_weekends,
-                open_late_night,
-                operational_status,
-                regulated,
+                bed_capacity,
+                staff_count,
+                status,
                 wards(
                     id,
                     name,
@@ -74,11 +70,11 @@ export async function GET(request: Request) {
             query = query.eq('tier_level', parseInt(tierLevel));
         }
         if (status) {
-            query = query.eq('operational_status', status);
+            query = query.eq('status', status);
         }
 
         // Apply sorting
-        const validSortColumns = ['name', 'code', 'tier_level', 'beds'];
+        const validSortColumns = ['name', 'code', 'tier_level', 'bed_capacity'];
         const sortColumn = validSortColumns.includes(sortBy) ? sortBy : 'name';
         query = query.order(sortColumn, { ascending: sortOrder === 'asc' });
 
@@ -100,13 +96,9 @@ export async function GET(request: Request) {
             facility_type: string;
             ownership: string;
             tier_level: number;
-            beds: number;
-            cots: number;
-            open_whole_day: boolean;
-            open_weekends: boolean;
-            open_late_night: boolean;
-            operational_status: string;
-            regulated: boolean;
+            bed_capacity: number;
+            staff_count: number;
+            status: string;
             wards: {
                 name: string;
                 sub_counties: {
@@ -130,13 +122,13 @@ export async function GET(request: Request) {
             type: facility.facility_type,
             ownership: facility.ownership,
             tier: facility.tier_level,
-            beds: facility.beds,
-            cots: facility.cots,
-            open24Hours: facility.open_whole_day,
-            openWeekends: facility.open_weekends,
-            openLateNight: facility.open_late_night,
-            status: facility.operational_status,
-            regulated: facility.regulated,
+            beds: facility.bed_capacity || 0,
+            cots: 0, // Not in current schema
+            open24Hours: false, // Not in current schema
+            openWeekends: false, // Not in current schema
+            openLateNight: false, // Not in current schema
+            status: facility.status,
+            regulated: false, // Not in current schema
             ward: facility.wards?.name,
             subCounty: facility.wards?.sub_counties?.name,
             county: facility.wards?.sub_counties?.counties?.name,
