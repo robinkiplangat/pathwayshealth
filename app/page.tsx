@@ -36,8 +36,8 @@ export default async function Home() {
         </div>
 
         {/* Logo - Positioned to match Navbar */}
-        <div className="absolute top-0 left-0 right-0 z-20 p-4 pointer-events-none">
-          <div className="max-w-7xl mx-auto">
+        <div className="absolute top-0 left-0 right-0 z-20 py-4 pointer-events-none">
+          <div className="container mx-auto px-4">
             <Image src="/Pathways_clear_Logo.png" alt="Pathways Health Logo" width={280} height={280} className="h-auto w-auto max-h-32 drop-shadow-2xl" />
           </div>
         </div>

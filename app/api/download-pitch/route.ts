@@ -5,7 +5,7 @@ import { join } from 'path';
 export async function GET() {
     try {
         // Read the PDF file from the public directory
-        const pdfPath = join(process.cwd(), 'public', 'PathwaysHealth_Resilience.pdf');
+        const pdfPath = join(process.cwd(), 'public', 'PathwaysHealth_.pdf');
         const pdfBuffer = await readFile(pdfPath);
 
         // Return the PDF with proper headers
@@ -13,7 +13,7 @@ export async function GET() {
             status: 200,
             headers: {
                 'Content-Type': 'application/pdf',
-                'Content-Disposition': 'attachment; filename="PathwaysHealth_Resilience.pdf"',
+                'Content-Disposition': 'attachment; filename="PathwaysHealth_.pdf"',
                 'Cache-Control': 'public, max-age=31536000, immutable',
             },
         });

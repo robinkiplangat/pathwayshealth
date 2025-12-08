@@ -128,11 +128,13 @@ export async function createAssessment(assessment: Omit<Assessment, 'id' | 'crea
 }
 
 export async function createAssessmentWithResponses(
+    facilityId: string | null,
     facilityName: string,
     location: string,
     responses: Array<{ questionId: string; answer: string }>
 ) {
     const { data, error } = await supabase.rpc('create_assessment_with_responses', {
+        p_facility_id: facilityId,
         p_facility_name: facilityName || 'Unknown Facility',
         p_location: location || 'Unknown Location',
         p_responses: responses
