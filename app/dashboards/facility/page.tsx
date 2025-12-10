@@ -46,7 +46,7 @@ interface FacilityStats {
     assessmentCoverage: number;
     byType: Record<string, number>;
     byTier: Record<string, number>;
-    byCounty: Record<string, number>;
+    byCounty: Record<string, { name: string; count: number }>;
 }
 
 export default function FacilitiesPage() {
@@ -58,10 +58,16 @@ export default function FacilitiesPage() {
     const [totalPages, setTotalPages] = useState(1);
     const [showFilters, setShowFilters] = useState(false);
 
+    // Filter states
+    const [selectedCounty, setSelectedCounty] = useState("");
+    const [selectedType, setSelectedType] = useState("");
+    const [selectedTier, setSelectedTier] = useState("");
+    const [selectedStatus, setSelectedStatus] = useState("");
+
     useEffect(() => {
         fetchFacilities();
         fetchStats();
-    }, [page, search]);
+    }, [page, search, selectedCounty, selectedType, selectedTier, selectedStatus]);
 
     const fetchFacilities = async () => {
         setLoading(true);
@@ -70,6 +76,10 @@ export default function FacilitiesPage() {
                 page: page.toString(),
                 limit: '20',
                 ...(search && { search }),
+                ...(selectedCounty && { countyId: selectedCounty }),
+                ...(selectedType && { type: selectedType }),
+                ...(selectedTier && { tier: selectedTier }),
+                ...(selectedStatus && { status: selectedStatus }),
             });
 
             const res = await fetch(`/api/facilities?${params}`);
@@ -96,6 +106,18 @@ export default function FacilitiesPage() {
 
     const handleSearch = (value: string) => {
         setSearch(value);
+        setPage(1);
+    };
+
+    const handleFilterChange = () => {
+        setPage(1); // Reset to first page when filters change
+    };
+
+    const resetFilters = () => {
+        setSelectedCounty("");
+        setSelectedType("");
+        setSelectedTier("");
+        setSelectedStatus("");
         setPage(1);
     };
 
@@ -135,30 +157,90 @@ export default function FacilitiesPage() {
                     {showFilters && (
                         <Card>
                             <CardContent className="p-4">
-                                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                    <div>
-                                        <label className="text-sm font-medium text-gray-700">County</label>
-                                        <select className="w-full mt-1 rounded-md border-gray-300">
-                                            <option>All Counties</option>
-                                        </select>
+                                <div className="space-y-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                        {/* County Filter */}
+                                        <div>
+                                            <label className="text-sm font-medium text-gray-700 block mb-1">County</label>
+                                            <select
+                                                value={selectedCounty}
+                                                onChange={(e) => setSelectedCounty(e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-teal)] focus:border-transparent"
+                                            >
+                                                <option value="">All Counties</option>
+                                                {stats && Object.entries(stats.byCounty || {}).map(([countyId, data]) => (
+                                                    <option key={countyId} value={countyId}>
+                                                        {data.name} ({data.count})
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        {/* Type Filter */}
+                                        <div>
+                                            <label className="text-sm font-medium text-gray-700 block mb-1">Type</label>
+                                            <select
+                                                value={selectedType}
+                                                onChange={(e) => setSelectedType(e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-teal)] focus:border-transparent"
+                                            >
+                                                <option value="">All Types</option>
+                                                {stats && Object.keys(stats.byType || {}).map((type) => (
+                                                    <option key={type} value={type}>
+                                                        {type.charAt(0).toUpperCase() + type.slice(1)} ({stats.byType[type]})
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        {/* Tier Filter */}
+                                        <div>
+                                            <label className="text-sm font-medium text-gray-700 block mb-1">Tier</label>
+                                            <select
+                                                value={selectedTier}
+                                                onChange={(e) => setSelectedTier(e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-teal)] focus:border-transparent"
+                                            >
+                                                <option value="">All Tiers</option>
+                                                {stats && Object.keys(stats.byTier || {}).sort().map((tier) => (
+                                                    <option key={tier} value={tier}>
+                                                        Level {tier} ({stats.byTier[tier]})
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        {/* Status Filter */}
+                                        <div>
+                                            <label className="text-sm font-medium text-gray-700 block mb-1">Status</label>
+                                            <select
+                                                value={selectedStatus}
+                                                onChange={(e) => setSelectedStatus(e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-teal)] focus:border-transparent"
+                                            >
+                                                <option value="">All Status</option>
+                                                <option value="active">Active</option>
+                                                <option value="inactive">Inactive</option>
+                                                <option value="pending">Pending</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label className="text-sm font-medium text-gray-700">Type</label>
-                                        <select className="w-full mt-1 rounded-md border-gray-300">
-                                            <option>All Types</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="text-sm font-medium text-gray-700">Tier</label>
-                                        <select className="w-full mt-1 rounded-md border-gray-300">
-                                            <option>All Tiers</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="text-sm font-medium text-gray-700">Status</label>
-                                        <select className="w-full mt-1 rounded-md border-gray-300">
-                                            <option>All Status</option>
-                                        </select>
+
+                                    {/* Filter Actions */}
+                                    <div className="flex justify-end gap-2 pt-2 border-t">
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            onClick={resetFilters}
+                                        >
+                                            Clear Filters
+                                        </Button>
+                                        <Button
+                                            size="sm"
+                                            onClick={() => { handleFilterChange(); setShowFilters(false); }}
+                                        >
+                                            Apply
+                                        </Button>
                                     </div>
                                 </div>
                             </CardContent>
