@@ -55,7 +55,7 @@ export default async function Home() {
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-black/40 blur-xl rounded-full"></div>
               <p className="text-xl md:text-2xl text-gray-100 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-xl font-medium relative z-10">
-                Build your climate resilience baseline in under 2 hours — A practical WHO-guided Action Plan that transforms climate risks into actionable priorities for your facility.
+                The digital assessment platform for climate-resilient health facilities. Transform local risks into standardized documentation for climate finance
               </p>
             </div>
 
