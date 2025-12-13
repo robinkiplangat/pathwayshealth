@@ -26,7 +26,7 @@ export default async function Home() {
         <div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: "url('/hero-bg.jpg')",
+            backgroundImage: "url('/public-space.svg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundAttachment: "fixed", // Simple CSS parallax
@@ -88,9 +88,9 @@ export default async function Home() {
             <div className="flex items-center gap-2 text-lg font-bold text-earth-brown">
               <CheckCircle2 className="w-5 h-5 text-resilience-green" /> IPCC Data Aligned
             </div>
-            <div className="flex items-center gap-2 text-lg font-bold text-earth-brown">
+            {/* <div className="flex items-center gap-2 text-lg font-bold text-earth-brown">
               <CheckCircle2 className="w-5 h-5 text-resilience-green" /> Ministry of Health Approved
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
