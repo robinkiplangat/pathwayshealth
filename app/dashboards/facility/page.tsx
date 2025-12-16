@@ -28,12 +28,7 @@ interface Facility {
     ownership: string;
     tier: number;
     beds: number;
-    cots: number;
-    open24Hours: boolean;
-    openWeekends: boolean;
-    openLateNight: boolean;
     status: string;
-    regulated: boolean;
     ward: string;
     subCounty: string;
     county: string;
@@ -361,26 +356,6 @@ export default function FacilitiesPage() {
                                                         </div>
                                                     </div>
 
-                                                    <div className="flex items-center gap-3">
-                                                        {facility.open24Hours && (
-                                                            <div className="flex items-center gap-1 text-xs text-green-600">
-                                                                <CheckCircle2 size={12} />
-                                                                <span>24 Hours</span>
-                                                            </div>
-                                                        )}
-                                                        {facility.openWeekends && (
-                                                            <div className="flex items-center gap-1 text-xs text-green-600">
-                                                                <CheckCircle2 size={12} />
-                                                                <span>Weekends</span>
-                                                            </div>
-                                                        )}
-                                                        {facility.regulated && (
-                                                            <div className="flex items-center gap-1 text-xs text-green-600">
-                                                                <CheckCircle2 size={12} />
-                                                                <span>Regulated</span>
-                                                            </div>
-                                                        )}
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

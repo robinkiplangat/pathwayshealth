@@ -123,12 +123,7 @@ export async function GET(request: Request) {
             ownership: facility.ownership,
             tier: facility.tier_level,
             beds: facility.bed_capacity || 0,
-            cots: 0, // Not in current schema
-            open24Hours: false, // Not in current schema
-            openWeekends: false, // Not in current schema
-            openLateNight: false, // Not in current schema
             status: facility.status,
-            regulated: false, // Not in current schema
             ward: facility.wards?.name,
             subCounty: facility.wards?.sub_counties?.name,
             county: facility.wards?.sub_counties?.counties?.name,

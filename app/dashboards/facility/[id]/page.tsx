@@ -31,12 +31,7 @@ interface Facility {
     ownership: string;
     tier: number;
     beds: number;
-    cots: number;
-    open24Hours: boolean;
-    openWeekends: boolean;
-    openLateNight: boolean;
     status: string;
-    regulated: boolean;
     ward: string;
     subCounty: string;
     county: string;
@@ -164,35 +159,6 @@ export default function FacilityDetailPage() {
                                             <p className="text-sm text-gray-500">KEPH Level</p>
                                             <p className="font-medium">Level {facility.tier}</p>
                                         </div>
-                                        <div className="col-span-2">
-                                            <p className="text-sm text-gray-500 mb-2">Status</p>
-                                            <div className="space-y-2">
-                                                {facility.open24Hours && (
-                                                    <div className="flex items-center gap-2 text-sm">
-                                                        <CheckCircle2 size={16} className="text-green-600" />
-                                                        <span>Open 24 hours</span>
-                                                    </div>
-                                                )}
-                                                {facility.openWeekends && (
-                                                    <div className="flex items-center gap-2 text-sm">
-                                                        <CheckCircle2 size={16} className="text-green-600" />
-                                                        <span>Open weekends</span>
-                                                    </div>
-                                                )}
-                                                {facility.openLateNight && (
-                                                    <div className="flex items-center gap-2 text-sm">
-                                                        <CheckCircle2 size={16} className="text-green-600" />
-                                                        <span>Open late night</span>
-                                                    </div>
-                                                )}
-                                                {facility.regulated && (
-                                                    <div className="flex items-center gap-2 text-sm">
-                                                        <CheckCircle2 size={16} className="text-green-600" />
-                                                        <span>Regulated</span>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
                                     </div>
                                 </CardContent>
                             </Card>
@@ -290,10 +256,6 @@ export default function FacilityDetailPage() {
                                     <span className="text-sm text-gray-600">Total Beds</span>
                                     <span className="font-semibold">{facility.beds || 'N/A'}</span>
                                 </div>
-                                <div className="flex items-center justify-between">
-                                    <span className="text-sm text-gray-600">Cots</span>
-                                    <span className="font-semibold">{facility.cots || 'N/A'}</span>
-                                </div>
                             </div>
                         </CardContent>
                     </Card>
@@ -320,6 +282,6 @@ export default function FacilityDetailPage() {
                     </Card>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

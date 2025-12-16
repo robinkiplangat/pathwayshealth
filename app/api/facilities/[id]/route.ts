@@ -85,17 +85,14 @@ export async function GET(
             ownership: data.ownership,
             tier: data.tier_level,
             beds: data.bed_capacity || 0,
-            staffCount: data.staff_count || 0,
             status: data.status,
-            location: {
-                ward: data.wards?.name,
-                subCounty: data.wards?.sub_counties?.name,
-                county: data.wards?.sub_counties?.counties?.name,
-                countyId: data.wards?.sub_counties?.counties?.id,
-                latitude: data.latitude,
-                longitude: data.longitude,
-                address: data.address
-            }
+            ward: data.wards?.name,
+            subCounty: data.wards?.sub_counties?.name,
+            county: data.wards?.sub_counties?.counties?.name,
+            countyId: data.wards?.sub_counties?.counties?.id,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            address: data.address
         };
 
         return NextResponse.json(facility);

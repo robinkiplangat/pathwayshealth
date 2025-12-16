@@ -39,9 +39,9 @@ export async function GET() {
         const { data: rawCountyData } = await supabaseAdmin
             .from('facilities')
             .select(`
-                wards!inner(
-                    sub_counties!inner(
-                        counties!inner(
+                wards(
+                    sub_counties(
+                        counties(
                             id,
                             name
                         )
@@ -71,14 +71,14 @@ export async function GET() {
         }, {} as Record<string, number>) || {};
 
         const countyDistribution = byCounty?.reduce((acc, f) => {
-            const countyId = f.wards?.sub_counties?.counties?.id;
-            const countyName = f.wards?.sub_counties?.counties?.name || 'Unknown';
-            if (countyId) {
-                if (!acc[countyId]) {
-                    acc[countyId] = { name: countyName, count: 0 };
-                }
-                acc[countyId].count++;
+            const countyId = f.wards?.sub_counties?.counties?.id || 'Unassigned';
+            const countyName = f.wards?.sub_counties?.counties?.name || 'Unassigned';
+
+            if (!acc[countyId]) {
+                acc[countyId] = { name: countyName, count: 0 };
             }
+            acc[countyId].count++;
+
             return acc;
         }, {} as Record<string, { name: string; count: number }>) || {};
 

@@ -20,6 +20,11 @@ DECLARE
     v_answer_enum vulnerability_answer_enum;
     v_answer_numeric INTEGER;
 BEGIN
+    -- Validate inputs
+    IF p_facility_id IS NULL THEN
+        RAISE EXCEPTION 'Facility ID is required';
+    END IF;
+
     -- Create the assessment
     INSERT INTO assessments (
         facility_id,
@@ -52,9 +57,8 @@ BEGIN
             v_answer_enum := 'high';
             v_answer_numeric := 3;
         ELSE
-            -- Fallback or error handling
-            v_answer_enum := 'low'; -- Default or handle appropriately
-            v_answer_numeric := 1;
+            -- Reject invalid answers
+            RAISE EXCEPTION 'Invalid answer value: %. Expected "1", "2", or "3"', v_answer_text;
         END IF;
 
         INSERT INTO assessment_responses (
