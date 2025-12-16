@@ -17,13 +17,12 @@ export async function GET(
             facility_type: string;
             ownership: string;
             tier_level: number;
-            beds: number;
-            cots: number;
-            open_whole_day: boolean;
-            open_weekends: boolean;
-            open_late_night: boolean;
-            operational_status: string;
-            regulated: boolean;
+            bed_capacity: number;
+            staff_count: number;
+            status: string;
+            latitude: number;
+            longitude: number;
+            address: string;
             wards: {
                 name: string;
                 sub_counties: {
@@ -45,13 +44,12 @@ export async function GET(
                 facility_type,
                 ownership,
                 tier_level,
-                beds,
-                cots,
-                open_whole_day,
-                open_weekends,
-                open_late_night,
-                operational_status,
-                regulated,
+                bed_capacity,
+                staff_count,
+                status,
+                latitude,
+                longitude,
+                address,
                 wards!inner(
                     name,
                     sub_counties!inner(
@@ -86,17 +84,16 @@ export async function GET(
             type: data.facility_type,
             ownership: data.ownership,
             tier: data.tier_level,
-            beds: data.beds,
-            cots: data.cots,
-            open24Hours: data.open_whole_day,
-            openWeekends: data.open_weekends,
-            openLateNight: data.open_late_night,
-            status: data.operational_status,
-            regulated: data.regulated,
+            beds: data.bed_capacity || 0,
+            staffCount: data.staff_count || 0,
+            status: data.status,
             ward: data.wards?.name,
             subCounty: data.wards?.sub_counties?.name,
             county: data.wards?.sub_counties?.counties?.name,
             countyId: data.wards?.sub_counties?.counties?.id,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            address: data.address
         };
 
         return NextResponse.json(facility);

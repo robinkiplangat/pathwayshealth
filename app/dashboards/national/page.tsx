@@ -22,8 +22,13 @@ async function getNationalData(countryCode: string = 'KE') {
 
     if (!regions) return null;
 
+    // NEW: Get exact total count directly from source of truth
+    const { count: realTotalCount } = await supabaseAdmin
+        .from('facilities')
+        .select('*', { count: 'exact', head: true });
+
     // Calculate national statistics
-    const totalFacilities = regions.reduce((sum, r) => sum + (r.total_facilities || 0), 0);
+    const totalFacilities = realTotalCount || 0;
     const facilitiesAssessed = regions.reduce((sum, r) => sum + (r.facilities_assessed || 0), 0);
     const avgOverallScore = regions.length > 0
         ? (regions.reduce((sum, r) => sum + (r.avg_overall_score || 0), 0) / regions.length).toFixed(2)

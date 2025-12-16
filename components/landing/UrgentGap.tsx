@@ -7,55 +7,58 @@ const UrgentGap = () => {
         <section className="w-full font-[family-name:var(--font-geist-sans)]">
             {/* 1. Section Header & The Core Conflict */}
             <div className="bg-bg-secondary py-20 md:py-28">
-                <div className="container mx-auto px-4">
-                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-                        {/* Text Content */}
-                        <div className="lg:w-1/2 space-y-8">
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-risk-high/10 text-risk-high font-bold text-sm uppercase tracking-wider">
-                                <AlertTriangle size={16} />
-                                Critical Gap
-                            </div>
-                            <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
-                                The Climate Crisis is Disrupting Healthcare Now. <br />
-                                <span className="text-storm-gray">Most Facilities Are Flying Blind.</span>
-                            </h2>
-                            <p className="text-xl text-storm-gray leading-relaxed">
-                                Climate impacts—from extreme heat and flooding to shifting disease patterns—are rising faster than health systems can adapt. Frontline facilities are the first to be hit, yet they lack the basic tools to understand their own vulnerabilities.
-                            </p>
-
-                            {/* Removed Statistic Box from here to move it to the map side */}
-                            <div className="p-6 rounded-2xl bg-white/50 border border-border/50 backdrop-blur-sm">
-                                <p className="text-lg text-storm-gray font-medium italic">
-                                    "They cannot manage risks they cannot measure."
-                                </p>
-                            </div>
+                {/* DOM ORDER CHANGE: Move flex group out of container and place before container */}
+                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                    {/* Text Content */}
+                    <div className="lg:w-1/2 space-y-8">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-risk-high/10 text-risk-high font-bold text-sm uppercase tracking-wider">
+                            <AlertTriangle size={16} />
+                            Critical Gap
                         </div>
-
-                        {/* Visual Content */}
-                        <div className="lg:w-1/2 relative">
-                            {/* Statistic Overlay/Connection */}
-                            <div className="absolute -top-12 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-10 z-20 bg-white p-6 rounded-2xl shadow-xl border-l-8 border-resilience-green max-w-xs text-center md:text-left">
-                                <div className="text-5xl md:text-6xl font-bold text-resilience-green mb-1">
-                                    95%
-                                </div>
-                                <p className="text-sm font-bold text-foreground leading-tight">
-                                    of facilities in high-risk regions have no baseline of their climate resilience.
-                                </p>
-                            </div>
-
-                            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white mt-8 md:mt-0">
-                                <Image
-                                    src="/urgent-gap-map.png"
-                                    alt="Map showing climate risks and data gaps"
-                                    width={800}
-                                    height={600}
-                                    className="w-full h-auto object-cover"
-                                />
-                                {/* Overlay Gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
-                            </div>
+                        <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
+                            The Climate Crisis is Disrupting Healthcare Now. <br />
+                            <span className="text-storm-gray">Most Facilities Are Flying Blind.</span>
+                        </h2>
+                        <p className="text-xl text-storm-gray leading-relaxed">
+                            Climate impacts—from extreme heat and flooding to shifting disease patterns—are rising faster than health systems can adapt. Frontline facilities are the first to be hit, yet they lack the basic tools to understand their own vulnerabilities.
+                        </p>
+                        {/* Removed Statistic Box from here to move it to the map side */}
+                        <div className="p-6 rounded-2xl bg-white/50 border border-border/50 backdrop-blur-sm">
+                            <p className="text-lg text-storm-gray font-medium italic">
+                                "They cannot manage risks they cannot measure."
+                            </p>
                         </div>
                     </div>
+                    {/* Visual Content */}
+                    <div className="lg:w-1/2 relative">
+                        {/* Statistic Overlay/Connection */}
+                        <div
+                            className="absolute z-20 bg-white p-6 rounded-2xl shadow-xl border-l-8 border-resilience-green max-w-xs text-center md:text-left"
+                            style={{ left: '422px', top: '659px' }}
+                        >
+                            <div className="text-5xl md:text-6xl font-bold text-resilience-green mb-1">
+                                95%
+                            </div>
+                            <p className="text-sm font-bold text-foreground leading-tight">
+                                of facilities in high-risk regions have no baseline of their climate resilience.
+                            </p>
+                        </div>
+                        <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white mt-8 md:mt-0">
+                            <Image
+                                src="/urgent-gap-map.png"
+                                alt="Map showing climate risks and data gaps"
+                                width={800}
+                                height={600}
+                                className="w-full h-auto object-cover"
+                            />
+                            {/* Overlay Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+                        </div>
+                    </div>
+                </div>
+                {/* The rest of container content stays as is, after the flex group */}
+                <div className="container mx-auto px-4">
+                    {/* Could contain additional section content if any */}
                 </div>
             </div>
 
@@ -70,7 +73,6 @@ const UrgentGap = () => {
                             Without proactive adaptation, climate shocks directly undermine service delivery and health outcomes.
                         </p>
                     </div>
-
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {/* Impact Point 1: Infrastructure */}
                         <div className="group">
@@ -88,7 +90,6 @@ const UrgentGap = () => {
                                 Flooding cuts off roads to clinics and damages critical equipment, preventing patients from reaching care when they need it most.
                             </p>
                         </div>
-
                         {/* Impact Point 2: WASH */}
                         <div className="group">
                             <div className="relative h-64 rounded-2xl overflow-hidden mb-6 shadow-md group-hover:shadow-xl transition-all duration-300">
@@ -105,7 +106,6 @@ const UrgentGap = () => {
                                 Droughts and water scarcity compromise sanitation, drastically increasing the risk of facility-acquired infections during crises.
                             </p>
                         </div>
-
                         {/* Impact Point 3: Workforce */}
                         <div className="group">
                             <div className="relative h-64 rounded-2xl overflow-hidden mb-6 shadow-md group-hover:shadow-xl transition-all duration-300">
@@ -140,11 +140,9 @@ const UrgentGap = () => {
                             High-level global guidance exists, but it hasn't been operationalized for the "last mile." Current assessment approaches fail frontline facilities.
                         </p>
                     </div>
-
                     {/* Broken Bridge Visualization */}
                     <div className="max-w-5xl mx-auto relative">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0 relative z-10">
-
                             {/* Left Side: Global Guidance */}
                             <div className="flex flex-col items-center text-center w-full md:w-1/4">
                                 <div className="w-24 h-24 bg-white rounded-full shadow-lg flex items-center justify-center mb-4 border-4 border-earth-brown/20">
@@ -153,7 +151,6 @@ const UrgentGap = () => {
                                 <h4 className="font-bold text-lg text-foreground">Global Guidance</h4>
                                 <p className="text-sm text-storm-gray">(Geneva / WHO)</p>
                             </div>
-
                             {/* The Gap (Barriers) */}
                             <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 w-full">
                                 <div className="flex justify-center gap-4 md:gap-8 mb-4">
@@ -176,7 +173,6 @@ const UrgentGap = () => {
                                         <span className="text-xs font-bold text-risk-high uppercase tracking-wide">No Connectivity</span>
                                     </div>
                                 </div>
-
                                 {/* Visual Gap Line */}
                                 <div className="w-full h-2 bg-gray-200 rounded-full relative overflow-hidden">
                                     <div className="absolute left-0 top-0 bottom-0 w-1/3 bg-earth-brown/30 rounded-l-full"></div>
@@ -187,7 +183,6 @@ const UrgentGap = () => {
                                     </div>
                                 </div>
                             </div>
-
                             {/* Right Side: Frontline */}
                             <div className="flex flex-col items-center text-center w-full md:w-1/4">
                                 <div className="w-24 h-24 bg-white rounded-full shadow-lg flex items-center justify-center mb-4 border-4 border-resilience-green/20">
@@ -196,7 +191,6 @@ const UrgentGap = () => {
                                 <h4 className="font-bold text-lg text-foreground">Frontline Facilities</h4>
                                 <p className="text-sm text-storm-gray">(The Last Mile)</p>
                             </div>
-
                         </div>
                     </div>
                 </div>
