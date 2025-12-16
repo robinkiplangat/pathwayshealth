@@ -85,6 +85,7 @@ export async function GET(
             ownership: data.ownership,
             tier: data.tier_level,
             beds: data.bed_capacity || 0,
+            staffCount: data.staff_count || 0,
             status: data.status,
             ward: data.wards?.name,
             subCounty: data.wards?.sub_counties?.name,

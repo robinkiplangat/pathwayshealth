@@ -216,7 +216,8 @@ export default function FacilitiesPage() {
                                                 <option value="">All Status</option>
                                                 <option value="active">Active</option>
                                                 <option value="inactive">Inactive</option>
-                                                <option value="pending">Pending</option>
+                                                <option value="under_construction">Under Construction</option>
+                                                <option value="temporarily_closed">Temporarily Closed</option>
                                             </select>
                                         </div>
                                     </div>
