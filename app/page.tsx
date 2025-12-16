@@ -26,7 +26,7 @@ export default async function Home() {
         <div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: "url('/hero-bg.jpg')",
+            backgroundImage: "url('/public-space.svg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundAttachment: "fixed", // Simple CSS parallax
@@ -36,8 +36,8 @@ export default async function Home() {
         </div>
 
         {/* Logo - Positioned to match Navbar */}
-        <div className="absolute top-0 left-0 right-0 z-20 p-4 pointer-events-none">
-          <div className="max-w-7xl mx-auto">
+        <div className="absolute top-0 left-0 right-0 z-20 py-4 pointer-events-none">
+          <div className="container mx-auto px-4">
             <Image src="/Pathways_clear_Logo.png" alt="Pathways Health Logo" width={280} height={280} className="h-auto w-auto max-h-32 drop-shadow-2xl" />
           </div>
         </div>
@@ -55,7 +55,7 @@ export default async function Home() {
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-black/40 blur-xl rounded-full"></div>
               <p className="text-xl md:text-2xl text-gray-100 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-xl font-medium relative z-10">
-                Build your climate resilience baseline in under 2 hours — A practical WHO-guided Action Plan that transforms climate risks into actionable priorities for your facility.
+                The digital assessment platform for climate-resilient health facilities. Transform local risks into standardized documentation for climate finance
               </p>
             </div>
 
@@ -88,9 +88,9 @@ export default async function Home() {
             <div className="flex items-center gap-2 text-lg font-bold text-earth-brown">
               <CheckCircle2 className="w-5 h-5 text-resilience-green" /> IPCC Data Aligned
             </div>
-            <div className="flex items-center gap-2 text-lg font-bold text-earth-brown">
+            {/* <div className="flex items-center gap-2 text-lg font-bold text-earth-brown">
               <CheckCircle2 className="w-5 h-5 text-resilience-green" /> Ministry of Health Approved
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

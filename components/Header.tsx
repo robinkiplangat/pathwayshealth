@@ -32,21 +32,21 @@ export function Header() {
     return (
         <header
             className={cn(
-                "top-0 left-0 right-0 z-50 transition-all duration-300 p-4",
+                "top-0 left-0 right-0 z-[100] transition-all duration-300 py-4",
                 isHomePage ? "fixed" : "sticky bg-white/80 backdrop-blur-md shadow-sm border-b border-white/20",
                 scrolled && isHomePage ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-white/20" : ""
             )}
         >
-            <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="container mx-auto px-4 flex items-center justify-between h-20">
                 {/* Logo Section */}
                 <div className={cn("transition-opacity duration-300", showLogo ? "opacity-100" : "opacity-0 pointer-events-none")}>
                     <Link href="/" className="flex items-center gap-3">
                         <Image
                             src="/PH_logo.png"
                             alt="Pathways Health"
-                            width={120}
-                            height={120}
-                            className="h-24 w-auto"
+                            width={180}
+                            height={180}
+                            className="h-28 w-auto"
                         />
                         <span className={cn("font-bold text-xl hidden sm:block", !isHomePage || scrolled ? "text-foreground" : "text-white")}>
                             {/* Pathways Health */}
