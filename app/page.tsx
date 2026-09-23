@@ -47,27 +47,26 @@ export default async function Home() {
           <div className="max-w-5xl mx-auto animate-in fade-in zoom-in duration-1000 relative">
 
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight tracking-tight drop-shadow-2xl">
-              Strengthen Your <br />
-              Healthcare Facility against <br />
-              <span className="text-resilience-green drop-shadow-md">Climate Shocks</span>
+              Climate-ready health facilities <br />
+              <span className="text-resilience-green drop-shadow-md"></span>
             </h1>
 
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-black/40 blur-xl rounded-full"></div>
               <p className="text-xl md:text-2xl text-gray-100 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-xl font-medium relative z-10">
-                The digital assessment platform for climate-resilient health facilities. Transform local risks into standardized documentation for climate finance
+                Assess your facility’s climate, infrastructure, energy, and supply-chain vulnerabilities—then generate a prioritized action plan to protect essential care before disruption occurs.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Button asChild size="lg" className="text-xl h-16 px-12 bg-resilience-green hover:bg-resilience-green/90 text-white border-2 border-white shadow-[0_0_20px_rgba(45,122,74,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(45,122,74,0.7)] rounded-xl font-bold focus-visible:ring-4 focus-visible:ring-white/50 focus-visible:outline-none">
                 <Link href="/assessment">
-                  Get Started
+                  Assess Your Facility
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="text-lg h-16 px-10 border-2 border-white/80 bg-black/20 text-white hover:bg-white hover:text-black hover:border-white backdrop-blur-md transition-all hover:-translate-y-1 rounded-xl font-semibold focus-visible:ring-4 focus-visible:ring-white/50 focus-visible:outline-none">
                 <Link href="#partners">
-                  For Donors & Partners
+                  Partner With Us
                 </Link>
               </Button>
             </div>

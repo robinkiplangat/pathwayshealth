@@ -58,7 +58,7 @@ export function Header() {
                 <div className="flex items-center gap-4">
                     {pathname === '/methodology' ? (
                         <Link
-                            href="https://fourbic.notion.site/White-Paper-Guiding-Climate-Resilience-Investment-through-the-Pathways-Health-Assessment-Framework-29c2f4154da780a1a23bfdedd249bac2"
+                            href="https://app.notion.com/p/fourbic/Manuscript-A-Framework-for-Systemic-Transformation-Achieving-Climate-Resilient-and-Environmentall-2ba2f4154da78089af34dc9c5f131fcd?v=2ab2f4154da780cca368000c2f997de7"
                             target="_blank"
                             rel="noopener noreferrer"
                             className={cn(
