@@ -18,6 +18,37 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+async function fetchAllFacilities() {
+    const facilities: Array<{ id: string; name: string; code: string | null }> = [];
+    const pageSize = 1000;
+    let from = 0;
+
+    while (true) {
+        const { data, error } = await supabase
+            .from('facilities')
+            .select('id, name, code')
+            .range(from, from + pageSize - 1);
+
+        if (error) {
+            throw error;
+        }
+
+        if (!data || data.length === 0) {
+            break;
+        }
+
+        facilities.push(...data);
+
+        if (data.length < pageSize) {
+            break;
+        }
+
+        from += pageSize;
+    }
+
+    return facilities;
+}
+
 async function main() {
     console.log('🔄 Redistributing Facilities Across Counties\n');
     console.log('=============================================\n');
@@ -59,13 +90,11 @@ async function main() {
     });
 
     // Get all facilities
-    const { data: facilities, error: facilitiesError } = await supabase
-        .from('facilities')
-        .select('id, name, code')
-        .eq('status', 'active');
-
-    if (facilitiesError || !facilities) {
-        console.error('❌ Error fetching facilities:', facilitiesError);
+    let facilities: Array<{ id: string; name: string; code: string | null }> = [];
+    try {
+        facilities = await fetchAllFacilities();
+    } catch (error: any) {
+        console.error('❌ Error fetching facilities:', error.message);
         process.exit(1);
     }
 
@@ -120,6 +149,10 @@ async function main() {
     console.log(`==========`);
     console.log(`✅ Successfully updated: ${updatedCount} facilities`);
     console.log(`❌ Errors: ${errorCount}`);
+
+    if (errorCount > 0) {
+        process.exit(1);
+    }
 
     // Refresh materialized views
     console.log(`\n🔄 Refreshing materialized views...`);

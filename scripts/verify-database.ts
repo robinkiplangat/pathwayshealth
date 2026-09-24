@@ -139,7 +139,7 @@ async function main() {
 
     if (failed > 0) {
         console.log('❌ Some tables/views are missing. Run migrations:');
-        console.log('   npx ts-node scripts/apply-migrations.ts');
+        console.log('   npx tsx scripts/apply-migrations.ts');
     } else if (warnings > 0) {
         console.log('⚠️  Database structure exists but lacks data. Options:');
         console.log('   1. Load sample data: Run migration 005_sample_data.sql');

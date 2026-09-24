@@ -19,7 +19,7 @@ This document summarizes the facility data cleaning and deduplication process im
 - **Quality**: Medium - includes registration numbers but limited location data
 
 ### 3. Local JSONL File
-- **Path**: `code/data/dataset_facilities.jsonl`
+- **Path**: `data/dataset_facilities.jsonl`
 - **Total Records**: ~1,213 facilities
 - **Fields**: Scraped HTML from KMHFR with detailed facility information
 - **Quality**: High - comprehensive data but requires parsing
@@ -100,7 +100,7 @@ For facilities identified as duplicates:
 - Final summary
 
 ### 2. JSON File
-- **Location**: `code/data/cleaned_facilities.json`
+- **Location**: `data/cleaned_facilities.json`
 - **Format**: Array of facility objects
 - **Use**: Backup, analysis, or re-import
 
@@ -131,22 +131,22 @@ For facilities identified as duplicates:
 
 ## Script Location
 
-- **Main Script**: `code/scripts/clean_and_deduplicate_facilities.py`
-- **Requirements**: `code/scripts/requirements.txt`
-- **Documentation**: `code/scripts/README.md`
+- **Main Script**: `scripts/clean_and_deduplicate_facilities.py`
+- **Requirements**: `scripts/requirements.txt`
+- **Documentation**: `scripts/README.md`
 
 ## Usage
 
 ```bash
 # Install dependencies
-pip install -r code/scripts/requirements.txt
+pip install -r scripts/requirements.txt
 
 # Set environment variables
 export SUPABASE_URL=your_url
-export SUPABASE_ANON_KEY=your_key
+export SUPABASE_SERVICE_ROLE_KEY=your_key
 
 # Run script
-python code/scripts/clean_and_deduplicate_facilities.py
+python scripts/clean_and_deduplicate_facilities.py
 ```
 
 ## Notes
@@ -155,7 +155,6 @@ python code/scripts/clean_and_deduplicate_facilities.py
 - Uses upsert with conflict on `code` field
 - Facilities without coordinates can still be inserted
 - Ward matching is best-effort - may need manual review
-
 
 
 

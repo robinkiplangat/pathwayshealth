@@ -12,7 +12,7 @@ This script cleans and deduplicates facility data from three sources and uploads
    - ~14,931 facilities
    - Contains: name, registration number, address, type, level, county, status
 
-3. **Local JSONL File** (`code/data/dataset_facilities.jsonl`)
+3. **Local JSONL File** (`data/dataset_facilities.jsonl`)
    - ~1,213 facilities (scraped from KMHFR)
    - Contains: detailed facility information from Kenya Master Health Facility Registry
 
@@ -36,13 +36,13 @@ pip install -r requirements.txt
 2. Create a `.env` file in the project root with:
 ```
 SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 ```
 
 ## Usage
 
 ```bash
-python code/scripts/clean_and_deduplicate_facilities.py
+python scripts/clean_and_deduplicate_facilities.py
 ```
 
 The script will:
@@ -51,12 +51,12 @@ The script will:
 3. Deduplicate facilities
 4. Merge data from multiple sources
 5. Upsert to Supabase
-6. Save cleaned data to `code/data/cleaned_facilities.json`
+6. Save cleaned data to `data/cleaned_facilities.json`
 
 ## Output
 
 - **Console**: Progress updates and statistics
-- **JSON File**: `code/data/cleaned_facilities.json` - All cleaned facilities in JSON format
+- **JSON File**: `data/cleaned_facilities.json` - All cleaned facilities in JSON format
 - **Database**: Facilities upserted to Supabase `facilities` table
 
 ## Data Mapping
@@ -88,7 +88,6 @@ The script will:
 - The script uses `code` field for conflict resolution during upsert
 - Coordinate-based deduplication uses a threshold of ~111 meters
 - Name normalization removes common prefixes/suffixes and special characters
-
 
 
 

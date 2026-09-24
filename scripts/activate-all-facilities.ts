@@ -19,8 +19,8 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function main() {
-    console.log('🔄 Activating All Facilities\n');
-    console.log('============================\n');
+    console.log('🔄 Activating Facilities\n');
+    console.log('========================\n');
 
     // Get current active facilities count
     const { count: activeCount } = await supabase
@@ -36,101 +36,72 @@ async function main() {
         .select('*', { count: 'exact', head: true });
 
     console.log(`📊 Total facilities in database: ${totalCount}`);
-    console.log(`📊 Facilities to activate: ${(totalCount || 0) - (activeCount || 0)}\n`);
+    const validStatuses = new Set(['inactive', 'under_construction', 'temporarily_closed']);
+    const requestedStatuses = (process.env.ACTIVATE_STATUSES ?? 'inactive,NULL')
+        .split(',')
+        .map(status => status.trim())
+        .filter(Boolean);
+    const includeNullStatus = requestedStatuses.some(status => status.toUpperCase() === 'NULL');
+    const statusesToActivate = requestedStatuses
+        .filter(status => status.toUpperCase() !== 'NULL')
+        .filter(status => validStatuses.has(status));
 
-    // Get all counties with their wards
-    const { data: counties } = await supabase
-        .from('counties')
-        .select(`
-            id,
-            name,
-            code,
-            sub_counties!inner(
-                id,
-                wards!inner(id)
-            )
-        `)
-        .order('code');
-
-    if (!counties || counties.length === 0) {
-        console.error('❌ No counties found');
+    if (!includeNullStatus && statusesToActivate.length === 0) {
+        console.error('❌ No valid statuses selected for activation.');
+        console.error('   Set ACTIVATE_STATUSES to a comma-separated list using: inactive, under_construction, temporarily_closed, NULL');
         process.exit(1);
     }
 
-    // Flatten to get all wards per county
-    const countyWards: { [countyName: string]: string[] } = {};
-    counties.forEach(county => {
-        const wards: string[] = [];
-        (county.sub_counties as any[]).forEach((sc: any) => {
-            (sc.wards as any[]).forEach((w: any) => {
-                wards.push(w.id);
-            });
-        });
-        countyWards[county.name] = wards;
-    });
+    console.log(`📊 Activation scope: statuses [${statusesToActivate.join(', ') || 'none'}], include NULL: ${includeNullStatus}`);
 
-    // Get all inactive facilities
-    const { data: inactiveFacilities, error: facilitiesError } = await supabase
+    let facilitiesQuery = supabase
         .from('facilities')
         .select('id, name, code')
         .neq('status', 'active');
 
-    if (facilitiesError || !inactiveFacilities) {
-        console.error('❌ Error fetching inactive facilities:', facilitiesError);
+    if (includeNullStatus && statusesToActivate.length > 0) {
+        facilitiesQuery = facilitiesQuery.or(`status.in.(${statusesToActivate.join(',')}),status.is.null`);
+    } else if (includeNullStatus) {
+        facilitiesQuery = facilitiesQuery.is('status', null);
+    } else {
+        facilitiesQuery = facilitiesQuery.in('status', statusesToActivate);
+    }
+
+    const { data: facilitiesToActivate, error: facilitiesError } = await facilitiesQuery;
+
+    if (facilitiesError || !facilitiesToActivate) {
+        console.error('❌ Error fetching facilities to activate:', facilitiesError);
         process.exit(1);
     }
 
-    if (inactiveFacilities.length === 0) {
-        console.log('✅ All facilities are already active!');
+    if (facilitiesToActivate.length === 0) {
+        console.log('✅ No facilities matched the activation scope.');
         return;
     }
 
-    console.log(`\n🏥 Activating and distributing ${inactiveFacilities.length} facilities...\n`);
+    console.log(`📊 Facilities to activate: ${facilitiesToActivate.length}\n`);
+    console.log(`🏥 Activating ${facilitiesToActivate.length} facilities...\n`);
 
-    // Distribute facilities evenly across counties
-    const countyNames = Object.keys(countyWards);
-    const facilitiesPerCounty = Math.floor(inactiveFacilities.length / countyNames.length);
-    const remainder = inactiveFacilities.length % countyNames.length;
-
-    let facilityIndex = 0;
     let updatedCount = 0;
     let errorCount = 0;
 
-    for (let i = 0; i < countyNames.length; i++) {
-        const countyName = countyNames[i];
-        const wards = countyWards[countyName];
-        const numFacilities = facilitiesPerCounty + (i < remainder ? 1 : 0);
+    for (let i = 0; i < facilitiesToActivate.length; i++) {
+        const facility = facilitiesToActivate[i];
+        const { error } = await supabase
+            .from('facilities')
+            .update({ status: 'active' })
+            .eq('id', facility.id);
 
-        if (numFacilities === 0) continue;
-
-        console.log(`📍 ${countyName}: Assigning ${numFacilities} facilities...`);
-
-        for (let j = 0; j < numFacilities && facilityIndex < inactiveFacilities.length; j++) {
-            const facility = inactiveFacilities[facilityIndex];
-            const wardId = wards[j % wards.length];
-
-            const { error } = await supabase
-                .from('facilities')
-                .update({
-                    ward_id: wardId,
-                    status: 'active'
-                })
-                .eq('id', facility.id);
-
-            if (error) {
-                console.error(`  ❌ Error updating ${facility.name}:`, error.message);
-                errorCount++;
-            } else {
-                updatedCount++;
-                if ((j + 1) % 100 === 0) {
-                    console.log(`  ✓ Updated ${j + 1}/${numFacilities} facilities...`);
-                }
-            }
-
-            facilityIndex++;
+        if (error) {
+            console.error(`  ❌ Error updating ${facility.name}:`, error.message);
+            errorCount++;
+            continue;
         }
 
-        console.log(`  ✅ Completed ${countyName}`);
+        updatedCount++;
+        if ((i + 1) % 100 === 0) {
+            console.log(`  ✓ Updated ${i + 1}/${facilitiesToActivate.length} facilities...`);
+        }
     }
 
     console.log(`\n✨ Summary`);
@@ -146,7 +117,11 @@ async function main() {
     console.log('REFRESH MATERIALIZED VIEW hazard_vulnerability_matrix;');
     console.log('```');
 
-    console.log(`\n🎉 Done! All facilities are now active and distributed.`);
+    if (errorCount > 0) {
+        process.exit(1);
+    }
+
+    console.log(`\n🎉 Done! Selected facilities are now active.`);
 }
 
 main().catch(console.error);

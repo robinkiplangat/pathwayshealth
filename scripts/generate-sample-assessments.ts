@@ -35,6 +35,16 @@ function getResilienceLevel(score: number): string {
 }
 
 async function createSampleAssessment(facilityId: string, facilityName: string, countyName: string) {
+    let assessmentId: string | null = null;
+
+    const rollbackAssessment = async () => {
+        if (!assessmentId) return;
+
+        await supabase.from('hazard_scores').delete().eq('assessment_id', assessmentId);
+        await supabase.from('pillar_scores').delete().eq('assessment_id', assessmentId);
+        await supabase.from('assessments').delete().eq('id', assessmentId);
+    };
+
     try {
         // Generate realistic scores based on county hazard profiles
         const baseScore = countyName.includes('Mombasa') || countyName.includes('Kwale') || countyName.includes('Kilifi')
@@ -68,6 +78,7 @@ async function createSampleAssessment(facilityId: string, facilityName: string, 
             console.error(`  ❌ Error creating assessment for ${facilityName}:`, assessmentError.message);
             return false;
         }
+        assessmentId = assessment.id;
 
         // Create hazard scores (3-5 hazards per facility) - declare first
         const numHazards = getRandomScore(3, 5);
@@ -98,6 +109,7 @@ async function createSampleAssessment(facilityId: string, facilityName: string, 
 
         if (pillarError) {
             console.error(`  ❌ Error creating pillar scores:`, pillarError.message);
+            await rollbackAssessment();
             return false;
         }
 
@@ -125,6 +137,7 @@ async function createSampleAssessment(facilityId: string, facilityName: string, 
 
         if (hazardError) {
             console.error(`  ❌ Error creating hazard scores:`, hazardError.message);
+            await rollbackAssessment();
             return false;
         }
 
@@ -132,6 +145,7 @@ async function createSampleAssessment(facilityId: string, facilityName: string, 
         return true;
     } catch (error: any) {
         console.error(`  ❌ Error:`, error.message);
+        await rollbackAssessment();
         return false;
     }
 }
@@ -140,7 +154,7 @@ async function main() {
     console.log('🏥 Generating Sample Assessment Data');
     console.log('====================================\n');
 
-    // Get facilities to assess (30 facilities across different counties)
+    // Get the first 30 active facilities to assess
     const { data: facilities, error: facilitiesError } = await supabase
         .from('facilities')
         .select(`
@@ -160,7 +174,7 @@ async function main() {
         process.exit(1);
     }
 
-    console.log(`📊 Creating assessments for ${facilities.length} facilities...\n`);
+    console.log(`📊 Creating assessments for the first ${facilities.length} active facilities...\n`);
 
     let successCount = 0;
     for (const facility of facilities) {

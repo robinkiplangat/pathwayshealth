@@ -18,8 +18,9 @@ import csv
 import re
 import sys
 import os
+import hashlib
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Set
+from typing import Dict, List, Optional, Tuple
 from collections import defaultdict
 from dataclasses import dataclass, asdict
 from urllib.request import urlopen
@@ -50,16 +51,27 @@ except ImportError:
     SUPABASE_AVAILABLE = False
 
 # Constants
-ENERGY_DATA_API_URL = "https://energydata.info/api/3/action/datastore_search?resource_id=841097c2-9424-4c90-b1e7-8e942a817c3c&limit=500"
+ENERGY_DATA_API_URL = "https://energydata.info/api/3/action/datastore_search?resource_id=841097c2-9424-4c90-b1e7-8e942a817c3c"
 GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdQys3Pb_5PGDNUXdx6jLuVyJj7NudnTd2rRkWu04gN9-UNZgeC1VHZ9fTp8mvX_RIAAJYq-2WLpH-/pub?output=csv"
 JSONL_FILE_PATH = CODE_ROOT / "data" / "dataset_facilities.jsonl"
 
 # Supabase configuration
 SUPABASE_URL = os.getenv("SUPABASE_URL", "") or os.getenv("SUPABASE_PROJECT_URL", "")
-SUPABASE_KEY = os.getenv("SUPABASE_ANON_KEY", "") or os.getenv("SUPABASE_API", "")
+SUPABASE_KEY = (
+    os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
+    or os.getenv("SUPABASE_ANON_KEY", "")
+    or os.getenv("SUPABASE_API", "")
+)
 
 # Distance threshold for coordinate-based deduplication (in degrees, ~111km per degree)
 COORDINATE_THRESHOLD = 0.001  # ~111 meters
+
+
+def stable_numeric_hash(value: str, digits: int = 6) -> str:
+    """Generate a deterministic numeric hash suffix."""
+    digest = hashlib.sha256(value.encode('utf-8')).hexdigest()
+    numeric = int(digest[:12], 16)
+    return str(numeric % (10 ** digits)).zfill(digits)
 
 @dataclass
 class FacilityRecord:
@@ -269,40 +281,53 @@ def parse_api_data() -> List[FacilityRecord]:
     """Fetch and parse data from Energy Data API"""
     print("Fetching data from Energy Data API...")
     records = []
+    limit = 500
+    offset = 0
+    total = None
     
     try:
-        with urlopen(ENERGY_DATA_API_URL) as response:
-            data = json.loads(response.read())
-            
-        if not data.get('success'):
-            print(f"API request failed: {data.get('help', 'Unknown error')}")
-            return records
-        
-        result = data.get('result', {})
-        api_records = result.get('records', [])
-        total = result.get('total', len(api_records))
-        
-        print(f"Found {total} total records, processing {len(api_records)}...")
-        
-        for record in api_records:
-            facility = FacilityRecord(
-                name=record.get('Facility_N', '').strip(),
-                facility_type=map_facility_type(record.get('Type', '')),
-                ownership=map_ownership(record.get('Owner', '')),
-                county=normalize_county_name(record.get('County', '')),
-                sub_county=normalize_text(record.get('Sub_County', '')),
-                ward=normalize_text(record.get('Sub_Locati', '') or record.get('Location', '')),
-                location=normalize_text(record.get('Location', '')),
-                address=normalize_text(record.get('Nearest_To', '')),
-                latitude=record.get('Latitude'),
-                longitude=record.get('Longitude'),
-                source='api',
-                source_id=str(record.get('_id', ''))
-            )
-            
-            if facility.name:
-                records.append(facility)
-        
+        while True:
+            paged_url = f"{ENERGY_DATA_API_URL}&limit={limit}&offset={offset}"
+            with urlopen(paged_url) as response:
+                data = json.loads(response.read())
+
+            if not data.get('success'):
+                print(f"API request failed: {data.get('help', 'Unknown error')}")
+                return records
+
+            result = data.get('result', {})
+            api_records = result.get('records', [])
+            total = result.get('total', len(api_records)) if total is None else total
+
+            if offset == 0:
+                print(f"Found {total} total records, processing in pages of {limit}...")
+
+            if not api_records:
+                break
+
+            for record in api_records:
+                facility = FacilityRecord(
+                    name=record.get('Facility_N', '').strip(),
+                    facility_type=map_facility_type(record.get('Type', '')),
+                    ownership=map_ownership(record.get('Owner', '')),
+                    county=normalize_county_name(record.get('County', '')),
+                    sub_county=normalize_text(record.get('Sub_County', '')),
+                    ward=normalize_text(record.get('Sub_Locati', '') or record.get('Location', '')),
+                    location=normalize_text(record.get('Location', '')),
+                    address=normalize_text(record.get('Nearest_To', '')),
+                    latitude=record.get('Latitude'),
+                    longitude=record.get('Longitude'),
+                    source='api',
+                    source_id=str(record.get('_id', ''))
+                )
+
+                if facility.name:
+                    records.append(facility)
+
+            offset += len(api_records)
+            if offset >= (total or 0):
+                break
+
         print(f"Parsed {len(records)} facilities from API")
         
     except Exception as e:
@@ -490,7 +515,6 @@ def deduplicate_facilities(records: List[FacilityRecord]) -> List[FacilityRecord
             coord_groups[coord_key].append(record)
     
     # Deduplication logic
-    seen: Set[str] = set()
     deduplicated: List[FacilityRecord] = []
     
     # Priority: API > CSV > JSONL (based on data quality)
@@ -500,10 +524,6 @@ def deduplicate_facilities(records: List[FacilityRecord]) -> List[FacilityRecord
         # Create unique key
         name_key = record.normalize_name()
         coord_key = record.get_coordinate_key()
-        
-        # Check if we've seen this facility
-        if name_key and name_key in seen:
-            continue
         
         # Check for duplicates by name and coordinates
         is_duplicate = False
@@ -547,7 +567,6 @@ def deduplicate_facilities(records: List[FacilityRecord]) -> List[FacilityRecord
                                 break
         
         if not is_duplicate:
-            seen.add(name_key)
             deduplicated.append(record)
     
     print(f"Deduplicated to {len(deduplicated)} unique facilities")
@@ -619,7 +638,7 @@ def get_or_create_ward(supabase: Client, county_name: str, sub_county_name: str,
     
     try:
         # First, get county
-        county_response = supabase.table('counties').select('id').eq('name', county_name).limit(1).execute()
+        county_response = supabase.table('counties').select('id, code').ilike('name', county_name).limit(1).execute()
         if not county_response.data:
             # County doesn't exist, try to find by code or create
             # For now, return None - we'll handle this later
@@ -628,10 +647,11 @@ def get_or_create_ward(supabase: Client, county_name: str, sub_county_name: str,
         county_id = county_response.data[0]['id']
         
         # Get sub_county
-        sub_county_response = supabase.table('sub_counties').select('id').eq('county_id', county_id).eq('name', sub_county_name).limit(1).execute()
+        sub_county_response = supabase.table('sub_counties').select('id, code').eq('county_id', county_id).ilike('name', sub_county_name).limit(1).execute()
         if not sub_county_response.data and sub_county_name:
             # Create sub_county if it doesn't exist
-            sub_county_code = f"{county_response.data[0].get('code', 'XX')}-{sub_county_name[:2].upper()}"
+            county_code = county_response.data[0].get('code', 'XX')
+            sub_county_code = f"{county_code}-{sub_county_name[:2].upper()}"
             sub_county_data = {
                 'county_id': county_id,
                 'code': sub_county_code,
@@ -640,19 +660,21 @@ def get_or_create_ward(supabase: Client, county_name: str, sub_county_name: str,
             sub_county_response = supabase.table('sub_counties').insert(sub_county_data).execute()
             if sub_county_response.data:
                 sub_county_id = sub_county_response.data[0]['id']
+                sub_county_code = sub_county_response.data[0].get('code') or sub_county_code
             else:
                 return None
         elif sub_county_response.data:
             sub_county_id = sub_county_response.data[0]['id']
+            sub_county_code = sub_county_response.data[0].get('code') or f"{county_response.data[0].get('code', 'XX')}-{sub_county_name[:2].upper()}"
         else:
             return None
         
         # Get ward
         if ward_name:
-            ward_response = supabase.table('wards').select('id').eq('sub_county_id', sub_county_id).eq('name', ward_name).limit(1).execute()
+            ward_response = supabase.table('wards').select('id').eq('sub_county_id', sub_county_id).ilike('name', ward_name).limit(1).execute()
             if not ward_response.data:
                 # Create ward if it doesn't exist
-                ward_code = f"{sub_county_code}-W{hash(ward_name) % 1000:03d}"
+                ward_code = f"{sub_county_code}-W{stable_numeric_hash(ward_name, 3)}"
                 ward_data = {
                     'sub_county_id': sub_county_id,
                     'code': ward_code,
@@ -673,11 +695,11 @@ def get_or_create_ward(supabase: Client, county_name: str, sub_county_name: str,
     return None
 
 
-def upsert_to_supabase(records: List[FacilityRecord], supabase: Client) -> None:
+def upsert_to_supabase(records: List[FacilityRecord], supabase: Client) -> bool:
     """Upsert facilities to Supabase"""
     if not supabase:
         print("Supabase client not available. Skipping database update.")
-        return
+        return False
     
     print(f"Upserting {len(records)} facilities to Supabase...")
     
@@ -693,6 +715,7 @@ def upsert_to_supabase(records: List[FacilityRecord], supabase: Client) -> None:
     batch_size = 100
     total_upserted = 0
     skipped_no_ward = 0
+    has_errors = False
     
     for i in range(0, len(records), batch_size):
         batch = records[i:i + batch_size]
@@ -732,12 +755,13 @@ def upsert_to_supabase(records: List[FacilityRecord], supabase: Client) -> None:
             # Prepare data for Supabase
             facility_data = {
                 'name': record.name,
-                'code': record.code or record.registration_number or f"FAC-{hash(record.name) % 1000000:06d}",
+                'code': record.code or record.registration_number or f"FAC-{stable_numeric_hash(record.name, 6)}",
                 'facility_type': record.facility_type or 'clinic',
                 'ownership': record.ownership or 'private',
                 'tier_level': record.tier_level,
                 'latitude': float(record.latitude) if record.latitude is not None else None,
                 'longitude': float(record.longitude) if record.longitude is not None else None,
+                'location': f"SRID=4326;POINT({float(record.longitude)} {float(record.latitude)})" if record.latitude is not None and record.longitude is not None else None,
                 'address': record.address,
                 'contact_phone': record.contact_phone,
                 'contact_email': record.contact_email,
@@ -747,10 +771,6 @@ def upsert_to_supabase(records: List[FacilityRecord], supabase: Client) -> None:
             # Add ward_id if available (now optional)
             if ward_id:
                 facility_data['ward_id'] = ward_id
-            
-            # Note: Geography type (location) will be set automatically by database trigger
-            # or can be set via SQL: ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)
-            # For now, we rely on lat/lon columns and let the database handle geography
             
             batch_data.append(facility_data)
         
@@ -785,11 +805,13 @@ def upsert_to_supabase(records: List[FacilityRecord], supabase: Client) -> None:
             print(f"Error upserting batch {i//batch_size + 1}: {e}")
             import traceback
             traceback.print_exc()
+            has_errors = True
             continue
     
     print(f"Successfully upserted {total_upserted} facilities to Supabase")
     if skipped_no_ward > 0:
         print(f"Note: {skipped_no_ward} facilities were inserted without ward_id (ward_id is now optional)")
+    return not has_errors
 
 
 def main():
@@ -831,16 +853,17 @@ def main():
     elif not SUPABASE_URL:
         print("SUPABASE_URL not set in .env file")
     elif not SUPABASE_KEY:
-        print("SUPABASE_ANON_KEY not set in .env file")
+        print("SUPABASE_SERVICE_ROLE_KEY not set in .env file")
     
     # Upsert to Supabase
+    upsert_success = True
     if supabase:
-        upsert_to_supabase(merged, supabase)
+        upsert_success = upsert_to_supabase(merged, supabase)
     else:
         print("\nSkipping Supabase upsert (client not available)")
         print("To enable database updates:")
         print("  1. Install: pip install supabase python-dotenv")
-        print("  2. Set SUPABASE_URL and SUPABASE_ANON_KEY in .env file")
+        print("  2. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env file")
     
     # Save cleaned data to JSON file
     output_file = CODE_ROOT / "data" / "cleaned_facilities.json"
@@ -849,12 +872,12 @@ def main():
     
     print(f"\nCleaned data saved to: {output_file}")
     print("=" * 80)
+    if not upsert_success:
+        print("Done with errors.")
+        sys.exit(1)
+
     print("Done!")
 
 
 if __name__ == "__main__":
     main()
-
-
-
-

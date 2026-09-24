@@ -18,6 +18,36 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+async function fetchAllFacilityStatuses() {
+    const pageSize = 1000;
+    let from = 0;
+    let allRows: Array<{ status: string | null }> = [];
+
+    while (true) {
+        const { data, error } = await supabase
+            .from('facilities')
+            .select('status')
+            .range(from, from + pageSize - 1);
+
+        if (error) {
+            throw error;
+        }
+
+        if (!data || data.length === 0) {
+            break;
+        }
+
+        allRows = allRows.concat(data);
+        if (data.length < pageSize) {
+            break;
+        }
+
+        from += pageSize;
+    }
+
+    return allRows;
+}
+
 async function main() {
     console.log('🔍 Comprehensive Facility Display Blocker Analysis\n');
     console.log('===================================================\n');
@@ -30,9 +60,7 @@ async function main() {
     console.log(`📊 Total facilities in database: ${totalCount}\n`);
 
     // 2. By status
-    const { data: byStatus } = await supabase
-        .from('facilities')
-        .select('status', { count: 'exact' });
+    const byStatus = await fetchAllFacilityStatuses();
 
     const statusCounts: any = {};
     (byStatus || []).forEach((f: any) => {
@@ -80,14 +108,16 @@ async function main() {
     console.log(`  Total facilities in view: ${totalInAggregates}`);
 
     // 6. Check for duplicates
-    const { data: duplicates } = await supabase
+    const { data: duplicates, error: duplicatesError } = await supabase
         .rpc('check_duplicate_facilities');
 
     console.log(`\n🔍 Duplicate Check:`);
-    if (duplicates && duplicates.length > 0) {
+    if (duplicatesError) {
+        console.log(`  ❌ Could not run duplicate check RPC: ${duplicatesError.message}`);
+    } else if (duplicates && duplicates.length > 0) {
         console.log(`  ⚠️  Found ${duplicates.length} potential duplicates`);
     } else {
-        console.log(`  ✅ No duplicates found (or RPC not available)`);
+        console.log(`  ✅ No duplicates found`);
     }
 
     // 7. Check for null critical fields

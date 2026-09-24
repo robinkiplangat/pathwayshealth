@@ -1,5 +1,5 @@
 /**
- * Refresh materialized views using Supabase RPC with SQL
+ * Refresh dashboard materialized views using the migration-backed RPC
  */
 
 import { config } from 'dotenv';
@@ -17,25 +17,17 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-async function refreshView(viewName: string) {
-    const { error } = await supabase.rpc('exec_sql', {
-        sql: `REFRESH MATERIALIZED VIEW ${viewName}`
-    });
-
-    if (error) {
-        // Try direct SQL approach
-        console.log(`   Trying alternative method for ${viewName}...`);
-        return false;
-    }
-    return true;
-}
-
 async function main() {
     console.log('🔄 Refreshing Dashboard Materialized Views\n');
     console.log('==========================================\n');
 
-    // Since we can't execute raw SQL via Supabase client easily,
-    // let's just verify the current state and provide instructions
+    const { error: refreshError } = await supabase.rpc('refresh_dashboard_views');
+    if (refreshError) {
+        console.error('❌ Failed to refresh dashboard views:', refreshError.message);
+        process.exit(1);
+    }
+
+    console.log('✅ Dashboard views refreshed successfully.\n');
 
     const { data: regionalAggs } = await supabase
         .from('regional_aggregates')
@@ -51,18 +43,7 @@ async function main() {
     console.log('='.repeat(60));
     console.log(`  Total: ${total} facilities\n`);
 
-    if (total < 3000) {
-        console.log('⚠️  Views need refreshing!\n');
-        console.log('📝 Please run this SQL in your Supabase SQL Editor:');
-        console.log('   https://supabase.com/dashboard/project/jrzdnbferzvxmwqboknx/sql\n');
-        console.log('```sql');
-        console.log('REFRESH MATERIALIZED VIEW facility_latest_scores;');
-        console.log('REFRESH MATERIALIZED VIEW regional_aggregates;');
-        console.log('REFRESH MATERIALIZED VIEW hazard_vulnerability_matrix;');
-        console.log('```\n');
-    } else {
-        console.log('✅ Views appear to be up to date!');
-    }
+    console.log('✅ Views appear to be up to date!');
 }
 
 main().catch(console.error);
